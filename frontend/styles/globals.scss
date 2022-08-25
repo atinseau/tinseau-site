@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@import "components.scss";
+
+
+h1 {
+	font-family: 'Bebas Neue', cursive;
+}
+
+
+@import "./pages/home__page.scss";
