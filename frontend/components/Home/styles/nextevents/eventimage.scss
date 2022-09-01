@@ -1,0 +1,18 @@
+.next__event .next__event__image {
+	height: 200px;
+
+	@include w-min($tablet-breakpoint) {
+		@apply absolute;
+		height: 300px;
+		right: -60px;
+		bottom: -20px;
+		width: calc(50% + 60px);
+	}
+
+	img {
+		object-fit: cover;
+		object-position: top;
+		width: 100%;
+		height: 100%;
+	}
+}

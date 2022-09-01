@@ -1,0 +1,79 @@
+.circuit__option__picker {
+	.picker__header {
+		h3 {
+			font-size: 38px;
+			font-family: $main-font;
+			color: white;
+		}
+
+		p {
+			@apply text-gray-400;
+			font-size: 14px;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+	}
+
+	.picker__container {
+		@apply mt-6;
+
+		.selected {
+
+			p {
+				@apply text-gray-400;
+				font-size: 14px;
+				font-family: Arial, Helvetica, sans-serif;
+			}
+
+			>div {
+				@apply flex gap-4 items-center;
+
+				svg {
+					color: $main-color;
+					@apply w-5 h-5;
+				}
+
+				h4 {
+					font-family: $main-font;
+					font-size: 25px;
+					line-height: 25px;
+					color: $main-color;
+					margin-top: 8px;
+				}
+
+				h5 {
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 12px;
+					color: white;
+				}
+			}
+		}
+
+		>ul {
+			@apply flex flex-col gap-4 mt-8;
+
+			li {
+				>div {
+					@apply flex justify-between items-center;
+
+					h4 {
+						font-size: 20px;
+						font-family: $main-font;
+						color: white;
+						@apply flex gap-2 items-center;
+
+						span {
+							font-family: Arial, Helvetica, sans-serif;
+							font-size: 14px;
+							@apply text-gray-400;
+						}
+					}
+				}
+
+				>p {
+					@apply text-gray-400 mt-2;
+					font-size: 11px;
+				}
+			}
+		}
+	}
+}

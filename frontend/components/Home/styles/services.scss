@@ -1,0 +1,154 @@
+.services {
+	margin-top: 40px;
+	margin-bottom: 40px;
+
+
+	> :nth-child(1) {
+
+		h2 {
+			font-family:$main-font;
+			font-size: 60px;
+			line-height: 60px;
+			margin-bottom: 10px;
+		}
+
+		p {
+			@apply text-gray-500;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 14px;
+		}
+
+		.services__header {
+			@apply flex flex-col justify-center items-center;
+			margin-bottom: 40px;
+
+			@include w-min($tablet-breakpoint) {
+				margin-bottom: 0;
+				height: 300px;
+			}
+		}
+
+		.services__footer {
+			h2 {
+				font-size: 50px;
+				line-height: 50px;
+			}
+		}
+
+		.services__image__a,
+		.services__image__b {
+			margin-bottom: 40px;
+			height: 300px;
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+
+			@include w-min($tablet-breakpoint) {
+				margin-bottom: 0;
+			}
+		}
+
+		.services__image__a {
+
+			@include w-max($tablet-breakpoint) {
+				margin-right: -20px;
+			}
+
+			@include w-min($tablet-breakpoint) {
+				height: 100%;
+			}
+
+			img {
+				object-position: 0 -53px;
+			}
+		}
+
+		.services__image__b {
+			@include w-max($tablet-breakpoint) {
+				margin-left: -20px;
+			}
+
+			@include w-min($tablet-breakpoint) {
+				height: 100%;
+				max-height: 500px;
+			}
+		}
+
+		@include w-min($tablet-breakpoint) {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			// grid-template-rows: repeat(5, 1fr);
+			grid-column-gap: 40px;
+			grid-row-gap: 0;
+
+			:nth-child(1) {
+				grid-area: 1 / 2 / 3 / 4;
+			}
+
+			:nth-child(2) {
+				grid-area: 1 / 1 / 5 / 2;
+			}
+
+			:nth-child(3) {
+				grid-area: 3 / 2 / 6 / 4;
+			}
+
+			:nth-child(4) {
+				grid-area: 5 / 1 / 6 / 2;
+			}
+		}
+	}
+
+	> :nth-child(2) {
+		@apply flex flex-col gap-8;
+		margin-top: 60px;
+		hr {
+			margin-bottom: 40px;
+			height: 2px;
+			background-color: rgba(0, 0, 0, 0.316);
+		}
+
+		.last__services__header {
+			@include w-min($tablet-breakpoint) {
+				@apply flex flex-row justify-between;
+			}
+
+			h2 {
+				font-size: 60px;
+				line-height: 60px;
+				font-family: $main-font;
+			}
+
+			h4  {
+				display: none;
+				@include w-min($tablet-breakpoint) {
+					display: block;
+					text-transform: uppercase;
+				}
+			}
+		}
+
+		img {
+			height: 300px;
+			object-fit: cover;
+		}
+
+
+		.last__services__footer {
+			@apply flex flex-col gap-4;
+
+			@include w-min($tablet-breakpoint) {
+				@apply flex-row justify-between;
+			}
+
+			p {
+				@apply text-gray-500;
+				font-size: 14px;
+				font-family: Arial, Helvetica, sans-serif;
+			}
+		}
+	}
+}

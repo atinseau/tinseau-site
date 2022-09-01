@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+
+@layer components {
+
+	.btn {
+		@apply w-fit;
+		padding: 16px 20px;
+		text-transform: uppercase;
+		font-family: 'Bebas Neue', cursive;
+		font-size: 1.3rem;
+		cursor: pointer;
+	}
+
+	.btn-primary {
+		color: black;
+		transition: all 0.3s ease-in-out;
+		background-color: $main-color;
+		&:hover {
+			background-color: $second-color;
+		}
+
+		&.disabled {
+			@apply bg-gray-700;
+			cursor: not-allowed;
+		}
+	}
+}

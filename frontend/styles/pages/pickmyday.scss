@@ -1,0 +1,14 @@
+.pick__my__day {
+	@apply bg-black relative;
+	min-height: calc(722px - $navbar-height);
+	height: calc(100vh - $navbar-height);
+
+	padding: 20px;
+
+	@include w-min($tablet-breakpoint) {
+		padding: 20px 60px;
+	}
+	
+	@import "../../components/PickMyDay/styles/configurator";
+	@import "../../components/PickMyDay/styles/welcome.scss";
+}

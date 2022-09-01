@@ -1,0 +1,22 @@
+.incrementer {
+
+	@apply flex;
+
+	.result {
+		@apply bg-gray-800 flex items-center px-2;
+
+		p {
+			color: white;
+			font-size: 14px;
+		}
+	}
+
+	button {
+		padding: 6px;
+
+		svg {
+			@apply w-5 h-5;
+		}
+	}
+
+}

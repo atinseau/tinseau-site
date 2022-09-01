@@ -1,11 +1,15 @@
+@use "./variables.scss" as *;
+@use "./mixins.scss" as *;
+
 @tailwind base;
 @tailwind components;
-@import "components.scss";
+@tailwind utilities;
+
+@import "component.scss";
+@import "components/incrementer.scss";
+@import "components/wrapper.scss";
+@import "components/navbar.scss";
 
 
-h1 {
-	font-family: 'Bebas Neue', cursive;
-}
-
-
-@import "./pages/home__page.scss";
+@import "./pages/home.scss";
+@import "./pages/pickmyday.scss";

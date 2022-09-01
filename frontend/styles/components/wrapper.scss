@@ -1,0 +1,19 @@
+.page__wrapper {
+	footer {
+		
+		@include w-min($tablet-breakpoint) {
+			@apply flex-row justify-between;
+			padding: 40px 60px 40px 60px;
+		}
+
+		@apply bg-black flex flex-col gap-2 text-gray-400 items-center pb-4;
+		font-size: 14px;
+		font-family: Arial, Helvetica, sans-serif;
+
+		nav {
+			ul {
+				@apply flex gap-6;
+			}
+		}
+	}
+}

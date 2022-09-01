@@ -1,0 +1,84 @@
+.carousel {
+	.carousel__header {
+		@apply text-white flex flex-col justify-between mb-8;
+		h3 {
+			font-size: 60px;
+			font-weight: 60px;
+			font-family: $main-font;
+		}
+
+		@include w-min($tablet-breakpoint) {
+			@apply flex-row items-center;
+			p {
+				width: 33%;
+			}
+		}
+	}
+
+	.carousel__container {
+		.swiper-wrapper {
+			height: 350px;
+		}
+		.swiper-slide {
+			transition: all 0.5s ease-in-out;
+			height: 100%;
+			img {
+				height: 100%;
+				width: 100%;
+				object-fit: cover;
+			}
+		}
+		.swiper-slide-active {
+			width: 80% !important;
+		}
+		.swiper-slide-next {
+			width: 20% !important;
+		}
+
+
+		.controller {
+			@apply flex flex-row justify-between mt-4;
+			.index__viewer {
+				@apply flex justify-between items-center gap-4;
+				h3 {
+					font-family: $main-font;
+					font-size: 20px;
+					color: white;
+				}
+
+				.progress__bar {
+					@apply bg-gray-700 rounded-md relative;
+					height: 2px;
+					width: 100px;
+
+					@include w-min($tablet-breakpoint) {
+						width: 300px;
+					}
+
+					.thumb {
+						@apply absolute top-0 left-0 bg-white rounded-md;
+						transition: all 0.3s ease-in-out;
+						height: 2px;
+						width: 0;
+					}
+				}
+			}
+
+			.buttons {
+				@apply flex gap-2;
+				> * {
+					padding: 7px 14px;
+				}
+
+				.left__button {
+					@apply bg-gray-700;
+				}
+
+				svg {
+					@apply w-6 h-6;
+					color: black;
+				}
+			}
+		}
+	}
+}

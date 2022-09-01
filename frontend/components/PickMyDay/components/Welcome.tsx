@@ -1,0 +1,39 @@
+import React from "react"
+import Button from "../../Library/Button";
+
+interface Props {
+	goToConfigurator: () => void
+}
+
+const Welcome = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
+	return <div className="welcome" ref={ref}>
+		<div className="side__left">
+			<h1>Journée sur mesure</h1>
+			<div>
+				<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis quae praesentium quaerat laboriosam aliquid nam vitae repellendus quas, magnam perspiciatis. Eaque laboriosam aspernatur dolore atque praesentium, perspiciatis blanditiis magnam voluptate.</p>
+
+				<h3>Options disponibles:</h3>
+
+				<ul>
+					<li>Le circuit qui vous interesse (date, lieu)</li>
+					<li>Le nombre d'accompagnateur</li>
+					<li>Le nombre de repas</li>
+					<li>Le nombre d'accés piste</li>
+					<li>Le nombre de pilote supplementaire</li>
+					<li>Coach à disposition</li>
+					<li>Coach dédié</li>
+					<li>Accés openbar</li>
+				</ul>
+			</div>
+
+			<Button onClick={props.goToConfigurator}>Commencez !</Button>
+		</div>
+		<div className="side__right">
+			<video muted autoPlay loop className="video">
+				<source src="/videos/getmyday.mp4" type="video/mp4" />
+			</video>
+		</div>
+	</div>
+})
+
+export default Welcome;

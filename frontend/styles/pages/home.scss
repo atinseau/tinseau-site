@@ -1,0 +1,28 @@
+.home__page {
+
+	.hero__black {
+		@apply bg-black;
+	}
+
+	.hero__white {
+		@apply bg-white;
+	}
+
+
+	.hero__black,
+	.hero__white {
+		padding: 20px;
+		@include w-min($tablet-breakpoint) {
+			padding: 20px 60px;
+		}
+	}
+
+
+	@import "../../components/Home/styles/nextevents";
+	@import "../../components/Home/styles/galleries";
+
+	@import "../../components/Home/styles/about.scss";
+	@import "../../components/Home/styles/services.scss";
+	@import "../../components/Home/styles/contact.scss";
+
+}

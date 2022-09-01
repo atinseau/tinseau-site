@@ -1,0 +1,59 @@
+.circuit__card {
+	.circuit__card__header {
+		@apply flex gap-4 items-center;
+
+		img {
+			width: 80px;
+			object-fit: contain;
+		}
+
+		.info {
+			@apply flex-1;
+			h2 {
+				font-size: 20px;
+				font-family: $main-font;
+				line-height: 20px;
+				color: white;
+			}
+
+			p {
+				@apply text-gray-400;
+				font-size: 14px;
+				font-family: Arial, Helvetica, sans-serif;
+			}
+		}
+
+		button {
+			padding: 6px 10px;
+		}
+	}
+
+	.desc {
+		@apply mt-2 flex justify-between gap-4;
+		p {
+			@apply text-gray-400;
+			font-size: 11px;
+		}
+
+		h4 {
+			font-family: $main-font;
+			font-size: 23px;
+			color: $main-color;
+		}
+	}
+
+	.days {
+		@apply flex flex-row gap-2 flex-wrap mt-2;
+		font-size: 10px;
+		li {
+			@apply cursor-pointer bg-gray-900 text-gray-300 rounded-full p-1 w-fit border-gray-600 border-[1px];
+		
+			transition: all 0.3s ease-in-out;
+
+			&.selected, &:hover {
+				background-color: $main-color;
+				color: black;
+			}
+		}
+	}
+}
