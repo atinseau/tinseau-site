@@ -24,6 +24,8 @@
 		min-height: calc(722px - $navbar-height - (20px * 2));
 		height: calc(100vh - $navbar-height - (20px * 2));
 
+		max-height: 850px;
+
 		:nth-child(1) {
 			grid-area: 1 / 1 / 2 / 3;
 		}

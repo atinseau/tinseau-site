@@ -1,11 +1,20 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Button from "../../Library/Button";
+import useOrderContext from "../hooks/useOrderContext";
 
 interface Props {
 	goToConfigurator: () => void
 }
 
 const Welcome = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
+
+	const ctx = useOrderContext()
+
+	useEffect(() => {
+		if (ctx.orderType)
+			props.goToConfigurator()
+	}, [ctx.orderType])
+
 	return <div className="welcome" ref={ref}>
 		<div className="side__left">
 			<h1>Journée sur mesure</h1>
@@ -26,7 +35,10 @@ const Welcome = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 				</ul>
 			</div>
 
-			<Button onClick={props.goToConfigurator}>Commencez !</Button>
+			<div>
+				<Button onClick={() => ctx.setOrderType("ttd")}>J'ai déjà une voiture !</Button>
+				<Button onClick={() => ctx.setOrderType("location")}>Louer une voiture !</Button>
+			</div>
 		</div>
 		<div className="side__right">
 			<video muted autoPlay loop className="video">

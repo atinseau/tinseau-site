@@ -50,4 +50,13 @@
 - regular_price
 - offer_price
 - date 
-- 
+
+
+
+options
+	title
+	description
+	price
+	type
+
+

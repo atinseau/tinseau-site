@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_ttd_locations",
+  "info": {
+    "displayName": "Locations",
+    "icon": "car",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "car": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::car.car"
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "private": true
+    },
+    "options": {
+      "type": "component",
+      "repeatable": true,
+      "component": "ttd.options"
+    }
+  }
+}

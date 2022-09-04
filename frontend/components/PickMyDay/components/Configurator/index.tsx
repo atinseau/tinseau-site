@@ -1,5 +1,7 @@
-import React from "react"
-import OrderProvider from "../../contexts/OrderProvider";
+import ConfigProvider from "components/PickMyDay/contexts/ConfigProvider";
+import useOrderContext from "components/PickMyDay/hooks/useOrderContext";
+import useMounted from "hooks/useMounted";
+import React, { useEffect } from "react"
 import OptionPicker from "./OptionPicker";
 import OrderResume from "./OrderResume";
 
@@ -8,12 +10,15 @@ interface Props {
 }
 
 const Configurator = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
-	return <OrderProvider>
+
+	const ctx = useOrderContext()
+
+	return ctx.orderType && <ConfigProvider>
 		<div className={"configurator " + (!props.isOnScreen ? "inital__state" : "")} ref={ref}>
 			<OptionPicker />
 			<OrderResume />
 		</div>
-	</OrderProvider>
+	</ConfigProvider>
 })
 
 export default Configurator;

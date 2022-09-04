@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import useCircuits from "../../../../hooks/useCircuits";
 import CircuitCard from "./CircuitCard";
 import { CircuitSorting, sortModes } from "./CircuitSorting";
 
@@ -12,7 +11,6 @@ interface Props {
 const CircuitPicker: React.FC<Props> = ({ next }) => {
 
 	const [sortMode, setSortMode] = useState(sortModes[0])
-	const circuits = useCircuits()
 
 	return <div className="circuit__picker">
 
@@ -25,11 +23,7 @@ const CircuitPicker: React.FC<Props> = ({ next }) => {
 
 		<div className="circuit__container">
 			<ul>
-				{circuits.map((circuit, i) => <CircuitCard
-					onPick={next}
-					circuit={circuit}
-					key={i}
-				/>)}
+				<CircuitCard onPick={next}/>
 			</ul>
 		</div>
 

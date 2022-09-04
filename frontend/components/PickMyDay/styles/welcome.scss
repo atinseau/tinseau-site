@@ -11,7 +11,7 @@
 			color: white;
 		}
 
-		>div {
+		>div:first-of-type {
 			@apply flex-1;
 
 			p,
@@ -32,6 +32,15 @@
 			ul {
 				list-style: disc;
 				margin-left: 16px;
+			}
+		}
+
+		>div:last-of-type {
+			@apply flex gap-4;
+			button:last-of-type {
+				@apply bg-black;
+				color: white;
+				border: $main-color solid 2px;
 			}
 		}
 

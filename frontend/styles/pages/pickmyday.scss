@@ -1,5 +1,5 @@
 .pick__my__day {
-	@apply bg-black relative;
+	@apply bg-black relative overflow-hidden;
 	min-height: calc(722px - $navbar-height);
 	height: calc(100vh - $navbar-height);
 

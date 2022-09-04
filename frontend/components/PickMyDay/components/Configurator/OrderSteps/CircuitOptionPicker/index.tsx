@@ -1,5 +1,5 @@
 import { InformationCircleIcon } from "@heroicons/react/24/solid"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import useOrderContext from "../../../../hooks/useOrderContext"
 import OptionDisplayer from "./OptionDisplayer"
 
@@ -11,8 +11,6 @@ interface Props {
 const CircuitOptionPicker: React.FC<Props> = ({ prev }) => {
 
 	const ctx = useOrderContext()
-
-	const [count, setCount] = useState(0)
 
 	return <div className="circuit__option__picker">
 		<div className="picker__header">
@@ -26,15 +24,12 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev }) => {
 				<div>
 					<InformationCircleIcon />
 					<div>
-						<h4>{ctx.getCurrentItem()?.circuit.title}</h4>
-						<h5>{ctx.getCurrentItem()?.event.title}</h5>
+						<h4>TEst</h4>
+						<h5>qsdqsdqsdqsdqsd</h5>
 					</div>
 				</div>
 			</div>
-			<OptionDisplayer 
-				orderItem={ctx.getCurrentItem() as OrderItem}
-				setOrderItem={ctx.setCurrentItem}
-			/>
+			<OptionDisplayer />
 		</div>
 	</div>
 }
