@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Button } from "@strapi/design-system/Button"
-import { SimpleMenu, MenuItem } from '@strapi/design-system/SimpleMenu';
-import { ChevronDownIcon } from "@heroicons/react/24/outline"
+import { Select, Option } from "@strapi/design-system/Select"
 
 
 type Attribute = {
@@ -41,14 +40,24 @@ const Field: React.FC<Props> = ({ name, value, attribute, onChange, intlLabel, .
 
 	return (
 		<>
-			<SimpleMenu id="label" label={val}>
-				<MenuItem id="menuItem-January" onClick={() => setValue('January')}>
-					January
-				</MenuItem>
-				<MenuItem id="menuItem-February" onClick={() => setValue('February')}>
-					February
-				</MenuItem>
-			</SimpleMenu>
+			<Select 
+			id="select1" 
+			label="Choose your meal" 
+			required 
+			value={value} 
+			onChange={setValue}
+			>
+				<Option value={'pizza'} startIcon={<div style={{
+					height: '6px',
+					borderRadius: '50%',
+					width: '6px',
+					background: 'red'
+				}} />}>
+					Pizza
+				</Option>
+				<Option value={'hamburger'}>Hamburger</Option>
+				<Option value={'bagel'}>Bagel</Option>
+			</Select>
 
 			<Button
 				onClick={() => alert('hello')}
