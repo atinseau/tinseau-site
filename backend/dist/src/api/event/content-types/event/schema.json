@@ -46,7 +46,7 @@
             "repeatable": true,
             "component": "ttd.options"
         },
-        "Classique": {
+        "classic": {
             "type": "component",
             "repeatable": false,
             "component": "ttd.acces-piste"

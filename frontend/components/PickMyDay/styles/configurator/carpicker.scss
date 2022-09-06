@@ -1,0 +1,82 @@
+@import "./mixins.scss";
+
+.car__picker {
+	@include option-header(".car__picker__header");
+
+	.car__container {
+		@apply mt-6;
+
+		ul {
+			display: grid;
+			grid-template-columns: repeat(1, 1fr);
+			gap: 4rem;
+
+			@include w-min(1500px) {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+
+			.car__card {
+				img {
+					max-height: 180px;
+					object-fit: cover;
+				}
+
+				>div {
+					@apply flex flex-col gap-4 mt-3;
+
+					>div {
+						color: white;
+
+						.price {
+							@apply flex flex-row justify-between mb-3;
+							font-family: $main-font;
+
+							>div:nth-child(1) {
+								@apply flex flex-col;
+
+								h3 {
+									font-size: 30px;
+									line-height: 30px;
+								}
+							}
+
+							>div:nth-child(2) {
+								h4 {
+									text-align: end;
+									font-size: 30px;
+									line-height: 30px;
+									color: $main-color;
+								}
+							}
+
+						}
+
+						p {
+							@apply text-gray-400;
+							font-family: Arial, Helvetica, sans-serif;
+							font-size: 12px;
+						}
+					}
+
+					.price__control {
+
+						.pack__item {
+							@apply flex justify-between items-center;
+							h4 {
+								font-family: $main-font;
+								font-size: 18px;
+							}
+						}
+
+						.pick {
+							@apply mt-5;
+							width: 100%;
+							padding: 10px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,6 +1,7 @@
-import React, { useState } from "react"
+import Sorting, { defaultSortModes } from "components/Library/Sorting";
+import useOrderContext from "components/PickMyDay/hooks/useOrderContext";
+import React, { useEffect, useState } from "react"
 import CircuitCard from "./CircuitCard";
-import { CircuitSorting, sortModes } from "./CircuitSorting";
 
 interface Props {
 	next: () => void
@@ -10,7 +11,9 @@ interface Props {
 
 const CircuitPicker: React.FC<Props> = ({ next }) => {
 
-	const [sortMode, setSortMode] = useState(sortModes[0])
+	const [sortMode, setSortMode] = useState(defaultSortModes[0])
+
+	const ctx = useOrderContext()
 
 	return <div className="circuit__picker">
 
@@ -19,11 +22,15 @@ const CircuitPicker: React.FC<Props> = ({ next }) => {
 			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ipsa excepturi, quo voluptas voluptatibus amet illo odio reiciendis a recusandae nisi optio adipisci dolorum necessitatibus, odit, non inventore temporibus obcaecati.</p>
 		</div>
 
-		<CircuitSorting setSortMode={setSortMode} sortMode={sortMode} />
+		<Sorting setSortMode={setSortMode} sortModes={defaultSortModes} sortMode={sortMode} />
 
 		<div className="circuit__container">
 			<ul>
-				<CircuitCard onPick={next}/>
+				{ctx.circuits.data && ctx.circuits.data.map((circuit, i) => <CircuitCard
+					onPick={(e) => console.log(e)}
+					circuit={circuit}
+					key={i}
+				/>)}
 			</ul>
 		</div>
 

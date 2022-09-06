@@ -1,22 +1,31 @@
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useState } from "react";
+import CarPicker from "../components/Configurator/OrderSteps/CarPicker";
 import CircuitOptionPicker from "../components/Configurator/OrderSteps/CircuitOptionPicker";
 import CircuitPicker from "../components/Configurator/OrderSteps/CircuitPicker";
+import useOrderContext from "../hooks/useOrderContext";
 import ConfigContext from "./ConfigContext";
 
 interface Props {
 	children: React.ReactNode;
 }
 
-const steps = [
-	CircuitPicker,
-	CircuitOptionPicker
-]
 
 const ConfigProvider: React.FC<Props> = ({ children }) => {
+
+	const ctx = useOrderContext()
 
 	const [step, setStep] = useState(0)
 	const [isSwitching, setIsSwitching] = useState(false)
 
+
+	const steps = useMemo(() => ctx.orderType === "ttd" ? [
+		CircuitPicker,
+		CircuitOptionPicker
+	] : [
+		CarPicker,
+		CircuitPicker,
+		CircuitOptionPicker
+	], [])
 
 	const next = () => {
 		if (!isSwitching && step + 1 < steps.length)

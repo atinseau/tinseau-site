@@ -7,7 +7,7 @@
     },
     "options": {},
     "attributes": {
-        "price": {
+        "exclusive_price": {
             "type": "decimal",
             "required": true
         },
@@ -25,6 +25,26 @@
             "type": "component",
             "repeatable": true,
             "component": "ttd.options"
+        },
+        "serie_format": {
+            "type": "enumeration",
+            "enum": [
+                "s3,t4",
+                "s4,t6",
+                "s4,t5",
+                "s2,t10"
+            ],
+            "required": true,
+            "default": "s4,t6"
+        },
+        "available_series": {
+            "type": "integer",
+            "required": true,
+            "default": 4
+        },
+        "serie_price": {
+            "type": "decimal",
+            "required": true
         }
     }
 }

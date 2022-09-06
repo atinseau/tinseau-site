@@ -24,6 +24,15 @@
 			@apply bg-gray-700;
 			cursor: not-allowed;
 		}
+
+		&.secondary {
+			@apply bg-black text-white;
+			border: 2px $main-color solid;
+
+			&:hover {
+				background: #1a1a1a;
+			}
+		}
 	}
 
 

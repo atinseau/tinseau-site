@@ -1,17 +1,8 @@
-.circuit__option__picker {
-	.picker__header {
-		h3 {
-			font-size: 38px;
-			font-family: $main-font;
-			color: white;
-		}
+@import "./mixins.scss";
 
-		p {
-			@apply text-gray-400;
-			font-size: 14px;
-			font-family: Arial, Helvetica, sans-serif;
-		}
-	}
+.circuit__option__picker {
+
+	@include option-header(".picker__header");
 
 	.picker__container {
 		@apply mt-6;

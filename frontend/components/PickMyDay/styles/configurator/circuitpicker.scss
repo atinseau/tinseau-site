@@ -1,59 +1,7 @@
+@import "./mixins.scss";
+
 .circuit__picker {
-	.circuit__picker__header {
-		h3 {
-			font-size: 38px;
-			font-family: $main-font;
-			color: white;
-		}
-
-		p {
-			@apply text-gray-400;
-			font-size: 14px;
-			font-family: Arial, Helvetica, sans-serif;
-		}
-	}
-
-	.circuit__sorting {
-
-		@apply relative w-fit flex gap-2 items-center mt-2;
-
-		p {
-			color: white;
-			font-size: 14px;
-			font-family: $main-font;
-		}
-
-		button {
-			@apply flex items-center gap-2;
-			padding: 5px 8px;
-			font-size: 14px;
-
-			svg {
-				@apply w-4 h-4;
-			}
-		}
-
-		ul {
-			@apply mt-2 top-full right-0 absolute h-0 overflow-hidden;
-			background-color: $main-color;
-
-			li {
-				font-family: $main-font;
-				text-align: right;
-				font-size: 14px;
-				padding: 0 10px;
-				cursor: pointer;
-
-				&:not(:last-child) {
-					border-bottom: 1px solid black;
-				}
-
-				&:hover {
-					background-color: $second-color;
-				}
-			}
-		}
-	}
+	@include option-header(".circuit__picker__header");
 
 	.circuit__container {
 		@apply mt-8;

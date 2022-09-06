@@ -1,0 +1,17 @@
+
+
+@mixin option-header($name) {
+	#{$name} {
+		h3 {
+			font-size: 38px;
+			font-family: $main-font;
+			color: white;
+		}
+
+		p {
+			@apply text-gray-400;
+			font-size: 14px;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+	}
+}

@@ -1,19 +1,16 @@
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import React from "react"
-import useDropdown from "../../../../../../hooks/useDropdown";
-import Button from "../../../../../Library/Button";
-
-interface SortMode {
-	label: string
-	value: string
-}
+import useDropdown from "../../hooks/useDropdown";
+import Button from "./Button";
 
 interface Props {
 	sortMode: SortMode,
+	sortModes: SortMode[],
 	setSortMode: (sortMode: SortMode) => void
 }
 
-const sortModes: SortMode[] = [
+
+export const defaultSortModes: SortMode[] = [
 	{
 		label: "Par date",
 		value: "date",
@@ -21,18 +18,14 @@ const sortModes: SortMode[] = [
 	{
 		label: "Par prix",
 		value: "price",
-	},
-	{
-		label: "Par popularité",
-		value: "popularity",
 	}
 ]
 
-const CircuitSorting: React.FC<Props> = ({ sortMode, setSortMode }) => {
+const Sorting: React.FC<Props> = ({ sortModes, sortMode, setSortMode }) => {
 
 	const [isOpen, toggle, ref] = useDropdown<HTMLUListElement>()
 
-	return <div className="circuit__sorting">
+	return <div className="sorting">
 		<p>Trier par: </p>
 		<Button onClick={toggle}>
 			{sortMode.label}
@@ -48,4 +41,4 @@ const CircuitSorting: React.FC<Props> = ({ sortMode, setSortMode }) => {
 	</div>
 }
 
-export { CircuitSorting, sortModes };
+export default Sorting;

@@ -7,7 +7,7 @@ import OrderProvider from "components/PickMyDay/contexts/OrderProvider";
 
 const GetMyDay = () => {
 
-	const { isWelcome, configuratorRef, welcomeRef, goToConfigurator } = useConfiguratorAnimation(true)
+	const { isWelcome, configuratorRef, welcomeRef, goToConfigurator } = useConfiguratorAnimation(false)
 
 	return <Wrapper title="Choisir ma journée">
 		<OrderProvider>
