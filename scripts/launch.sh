@@ -12,5 +12,22 @@ function frontend () {
 	yarn dev
 }
 
-(backend) &
-(frontend) &
+function stop() {
+	echo "Stopping all processes"
+	pkill -U $(jobs -p)
+	exit 0
+}
+
+function loop () {
+	trap 'stop' SIGINT
+	clear
+	echo "Press [CTRL+C] to stop.."
+	
+	(backend) &
+	(frontend) &
+
+	while true; do read; done
+}
+
+
+loop

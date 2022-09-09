@@ -11,11 +11,12 @@ type GraphqlType<T> = {
 	__typename?: string
 }
 
-type GraphqlData <T> = {
+type GraphqlData<T> = {
 	data: T
 	__typename?: string
 }
 
+type UnwrapGraphql<T> = T extends GraphqlType<infer U> ? U : T
 
 type TTDEvent = GraphqlType<{
 	title: string
@@ -32,3 +33,15 @@ type Circuit = GraphqlType<{
 	events: GraphqlData<TTDEvent[]>
 }>
 
+type CircuitWithoutEvents = GraphqlType<Omit<UnwrapGraphql<Circuit>, 'events'>>
+
+type OrderItem = {
+	circuit: CircuitWithoutEvents
+	event: TTDEvent
+	order: {
+		type: OrderType
+		location?: any
+	}
+}
+
+// type UnwrapCircuit = UnwrapGraphql<Circuit>

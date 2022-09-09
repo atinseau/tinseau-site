@@ -1,0 +1,55 @@
+.option__picker {
+
+	@apply flex-1 flex flex-col py-4;
+
+	@include w-min(991px) {
+		@apply px-4;
+	}
+
+	.option__step__container {
+		@apply flex-1 overflow-hidden mb-6;
+
+		.component__switcher {
+			> div {
+				min-height: 600px;
+			}
+		}
+
+		@import "./circuitpicker.scss";
+		@import "./circuitoptionpicker.scss";
+		@import "./carpicker.scss";
+	}
+
+	.option__picker__controller {
+		@apply flex justify-end gap-2;
+
+		.order__mode {
+			@apply cursor-pointer flex flex-col justify-center items-end mr-4;
+			h4 {
+				font-size: 15px;
+				font-family: $main-font;
+				color: white;
+			}
+
+			p {
+				@apply text-gray-400;
+				font-size: 12px;
+				font-family: Arial, Helvetica, sans-serif;
+			}
+
+			&:hover h4 {
+				color: $main-color;
+			}
+
+		}
+		
+		button {
+			height: 63.19px;
+			svg {
+				@apply w-6 h-6;
+			}
+		}
+
+	}
+
+}

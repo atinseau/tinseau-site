@@ -1,0 +1,115 @@
+@import "./mixins.scss";
+
+.car__picker {
+	@include option-header(".car__picker__header");
+
+	@apply flex flex-col h-full;
+
+	.car__container {
+		@apply mt-6 overflow-scroll overflow-x-hidden h-full;
+
+		> ul {
+			display: grid;
+			grid-template-columns: repeat(1, 1fr);
+			gap: 4rem;
+
+			@include w-min(1500px) {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+
+			.car__card {
+				img {
+					max-height: 180px;
+					object-fit: cover;
+				}
+
+				>div {
+					@apply flex flex-col gap-4 mt-3;
+
+					>div {
+						color: white;
+
+						.price {
+							@apply flex flex-row justify-between mb-3;
+							font-family: $main-font;
+
+							>div:nth-child(1) {
+								@apply flex flex-col;
+
+								h3 {
+									font-size: 30px;
+									line-height: 30px;
+								}
+							}
+
+							>div:nth-child(2) {
+
+								@apply flex h-fit gap-2 items-center;
+
+								h4 {
+									text-align: end;
+									font-size: 30px;
+									line-height: 30px;
+									color: $main-color;
+								}
+
+								.format__dropdown {
+									@apply relative bg-gray-900 cursor-pointer flex items-center gap-2 border-gray-700 border-[1px];
+									padding: 4px;
+									transition: all 0.3s ease-in-out;
+									ul li, p {
+										@apply text-gray-400;
+										font-size: 12px;
+										font-family: Arial, Helvetica, sans-serif;
+									}
+									svg {
+										@apply w-5 h-5;
+									}
+
+									&:hover {
+										@apply bg-gray-800;
+									}
+
+									&:has(ul li:hover) {
+										@apply bg-gray-900;
+									}
+
+									ul {
+										@apply mt-2 border-[1px] border-gray-700 bg-gray-900 absolute top-full overflow-hidden h-0;
+										right: -1px;
+
+										li {
+											padding: 5px;
+											text-align: end;
+											white-space: nowrap;
+											&:not(:last-child) {
+												border-bottom: 1px solid #444;
+											}
+											&:hover {
+												@apply bg-gray-800;
+											}
+										}
+									}
+								}
+							}
+
+						}
+
+						p {
+							@apply text-gray-400;
+							font-family: Arial, Helvetica, sans-serif;
+							font-size: 12px;
+						}
+					}
+
+					button {
+						@apply mt-5;
+						width: 100%;
+						padding: 10px;
+					}
+				}
+			}
+		}
+	}
+}

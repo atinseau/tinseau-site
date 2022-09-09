@@ -1,9 +1,0 @@
-{
-	"plugins": [
-		"react"
-	],
-	"extends": [
-		"next/core-web-vitals",
-		"react/no-unescaped-entities"
-	]
-}

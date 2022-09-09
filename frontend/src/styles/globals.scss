@@ -1,0 +1,18 @@
+@use "./variables.scss" as *;
+@use "./mixins.scss" as *;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "component.scss";
+@import "components/incrementer.scss";
+@import "components/componentswitcher.scss";
+@import "components/wrapper.scss";
+@import "components/navbar.scss";
+@import "components/sorting.scss";
+@import "components/errorprovider.scss";
+
+
+@import "./pages/home.scss";
+@import "./pages/pickmyday.scss";
