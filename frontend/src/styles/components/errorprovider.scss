@@ -1,0 +1,48 @@
+.error__container {
+	@apply fixed z-10 top-0 left-0 right-0 pointer-events-none flex justify-center;
+
+	.error__item {
+		@apply  text-white flex justify-between gap-8 items-center p-4 pointer-events-auto;
+
+		transform: translateY(-100%);
+
+		min-width: 400px;
+		width: fit-content;
+
+		.helper {
+			@apply flex gap-4 items-center;
+
+			>div {
+				h4 {
+					font-family: $main-font;
+					font-size: 20px;
+				}
+			}
+
+			svg {
+				@apply w-10 h-10;
+			}
+
+		}
+
+		>svg {
+			@apply w-7 h-7;
+		}
+
+		&.danger {
+			@apply bg-red-500;
+		}
+
+		&.warning {
+			@apply bg-yellow-500;
+		}
+
+		&.success {
+			@apply bg-green-500;
+		}
+
+		&.info {
+			@apply bg-blue-500;
+		}
+	}
+}

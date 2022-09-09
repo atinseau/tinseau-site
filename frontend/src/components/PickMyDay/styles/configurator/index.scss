@@ -1,0 +1,24 @@
+.configurator {
+	@apply flex flex-col;
+	height: 100%;
+	width: 100%;
+	column-gap: 30px;
+
+	&.inital__state {
+		@apply absolute;
+		top: 20px;
+		left: calc(-100% + (20px * 2));
+		width: calc(100% - (20px * 2));
+		min-height: calc(722px - $navbar-height - (20px * 2));
+		height: calc(100vh - $navbar-height - (20px * 2));
+	}
+
+
+	@include w-min(782px) {
+		@apply flex-row-reverse;
+	}
+	
+
+	@import "./optionpicker.scss";
+	@import "./orderresume.scss";
+}

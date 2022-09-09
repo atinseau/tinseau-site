@@ -1,0 +1,19 @@
+.component__switcher {
+	@apply overflow-hidden relative h-full;
+
+	>.component__switch {
+		@apply absolute top-0 w-full;
+
+		&.to_right {
+			@apply left-full;
+		}
+
+		&.to_left {
+			@apply right-full;
+		}
+	}
+
+	> div {
+		@apply flex h-full;
+	}
+}
