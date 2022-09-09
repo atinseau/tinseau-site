@@ -1,6 +1,6 @@
 #/bin/bash
 
-WORKDIR=/home/arthur/DEV/STRAPI/tinseau-site
+WORKDIR=/Users/arthur/Desktop/Dev/STRAPI/tinseau-site
 
 function backend () {
 	cd "${WORKDIR}/backend"
