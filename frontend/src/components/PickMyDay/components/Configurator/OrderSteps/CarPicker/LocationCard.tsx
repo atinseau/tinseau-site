@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 import Image from "next/future/image";
 import Button from "src/components/Library/Button";
@@ -7,19 +7,28 @@ import bmw from "public/images/cars/bmw1.jpg"
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import useDropdown from "src/hooks/useDropdown";
 
-const CarCard: React.FC = () => {
+interface Props {
+	location: TTDLocation
+}
+
+const LocationCard: React.FC<Props> = ({ location }) => {
 
 	const [open, toggle, ref] = useDropdown<HTMLUListElement>()
 
+	useEffect(() => {
+		console.log(location)
+	}, [])
 
-	return <li className="car__card">
-		<Image src={bmw} />
+	const images: Image[] = location.car.data.attributes.images.data
+
+	return <li className="location__card">
+		<Image src={"http://localhost:1337" + images[0].attributes.url} width={images[0].attributes.width} height={images[0].attributes.height} />
 		<div>
 			<div>
 				<div className="price">
 					<div>
-						<h3>BMW M3 E86</h3>
-						<p>4 places restantes</p>
+						<h3>{location.car.data.attributes.name}</h3>
+						<p>{location.available_series} places restantes</p>
 					</div>
 					<div>
 						<div className="format__dropdown" onClick={toggle}>
@@ -42,4 +51,4 @@ const CarCard: React.FC = () => {
 	</li>
 }
 
-export default CarCard;
+export default LocationCard;

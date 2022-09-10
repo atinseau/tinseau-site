@@ -17,7 +17,6 @@ const ConfigProvider: React.FC<Props> = ({ children }) => {
 	const [step, setStep] = useState(0)
 	const [isSwitching, setIsSwitching] = useState(false)
 
-
 	const steps = useMemo(() => ctx.orderType === "ttd" ? [
 		CircuitPicker,
 		CircuitOptionPicker

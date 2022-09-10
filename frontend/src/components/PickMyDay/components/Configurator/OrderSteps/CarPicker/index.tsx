@@ -1,6 +1,7 @@
 import Sorting, { defaultSortModes } from "src/components/Library/Sorting";
 import React, { useState } from "react"
-import CarCard from "./CarCard";
+import LocationCard from "./LocationCard";
+import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
 
 interface Props {
 
@@ -18,6 +19,10 @@ const CarPicker: React.FC<Props> = () => {
 
 	const [sortMode, setSortMode] = useState(defaultSortModes[0])
 
+	const ctx = useOrderContext()
+
+	const locations = ctx.item ? ctx.item.event.attributes.locations : null
+
 	return <div className="car__picker">
 		<div className="car__picker__header">
 			<h3>Choissisez votre voiture</h3>
@@ -28,8 +33,10 @@ const CarPicker: React.FC<Props> = () => {
 
 		<div className="car__container">
 			<ul>
-				<CarCard/>
-				<CarCard/>
+				{locations && locations.map((location, i) => <LocationCard
+					key={i}
+					location={location}
+				/>)}
 			</ul>
 		</div>
 

@@ -4,6 +4,7 @@ import React from "react"
 interface IOrderContext {
 	orderType: OrderType | null
 	items: OrderItem[]
+	item: OrderItem | null
 	circuits: GraphqlData<Circuit[]>
 
 	setOrderType: (orderType: OrderType) => void

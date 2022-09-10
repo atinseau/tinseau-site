@@ -9,12 +9,6 @@
 	.option__step__container {
 		@apply flex-1 overflow-hidden mb-6;
 
-		.component__switcher {
-			> div {
-				min-height: 600px;
-			}
-		}
-
 		@import "./circuitpicker.scss";
 		@import "./circuitoptionpicker.scss";
 		@import "./carpicker.scss";

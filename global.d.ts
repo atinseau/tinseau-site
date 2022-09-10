@@ -18,6 +18,26 @@ type GraphqlData<T> = {
 
 type UnwrapGraphql<T> = T extends GraphqlType<infer U> ? U : T
 
+type Image = GraphqlType<{
+	url: string
+	alternativeText: string
+	width: number
+	height: number
+}>
+
+type Car = GraphqlType<{
+	name: string
+	images: GraphqlData<Image[]>
+}>
+
+type TTDLocation = {
+	car: GraphqlData<Car>
+	available_series: number
+	exclusive_price: number
+	serie_format: string
+	serie_price: number
+}
+
 type TTDEvent = GraphqlType<{
 	title: string
 	date: string
@@ -25,12 +45,14 @@ type TTDEvent = GraphqlType<{
 	classic: {
 		price: number
 	}
+	locations: TTDLocation[]
 }>
 
 type Circuit = GraphqlType<{
 	title: string
 	description: string
 	events: GraphqlData<TTDEvent[]>
+	logo: GraphqlData<Image>
 }>
 
 type CircuitWithoutEvents = GraphqlType<Omit<UnwrapGraphql<Circuit>, 'events'>>

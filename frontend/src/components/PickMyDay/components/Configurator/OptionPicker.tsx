@@ -30,14 +30,14 @@ const OptionPicker: React.FC = () => {
 		<div className="option__picker__controller">
 
 			{configCtx.step === 0 && <div className="order__mode" onClick={() => orderCtx.setOrderType(orderCtx.orderType === "location" ? "ttd" : "location")}>
-				<h4>{orderCtx.orderType === "location" ? "Vous souhaitez louer une voiture" : "Vous avez déjà une voiture"}</h4>
+				<h4>Mode | {orderCtx.orderType === "location" ? "Location de voiture" : "Voiture personnelle"}</h4>
 				<p>{orderCtx.orderType === "location" ? "Venir avec ma voiture !" : "Louer une voiture ?"}</p>
 			</div>}
 
 			<Button onClick={configCtx.prev} className={configCtx.step === 0 ? "disabled" : ""}>
 				<ChevronLeftIcon />
 			</Button>
-			<Button onClick={() => configCtx.next()}>
+			<Button className="disabled">
 				<ChevronRightIcon />
 			</Button>
 		</div>

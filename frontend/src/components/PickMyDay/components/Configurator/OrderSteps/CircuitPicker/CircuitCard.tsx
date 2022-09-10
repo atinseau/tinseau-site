@@ -1,7 +1,6 @@
 import Image from "next/future/image"
 import React, { useEffect, useMemo, useState } from "react"
 
-import lemans from "@public/images/circuits/lemans.png"
 import Button from "../../../../../Library/Button"
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext"
 
@@ -12,15 +11,18 @@ interface Props {
 
 const CircuitCard: React.FC<Props> = ({ onPick, circuit }) => {
 
+	
 	const [selectedEventId, setSelectedEventId] = useState(0)
 	
 	const ctx = useOrderContext()
 	const selectedEvent = useMemo(() => circuit.attributes.events.data[selectedEventId], [selectedEventId])
 
+	const logo = circuit.attributes.logo.data.attributes
+
 	return <li className="circuit__card">
 
 		<div className="circuit__card__header">
-			<Image src={lemans} />
+			<Image src={"http://localhost:1337" + logo.url} width={logo.width} height={logo.height}/>
 			<div className="info">
 				<h2>{circuit.attributes.title}</h2>
 				<p>{selectedEvent.attributes.places} places restantes</p>

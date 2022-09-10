@@ -24,6 +24,14 @@
       "relation": "oneToMany",
       "target": "api::event.event",
       "mappedBy": "circuit"
+    },
+    "logo": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
     }
   }
 }

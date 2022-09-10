@@ -27,10 +27,7 @@ const CircuitPicker: React.FC<Props> = ({ next }) => {
 		<div className="circuit__container">
 			<ul>
 				{ctx.circuits.data && ctx.circuits.data.map((circuit, i) => <CircuitCard
-					onPick={(e) => {
-						if(ctx.createItem(e.circuit, e.event))
-							next()
-					}}
+					onPick={(e) => ctx.createItem(e.circuit, e.event) && next()}
 					circuit={circuit}
 					key={i}
 				/>)}
