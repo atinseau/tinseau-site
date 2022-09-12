@@ -4,18 +4,10 @@ import LocationCard from "./LocationCard";
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
 
 interface Props {
-
+	next: () => void
 }
 
-
-const sortModes: SortMode[] = [
-	{
-		label: "Par date",
-		value: "date",
-	}
-]
-
-const CarPicker: React.FC<Props> = () => {
+const CarPicker: React.FC<Props> = ({ next }) => {
 
 	const [sortMode, setSortMode] = useState(defaultSortModes[0])
 
@@ -34,6 +26,7 @@ const CarPicker: React.FC<Props> = () => {
 		<div className="car__container">
 			<ul>
 				{locations && locations.map((location, i) => <LocationCard
+					onPick={(location) => ctx.addLocation(location) && next()}
 					key={i}
 					location={location}
 				/>)}

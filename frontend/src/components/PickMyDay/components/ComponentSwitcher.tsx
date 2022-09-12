@@ -1,6 +1,6 @@
-import useMounted from "src/hooks/useMounted"
 import gsap from "gsap"
 import React, { useEffect, useRef, useState } from "react"
+import useConfigContext from "../hooks/useConfigContext"
 
 interface Props<T> {
 	components: React.FC<T>[],
@@ -13,6 +13,9 @@ interface Props<T> {
 const ComponentSwitcher = <T extends Object>({ isSwitching, setIsSwitching, components, index, props }: Props<T>) => {
 
 	const [bufferIndex, setBufferIndex] = useState(index)
+	const [mainComponentMounted, setMainComponentMounted] = useState(false)
+
+	const ctx = useConfigContext()
 
 	const ref = useRef<HTMLDivElement>(null)
 	const switchRef = useRef<HTMLDivElement>(null)
@@ -49,7 +52,11 @@ const ComponentSwitcher = <T extends Object>({ isSwitching, setIsSwitching, comp
 			duration: 0.5
 		}, "-=0.4")
 
-		tl.eventCallback('onStart', () => setIsSwitching(true))
+		
+		
+		tl.eventCallback('onStart', () => {
+			setIsSwitching(true)
+		})
 		tl.eventCallback('onComplete', () => {
 			setBufferIndex(index)
 			setIsSwitching(false)
@@ -60,11 +67,11 @@ const ComponentSwitcher = <T extends Object>({ isSwitching, setIsSwitching, comp
 
 	return <div className="component__switcher">
 		<div ref={ref} key={bufferIndex}>
-			<Component {...props} />
+			<Component {...{...props, mounted: true}} />
 		</div>
 
 		{index !== bufferIndex && <div className={"component__switch " + (index > bufferIndex ? "to_right" : "to_left")} ref={switchRef} key={"b"}>
-			<NextComponent {...props} />
+			<NextComponent {...{...props, mounted: false}} />
 		</div>}
 	</div>
 }

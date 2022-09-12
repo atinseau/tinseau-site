@@ -1,18 +1,37 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import ComponentSwitcher from "src/components/Library/ComponentSwitcher";
 import useConfigContext from "src/components/PickMyDay/hooks/useConfigContext";
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
-import React, { useEffect } from "react"
+import React from "react"
 import Button from "../../../Library/Button";
+import ComponentSwitcher from "../ComponentSwitcher";
 
 const OptionPicker: React.FC = () => {
 
 	const configCtx = useConfigContext()
 	const orderCtx = useOrderContext()
 
-	useEffect(() => {
-		console.log(orderCtx.items)
-	}, [orderCtx.items])
+	const isDisabled = () => {
+		if (orderCtx.orderType === "location") {
+			if (configCtx.step === 0) {
+				if (!orderCtx.item)
+					return true
+			}
+			if (configCtx.step === 1) {
+				if (!orderCtx.item?.order.locations)
+					return true
+			}
+		}
+
+		if (orderCtx.orderType === "ttd") {
+			if (!orderCtx.item)
+				return true
+		}
+
+		if (configCtx.step === configCtx.steps.length - 1)
+			return true
+
+		return false
+	}
 
 	return <div className="option__picker">
 		<div className="option__step__container">
@@ -37,7 +56,7 @@ const OptionPicker: React.FC = () => {
 			<Button onClick={configCtx.prev} className={configCtx.step === 0 ? "disabled" : ""}>
 				<ChevronLeftIcon />
 			</Button>
-			<Button className="disabled">
+			<Button className={isDisabled() ? "disabled": ""} onClick={() => !isDisabled() && configCtx.next()}>
 				<ChevronRightIcon />
 			</Button>
 		</div>

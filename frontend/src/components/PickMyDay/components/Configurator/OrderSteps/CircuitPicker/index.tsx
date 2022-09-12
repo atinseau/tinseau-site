@@ -1,6 +1,6 @@
 import Sorting, { defaultSortModes } from "src/components/Library/Sorting";
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import CircuitCard from "./CircuitCard";
 
 interface Props {

@@ -1,10 +1,10 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-
-console.log(process.env)
+import { getEnvConfig } from 'src/functions/getConfig';
 
 const client = new ApolloClient({
-	uri: process.env.SERVER_HOST + process.env.SERVER_GRAPHQL,
-	cache: new InMemoryCache(),
+	uri: getEnvConfig().SERVER_GRAPHQL,
+	cache: new InMemoryCache()
 });
+
 
 export default client;

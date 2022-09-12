@@ -16,6 +16,8 @@ type GraphqlData<T> = {
 	__typename?: string
 }
 
+type With<T, U> = T & U
+
 type UnwrapGraphql<T> = T extends GraphqlType<infer U> ? U : T
 
 type Image = GraphqlType<{
@@ -27,6 +29,7 @@ type Image = GraphqlType<{
 
 type Car = GraphqlType<{
 	name: string
+	description: string
 	images: GraphqlData<Image[]>
 }>
 
@@ -38,14 +41,27 @@ type TTDLocation = {
 	serie_price: number
 }
 
+type TTDOptionType = "bool" | "number"
+
+type TTDOption = {
+	name: string
+	price: number
+	settings: {
+		type: TTDOptionType
+		value: any
+	}
+}
+
 type TTDEvent = GraphqlType<{
 	title: string
 	date: string
 	places: number
 	classic: {
 		price: number
+		options: TTDOption[]
 	}
 	locations: TTDLocation[]
+	global_options: TTDOption[]
 }>
 
 type Circuit = GraphqlType<{
@@ -57,13 +73,34 @@ type Circuit = GraphqlType<{
 
 type CircuitWithoutEvents = GraphqlType<Omit<UnwrapGraphql<Circuit>, 'events'>>
 
+type OrderOptionType = "classic" | "location" | "global"
+
+type OrderOption = {
+	name: string
+	value: any
+	type: TTDOptionType
+}
+
+type WithOrderOptions<T> = With<T, { options: OrderOption[] }>
+
+type ClassicOrderItem = { count: number }
+
+type OrderSubItem = {
+	type: OrderType
+	locations?: WithOrderOptions<LocationItem>[]
+	classic?: WithOrderOptions<ClassicOrderItem>
+	options: OrderOption[]
+}
+
 type OrderItem = {
 	circuit: CircuitWithoutEvents
 	event: TTDEvent
-	order: {
-		type: OrderType
-		location?: any
-	}
+	order: OrderSubItem
+}
+
+type LocationItem = {
+	car_id: string
+	serie_count: number
 }
 
 // type UnwrapCircuit = UnwrapGraphql<Circuit>

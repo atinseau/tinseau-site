@@ -1,34 +1,29 @@
-import { gql } from "@apollo/client";
-import imageChunk from "./utils";
+import { CAR_CHUNK } from "./car";
+import { optionChunk } from "./utils";
 
 const EVENTS_CHUNK = `
 events {
-    data {
-      id
-      attributes {
-        title
-        date
-        places
-        locations {
-          car {
-            data {
-              attributes {
-                name
-                ${imageChunk('images')}
-              }
-            }
-          }
-          exclusive_price
-          serie_format
-          serie_price
-          available_series
-        }
-        classic {
-          price
-        }
-      }
-    }
-  }
+	data {
+		id
+		attributes {
+			title
+			date
+			places
+			${optionChunk('global_options')}
+			locations {
+				${CAR_CHUNK}
+				exclusive_price
+				serie_format
+				serie_price
+				available_series
+			}
+			classic {
+				${optionChunk("options")}
+				price
+			}
+		}
+	}
+}
 `
 
 

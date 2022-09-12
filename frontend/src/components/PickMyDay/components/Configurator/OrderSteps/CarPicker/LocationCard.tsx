@@ -1,28 +1,47 @@
-import React, { useEffect } from "react"
+import React, { useMemo, useRef, useState } from "react"
 
 import Image from "next/future/image";
 import Button from "src/components/Library/Button";
 
-import bmw from "public/images/cars/bmw1.jpg"
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import useDropdown from "src/hooks/useDropdown";
+import { getEnvConfig } from "src/functions/getConfig";
+import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
+import { getLocationByCarId } from "src/components/PickMyDay/contexts/OrderContext";
 
 interface Props {
 	location: TTDLocation
+	onPick: (locationItem: LocationItem) => void
 }
 
-const LocationCard: React.FC<Props> = ({ location }) => {
+const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 
+	const ctx = useOrderContext()
+	const serieFormat = useRef(location.serie_format.split("_").map((s) => parseInt(s[1])))
 	const [open, toggle, ref] = useDropdown<HTMLUListElement>()
+	const [serieId, setSerieId] = useState(0)
 
-	useEffect(() => {
-		console.log(location)
+	const series = useMemo(() => {
+		const output = []
+		for (let i = 0; i < location.available_series; i++) {
+			output.push({
+				serie: serieFormat.current[0] * (i + 1),
+				tours: serieFormat.current[1]
+			})
+		}
+		return output
 	}, [])
+
+	const formatSeries = (serie: number, tours: number) => {
+		if (serie / serieFormat.current[0] === location.available_series)
+			return "Exclusivité sur la journée"
+		return `${serie} séries ${tours} tours`
+	}
 
 	const images: Image[] = location.car.data.attributes.images.data
 
 	return <li className="location__card">
-		<Image src={"http://localhost:1337" + images[0].attributes.url} width={images[0].attributes.width} height={images[0].attributes.height} />
+		<Image src={getEnvConfig().SERVER_ADDRESS + images[0].attributes.url} width={images[0].attributes.width} height={images[0].attributes.height} />
 		<div>
 			<div>
 				<div className="price">
@@ -32,21 +51,26 @@ const LocationCard: React.FC<Props> = ({ location }) => {
 					</div>
 					<div>
 						<div className="format__dropdown" onClick={toggle}>
-							<p>4 série de 6 tours</p>
+							<p>{formatSeries(series[serieId].serie, series[serieId].tours)}</p>
 							<ChevronDownIcon />
 
 							{open && <ul ref={ref}>
-								<li>8 série de 6 tours</li>
-								<li>12 série de 6 tours</li>
-								<li>exclusivité sur la journée</li>
+								{series.map((serie, i) => <li key={i} onClick={() => setSerieId(i)}>
+									{formatSeries(serie.serie, serie.tours)}
+								</li>)}
 							</ul>}
 						</div>
-						<h4>600€</h4>
+						<h4>{serieId < series.length - 1 ? location.serie_price * (serieId + 1) : location.exclusive_price}€</h4>
 					</div>
 				</div>
-				<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere fuga dicta beatae dolorem quas explicabo sequi. A perferendis minus consequuntur et quaerat, hic id odio quia aliquam alias libero atque!</p>
+				<p>{location.car.data.attributes.description}</p>
 			</div>
-			<Button>Choisir</Button>
+			<Button 
+				onClick={() => onPick({car_id: location.car.data.id as string, serie_count: series[serieId].serie / serieFormat.current[0]})}
+				className={((ctx.item as OrderItem).order.locations || []).find((locItem, i) => locItem.car_id === location.car.data.id) ? "disabled" : ""}
+			>
+					Choisir
+			</Button>
 		</div>
 	</li>
 }

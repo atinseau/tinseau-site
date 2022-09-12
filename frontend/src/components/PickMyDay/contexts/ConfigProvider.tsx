@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CarPicker from "../components/Configurator/OrderSteps/CarPicker";
 import CircuitOptionPicker from "../components/Configurator/OrderSteps/CircuitOptionPicker";
 import CircuitPicker from "../components/Configurator/OrderSteps/CircuitPicker";
@@ -17,6 +17,22 @@ const ConfigProvider: React.FC<Props> = ({ children }) => {
 	const [step, setStep] = useState(0)
 	const [isSwitching, setIsSwitching] = useState(false)
 
+	// useEffect(() => {
+	// 	const startSwitchComponent = () => {
+	// 		console.log("startSwitchComponent")
+	// 	}
+	// 	const endSwitchComponent = () => {
+	// 		console.log("endSwitchComponent")
+	// 	}
+
+	// 	document.addEventListener("startSwitchComponent", startSwitchComponent)
+	// 	document.addEventListener("endSwitchComponent", endSwitchComponent)
+	// 	return () => {
+	// 		document.removeEventListener("startSwitchComponent", startSwitchComponent)
+	// 		document.removeEventListener("endSwitchComponent", endSwitchComponent)
+	// 	}
+	// }, [])
+
 	const steps = useMemo(() => ctx.orderType === "ttd" ? [
 		CircuitPicker,
 		CircuitOptionPicker
@@ -31,7 +47,7 @@ const ConfigProvider: React.FC<Props> = ({ children }) => {
 			setStep(step + 1)
 	}
 	const prev = () => {
-		if (!isSwitching && step - 1 >= 0) 
+		if (!isSwitching && step - 1 >= 0)
 			setStep(step - 1)
 	}
 

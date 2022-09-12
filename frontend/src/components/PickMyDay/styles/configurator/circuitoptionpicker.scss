@@ -39,8 +39,23 @@
 			}
 		}
 
+		h3 {
+			@apply mt-6 mb-4 flex items-center gap-2;
+			font-family: $main-font;
+			font-size: 26px;
+			color: $main-color;
+
+			svg {
+				@apply w-6 h-6 mb-1;
+			}
+		}
+
 		>ul {
-			@apply flex flex-col gap-4 mt-8;
+			@apply flex flex-col gap-4;
+
+			@include w-min($tablet-breakpoint + 100px) {
+				@apply grid grid-cols-2;
+			}
 
 			li {
 				>div {
@@ -63,6 +78,23 @@
 				>p {
 					@apply text-gray-400 mt-2;
 					font-size: 11px;
+				}
+			}
+		}
+
+		.location__option__header {
+			h3 {
+				@apply mb-0;
+				line-height: 26px;
+			}
+
+			p {
+				@apply text-gray-400;
+				font-size: 14px;
+				font-family: Arial, Helvetica, sans-serif;
+				span {
+					font-weight: bold;
+					color: white;
 				}
 			}
 		}

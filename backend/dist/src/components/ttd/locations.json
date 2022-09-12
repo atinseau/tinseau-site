@@ -29,13 +29,12 @@
         "serie_format": {
             "type": "enumeration",
             "enum": [
-                "s3,t4",
-                "s4,t6",
-                "s4,t5",
-                "s2,t10"
+                "s3-t4",
+                "s3-t6",
+                "s4-t5"
             ],
             "required": true,
-            "default": "s4,t6"
+            "default": "s3-t4"
         },
         "available_series": {
             "type": "integer",

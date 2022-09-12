@@ -1,16 +1,6 @@
 #/bin/bash
 
-WORKDIR=/Users/arthur/Desktop/Dev/STRAPI/tinseau-site
-
-function backend () {
-	cd "${WORKDIR}/backend"
-	yarn develop
-}
-
-function frontend () {
-	cd "${WORKDIR}/frontend"
-	yarn dev
-}
+WORKDIR=/home/arthur/DEV/STRAPI/tinseau-site
 
 function stop() {
 	echo "Stopping all processes"
@@ -23,8 +13,10 @@ function loop () {
 	clear
 	echo "Press [CTRL+C] to stop.."
 	
-	(backend) &
-	(frontend) &
+	pwd
+
+	${WORKDIR}/scripts/backend.sh &
+	${WORKDIR}/scripts/frontend.sh &
 
 	while true; do read; done
 }

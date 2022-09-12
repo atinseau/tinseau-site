@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from "react"
 
 import Button from "../../../../../Library/Button"
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext"
+import { getEnvConfig } from "src/functions/getConfig"
 
 interface Props {
 	onPick: (e: {circuit: Circuit, event: TTDEvent}) => void
@@ -22,13 +23,17 @@ const CircuitCard: React.FC<Props> = ({ onPick, circuit }) => {
 	return <li className="circuit__card">
 
 		<div className="circuit__card__header">
-			<Image src={"http://localhost:1337" + logo.url} width={logo.width} height={logo.height}/>
+			<Image src={getEnvConfig().SERVER_ADDRESS + logo.url} width={logo.width} height={logo.height}/>
 			<div className="info">
 				<h2>{circuit.attributes.title}</h2>
 				<p>{selectedEvent.attributes.places} places restantes</p>
 			</div>
-			{/* <Button className="disabled" onClick={onPick}>Choisir</Button> */}
-			<Button onClick={() => onPick({circuit, event: circuit.attributes.events.data[selectedEventId]})}>Choisir</Button>
+			<Button 
+				onClick={() => onPick({circuit, event: circuit.attributes.events.data[selectedEventId]})}
+				className={ctx.items.find((item) => item.event.id === selectedEvent.id) ? "disabled": ""}
+			>
+				Choisir
+			</Button>
 		</div>
 
 		<div className="desc">

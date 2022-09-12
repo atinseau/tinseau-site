@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { EVENTS_CHUNK } from "./events";
-import imageChunk from "./utils";
+import { imageChunk } from "./utils";
 
 const GET_CIRCUITS_WITH_EVENTS = gql`
 query {
@@ -19,5 +19,5 @@ query {
 `
 
 export {
-	GET_CIRCUITS_WITH_EVENTS 
+	GET_CIRCUITS_WITH_EVENTS
 }

@@ -1,10 +1,9 @@
-import React from "react"
 import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
 	return (
-		<Html>
-			<Head />
+		<Html lang="fr">
+			<Head/>
 			<body>
 				<Main />
 				<NextScript />

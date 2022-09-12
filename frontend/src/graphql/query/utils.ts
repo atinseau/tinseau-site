@@ -14,4 +14,15 @@ ${key} {
 }
 `
 
-export default imageChunk
+const optionChunk = (key: string) => `
+${key} {
+	name
+	price
+	settings
+}
+`
+
+export {
+	imageChunk,
+	optionChunk
+}
