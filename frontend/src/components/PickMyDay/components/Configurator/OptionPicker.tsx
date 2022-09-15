@@ -17,7 +17,7 @@ const OptionPicker: React.FC = () => {
 					return true
 			}
 			if (configCtx.step === 1) {
-				if (!orderCtx.item?.order.locations)
+				if (!orderCtx.item?.order.locations?.length)
 					return true
 			}
 		}
@@ -53,10 +53,10 @@ const OptionPicker: React.FC = () => {
 				<p>{orderCtx.orderType === "location" ? "Venir avec ma voiture !" : "Louer une voiture ?"}</p>
 			</div>}
 
-			<Button onClick={configCtx.prev} className={configCtx.step === 0 ? "disabled" : ""}>
+			<Button onClick={configCtx.prev} variant={configCtx.step === 0 ? "disabled" : "primary"}>
 				<ChevronLeftIcon />
 			</Button>
-			<Button className={isDisabled() ? "disabled": ""} onClick={() => !isDisabled() && configCtx.next()}>
+			<Button variant={isDisabled() ? "disabled": "primary"} onClick={() => !isDisabled() && configCtx.next()}>
 				<ChevronRightIcon />
 			</Button>
 		</div>

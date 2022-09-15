@@ -17,22 +17,6 @@ const ConfigProvider: React.FC<Props> = ({ children }) => {
 	const [step, setStep] = useState(0)
 	const [isSwitching, setIsSwitching] = useState(false)
 
-	// useEffect(() => {
-	// 	const startSwitchComponent = () => {
-	// 		console.log("startSwitchComponent")
-	// 	}
-	// 	const endSwitchComponent = () => {
-	// 		console.log("endSwitchComponent")
-	// 	}
-
-	// 	document.addEventListener("startSwitchComponent", startSwitchComponent)
-	// 	document.addEventListener("endSwitchComponent", endSwitchComponent)
-	// 	return () => {
-	// 		document.removeEventListener("startSwitchComponent", startSwitchComponent)
-	// 		document.removeEventListener("endSwitchComponent", endSwitchComponent)
-	// 	}
-	// }, [])
-
 	const steps = useMemo(() => ctx.orderType === "ttd" ? [
 		CircuitPicker,
 		CircuitOptionPicker

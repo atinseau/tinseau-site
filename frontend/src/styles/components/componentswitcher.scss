@@ -14,6 +14,10 @@
 	}
 
 	> div {
-		@apply flex h-full;
+		@apply flex;
+
+		@include w-min(782px) {
+			@apply h-full;
+		}
 	}
 }

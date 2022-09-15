@@ -44,6 +44,10 @@
         "serie_price": {
             "type": "decimal",
             "required": true
+        },
+        "exclusive_series_count": {
+            "type": "integer",
+            "required": true
         }
     }
 }

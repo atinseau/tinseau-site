@@ -24,17 +24,19 @@ const OptionResumeRender: React.FC<Props> = ({ dbOptions, options, order }) => {
 				return null
 
 			return <li key={i}>
-				<p>
-					<span className="mr-1">{option.name}</span>
-					{optionSelected.type === "number" && <span className="text-white">
-						(x{optionSelected.value + (option.settings.value * coef)})
-					</span>}
-				</p>
-				<p>{
-					optionSelected.type === "number" ?
-						optionSelected.value * option.price :
-						optionSelected.type === "bool" ? option.price : 0
-				}€</p>
+				<div>
+					<p>
+						<span className="mr-1">{option.name}</span>
+						{optionSelected.type === "number" && <span className="text-white">
+							(x{optionSelected.value + (option.settings.value * coef)})
+						</span>}
+					</p>
+					<p>{
+						optionSelected.type === "number" ?
+							optionSelected.value * option.price :
+							optionSelected.type === "bool" ? (option.settings.value ? 0 : option.price) : 0
+					}€</p>
+				</div>
 			</li>
 		})}
 	</>

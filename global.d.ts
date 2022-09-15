@@ -1,5 +1,36 @@
 type OrderType = "location" | "ttd"
 
+type LoginData = {
+	email: string
+	password: string
+	username?: string
+}
+
+
+type User = {
+	id: string
+	email: string
+	username: string
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 interface SortMode {
 	label: string
 	value: string
@@ -37,8 +68,10 @@ type TTDLocation = {
 	car: GraphqlData<Car>
 	available_series: number
 	exclusive_price: number
+	exclusive_series_count: number
 	serie_format: string
 	serie_price: number
+	options: TTDOption[]
 }
 
 type TTDOptionType = "bool" | "number"

@@ -1,12 +1,13 @@
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import React from "react"
+import React, { useEffect } from "react"
 import useDropdown from "../../hooks/useDropdown";
 import Button from "./Button";
 
 interface Props {
-	sortMode: SortMode,
+	sortMode: SortMode | null,
 	sortModes: SortMode[],
 	setSortMode: (sortMode: SortMode) => void
+	onSort?: (sortMode: SortMode) => void
 }
 
 
@@ -21,19 +22,23 @@ export const defaultSortModes: SortMode[] = [
 	}
 ]
 
-const Sorting: React.FC<Props> = ({ sortModes, sortMode, setSortMode }) => {
+const Sorting: React.FC<Props> = ({ sortModes, sortMode, setSortMode, onSort }) => {
 
 	const [isOpen, toggle, ref] = useDropdown<HTMLUListElement>()
 
+	useEffect(() => {
+		sortMode && onSort && onSort(sortMode)
+	}, [sortMode])
+
 	return <div className="sorting">
-		<p>Trier par: </p>
+		<p>Trier: </p>
 		<Button onClick={toggle}>
-			{sortMode.label}
+			{sortMode?.label || "Par défaut"}
 			<ChevronDownIcon />
 		</Button>
 
 		{isOpen && <ul ref={ref}>
-			{sortModes.map((mode, i) => <li key={i} onClick={() => setSortMode(mode)}>
+			{[...sortModes, { label: "Par défaut", value: "default" }].map((mode, i) => <li key={i} onClick={() => setSortMode(mode)}>
 				{mode.label}
 			</li>)}
 		</ul>}

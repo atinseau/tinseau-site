@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react"
+import React, { useEffect, useMemo } from "react"
 import Incrementer from "src/components/Library/Incrementer";
 import Switch from "src/components/Library/Switch";
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
@@ -19,6 +19,7 @@ const OptionRendered: React.FC<Props> = ({ option, type, mounted }) => {
 
 		if (type === "global") options = (ctx.item as OrderItem).order.options
 		else if (type === "classic") options = (ctx.item as OrderItem).order.classic?.options || []
+		else if (type === "location") options = ((ctx.item as OrderItem).order.locations || [])[ctx.currentLocationId].options
 
 		return options.find((opt) => opt.name === option.name)
 	}, [ctx.item])
@@ -26,12 +27,17 @@ const OptionRendered: React.FC<Props> = ({ option, type, mounted }) => {
 	useEffect(() => {
 		if (mounted || !ctx.item)
 			return
-		ctx.addOption({ name: option.name, type: option.settings.type }, type)
+		ctx.addOption({ name: option.name, type: option.settings.type, initalValue: option.settings.value }, type)
 	}, [])
 
-	return <li>
+
+	return <li className={option.settings.type === "bool" && option.settings.value ? "disabled": ""}>
 		<div>
-			<h4>{option.name} <span>{option.price}€</span></h4>
+			<h4>
+				{option.name} <span>{option.price}€</span>
+				{option.settings.type === "bool" && option.settings.value ? <span>(inclus)</span> : null}
+				{option.settings.type === "number" && option.settings.value ? <span>(x{option.settings.value} inclus)</span> : null}
+			</h4>
 			{option.settings.type === "number" && <Incrementer
 				min={0}
 				max={10}
@@ -44,9 +50,9 @@ const OptionRendered: React.FC<Props> = ({ option, type, mounted }) => {
 			/>}
 
 			{option.settings.type === "bool" && <Switch
-				initalValue={memoizedOption?.value || false}
+				value={memoizedOption?.value || false}
 				onChange={(e) => {
-					if (!memoizedOption)
+					if (!memoizedOption || option.settings.value)
 						return
 					ctx.updateOption(memoizedOption, type, e)
 				}}

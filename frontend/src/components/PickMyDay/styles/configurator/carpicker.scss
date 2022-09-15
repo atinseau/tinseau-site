@@ -3,20 +3,36 @@
 .car__picker {
 	@include option-header(".car__picker__header");
 
-	@apply flex flex-col h-full;
+	@apply flex flex-col h-full w-full;
 
 	.car__container {
-		@apply mt-6 overflow-scroll overflow-x-hidden h-full;
+		@apply mt-6 h-full overflow-y-hidden;
 
-		> ul {
-			display: grid;
-			grid-template-columns: repeat(1, 1fr);
-			gap: 4rem;
+		cursor: grab;
 
-			@include w-min(1500px) {
-				grid-template-columns: repeat(2, 1fr);
+		.swiper__container {
+
+			@apply h-full flex;
+
+			.swiper-wrapper {
+				@include w-min($desktop-breakpoint) {
+					@apply grid;
+					grid-template-columns: repeat(2, 1fr);
+				}
+
+				@include w-max(782px) {
+					height: fit-content;
+				}
+
+				.swiper-slide {
+					width: auto;
+					height: fit-content;
+
+					@include w-max($desktop-breakpoint - 1) {
+						margin-left: 0 !important;
+					}
+				}
 			}
-
 
 			.location__card {
 				img {
@@ -58,11 +74,14 @@
 									@apply relative bg-gray-900 cursor-pointer flex items-center gap-2 border-gray-700 border-[1px];
 									padding: 4px;
 									transition: all 0.3s ease-in-out;
-									ul li, p {
+
+									ul li,
+									p {
 										@apply text-gray-400;
 										font-size: 12px;
 										font-family: Arial, Helvetica, sans-serif;
 									}
+
 									svg {
 										@apply w-5 h-5;
 									}
@@ -83,9 +102,11 @@
 											padding: 5px;
 											text-align: end;
 											white-space: nowrap;
+
 											&:not(:last-child) {
 												border-bottom: 1px solid #444;
 											}
+
 											&:hover {
 												@apply bg-gray-800;
 											}

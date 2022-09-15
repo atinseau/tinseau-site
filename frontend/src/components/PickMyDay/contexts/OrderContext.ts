@@ -1,20 +1,28 @@
 
 import React from "react"
 
-interface IOrderContext {
+export interface IOrderContext {
 	orderType: OrderType | null
 	items: OrderItem[]
+	currentItemId: number
+	currentLocationId: number
+	removeItemId: number[]
 	item: OrderItem | null
 	location: TTDLocation | null
 	circuits: GraphqlData<Circuit[]>
 
+	setBufferedItem: (item: OrderItem | null) => void
+	setCurrentLocationId: (id: number) => void
 	setOrderType: (orderType: OrderType) => void
 	createItem: (circuit: Circuit, event: TTDEvent) => boolean
 	addLocation: (location: LocationItem) => boolean
-	addOption: (option: Omit<OrderOption, "value">, type: OrderOptionType) => void
+	addOption: (option: Omit<OrderOption, "value"> & { initalValue: any }, type: OrderOptionType) => void
 	updateOption: (option: OrderOption, type: OrderOptionType, value: any) => void
-
-	// setCurrentItem: (item: OrderItem) => void
+	nextItem: () => void
+	updateRemoveItemId: (idx: number, action: "add" | "remove") => void
+	clearRemoveItem: (shouldBuffered: boolean) => void
+	setCurrentItemId: (id: number) => void
+	setCircuits: (circuits: GraphqlData<Circuit[]>) => void
 
 	updateItem: (item: OrderItem) => void
 

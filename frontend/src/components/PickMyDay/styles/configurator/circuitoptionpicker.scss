@@ -18,23 +18,35 @@
 			>div {
 				@apply flex gap-4 items-center;
 
-				svg {
-					color: $main-color;
-					@apply w-5 h-5;
+				>div {
+					@apply flex gap-4 items-center;
+
+					svg {
+						color: $main-color;
+						@apply w-5 h-5;
+					}
+
+					h4 {
+						font-family: $main-font;
+						font-size: 25px;
+						line-height: 25px;
+						color: $main-color;
+						margin-top: 8px;
+					}
+
+					h5 {
+						font-family: Arial, Helvetica, sans-serif;
+						font-size: 12px;
+						color: white;
+					}
 				}
 
-				h4 {
-					font-family: $main-font;
-					font-size: 25px;
-					line-height: 25px;
-					color: $main-color;
-					margin-top: 8px;
-				}
+				button {
+					padding: 10px;
 
-				h5 {
-					font-family: Arial, Helvetica, sans-serif;
-					font-size: 12px;
-					color: white;
+					svg {
+						@apply w-5 h-5;
+					}
 				}
 			}
 		}
@@ -79,10 +91,29 @@
 					@apply text-gray-400 mt-2;
 					font-size: 11px;
 				}
+
+				&.disabled {
+					>div {
+						h4 {
+							@apply text-gray-400;
+						}
+
+						.switch {
+							cursor: auto;
+							&::after {
+								
+								@apply bg-gray-400;
+							}
+						}
+					}
+				}
 			}
 		}
 
 		.location__option__header {
+
+			@apply mb-4;
+
 			h3 {
 				@apply mb-0;
 				line-height: 26px;
@@ -92,10 +123,27 @@
 				@apply text-gray-400;
 				font-size: 14px;
 				font-family: Arial, Helvetica, sans-serif;
-				span {
+
+				.car__name {
 					font-weight: bold;
 					color: white;
 				}
+
+				.next__car {
+					@apply ml-2 cursor-pointer;
+					color: $main-color;
+
+					&:hover {
+						color: $second-color;
+					}
+				}
+			}
+		}
+
+		.no__location__option {
+			p {
+				@apply text-gray-400;
+				font-size: 12px;
 			}
 		}
 	}

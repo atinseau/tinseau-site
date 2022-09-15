@@ -2,12 +2,16 @@
 	@apply fixed z-10 top-0 left-0 right-0 pointer-events-none flex justify-center;
 
 	.error__item {
-		@apply  text-white flex justify-between gap-8 items-center p-4 pointer-events-auto;
+		@apply  text-white flex justify-between gap-8 items-center p-2 pointer-events-auto;
+
 
 		transform: translateY(-100%);
-
-		min-width: 400px;
-		width: fit-content;
+		
+		width: 100%;
+		@include w-min(782px) {
+			width: fit-content;
+			@apply p-4;
+		}
 
 		.helper {
 			@apply flex gap-4 items-center;

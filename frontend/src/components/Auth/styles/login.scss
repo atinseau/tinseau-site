@@ -1,0 +1,54 @@
+.login__modal {
+	@apply absolute overflow-hidden top-0 left-0 bottom-0 right-0 opacity-0;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.801);
+
+	.login__container {
+		@apply flex items-center justify-center h-full;
+
+		.login__form {
+			@apply bg-gray-900 p-8;
+
+			> h1 {
+				font-family: $main-font;
+				font-size: 26px;
+				color: $main-color;
+			}
+
+			p.error {
+				@apply text-red-500;
+				font-size: 12px;
+			}
+
+			min-width: 350px;
+
+			.login__form__group {
+				@apply flex flex-col gap-1;
+
+				label {
+					@apply text-white;
+					font-family: $main-font;
+					font-size: 14px;
+				}
+			}
+
+			.login__form__group.contoller {
+				>div {
+					@apply flex flex-row mt-6 gap-4;
+
+					>* {
+						@apply flex-1;
+					}
+				}
+				p {
+					@apply text-gray-400 cursor-pointer mt-2;
+					font-size: 12px;
+					width: fit-content;
+					&:hover {
+						color: $main-color;
+					}
+				}
+			}
+		}
+	}
+}

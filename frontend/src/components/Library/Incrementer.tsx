@@ -25,13 +25,13 @@ const Incrementer: React.FC<Props> = ({ count, step = 1, setCount, max, min }) =
 	}
 
 	return <div className="incrementer">
-		<Button onClick={dec} className={count == min ? "disabled": ""}>
+		<Button onClick={dec} variant={count == min ? "disabled": "primary"}>
 			<MinusIcon />
 		</Button>
 		<div className="result">
 			<p>{count}</p>
 		</div>
-		<Button onClick={inc} className={count == max ? "disabled": ""}>
+		<Button onClick={inc} variant={count == max ? "disabled": "primary"}>
 			<PlusIcon />
 		</Button>
 	</div>

@@ -1,5 +1,6 @@
-import { AdjustmentsVerticalIcon, InformationCircleIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/solid"
-import React, { useEffect } from "react"
+import { AdjustmentsVerticalIcon, ArrowLongRightIcon, InformationCircleIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/solid"
+import React, { useEffect, useMemo } from "react"
+import Button from "src/components/Library/Button"
 import Incrementer from "src/components/Library/Incrementer"
 import useOrderContext from "../../../../hooks/useOrderContext"
 import OptionRendered from "./OptionRenderer"
@@ -15,6 +16,8 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 
 	const ctx = useOrderContext()
 
+	const itemsCount = useMemo(() => ctx.items.length, [])
+
 	return <div className="circuit__option__picker">
 		<div className="picker__header">
 			<h3>Ajouter des options</h3>
@@ -23,15 +26,21 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 
 		<div className="picker__container">
 
-			{ctx.items.length > 1 && <div className="selected">
+			{itemsCount > 1 && <div className="selected">
 				<p>Journée selectionnée:</p>
 				<div>
-					<InformationCircleIcon />
 					<div>
-						<h4>{ctx.item?.circuit.attributes.title}</h4>
-						<h5>{ctx.item?.event.attributes.title}</h5>
+						<InformationCircleIcon />
+						<div>
+							<h4>{ctx.item?.circuit.attributes.title}</h4>
+							<h5>{ctx.item?.event.attributes.title}</h5>
+						</div>
 					</div>
+					<Button onClick={() => ctx.nextItem()}>
+						<ArrowLongRightIcon />
+					</Button>
 				</div>
+
 			</div>}
 
 			<h3>Option de la journée <AdjustmentsVerticalIcon /></h3>
@@ -56,7 +65,7 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 								})
 							}}
 							min={1}
-							max={10}
+							max={ctx.item.event.attributes.places}
 						/>
 					</div>
 					<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas distinctio exercitationem veritatis voluptas incidunt eligendi rerum molestiae quasi numquam nobis sit.</p>
@@ -81,9 +90,29 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 				<div className="location__option__header">
 					<h3>Option de la voiture <WrenchScrewdriverIcon /></h3>
 					{(ctx.item?.order.locations?.length || 0) > 1 && <p>
-						voiture séléctionnée: <span>{ctx.location?.car.data.attributes.name}</span>
+						voiture séléctionnée: <span className="car__name">{ctx.location?.car.data.attributes.name}</span>
+						<span onClick={() => {
+							const locationsCount = ctx.item?.order.locations?.length || 0
+							if (ctx.currentLocationId + 1 >= locationsCount) ctx.setCurrentLocationId(0)
+							else ctx.setCurrentLocationId(ctx.currentLocationId + 1)
+						}} className="next__car">suivante</span>
 					</p>}
 				</div>
+
+				{ctx.location && ctx.location.options.length ? <>
+					<ul>
+						{ctx.item?.order.type === "location" && ctx.location && ctx.location.options.map((option, i) => <OptionRendered
+							type="location"
+							mounted={mounted}
+							key={i}
+							option={option}
+						/>)}
+					</ul>
+				</>: <div className="no__location__option">
+					<p>Actuellement aucune option disponible pour cette voiture !</p>
+				</div>}
+
+
 			</>}
 
 		</div>

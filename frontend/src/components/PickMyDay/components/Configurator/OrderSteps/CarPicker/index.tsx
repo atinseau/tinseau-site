@@ -1,19 +1,115 @@
-import Sorting, { defaultSortModes } from "src/components/Library/Sorting";
-import React, { useState } from "react"
+import Sorting from "src/components/Library/Sorting";
+import React, { useEffect, useMemo, useState } from "react"
 import LocationCard from "./LocationCard";
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Mousewheel, Grid } from "swiper";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/grid";
+import useConfigContext from "src/components/PickMyDay/hooks/useConfigContext";
+import { IOrderContext } from "src/components/PickMyDay/contexts/OrderContext";
+import { useMediaQuery } from "usehooks-ts";
 
 interface Props {
 	next: () => void
+	mounted: boolean
 }
 
-const CarPicker: React.FC<Props> = ({ next }) => {
+const LocationDesktop: React.FC<{ locations: TTDLocation[], ctx: IOrderContext, next: () => void }> = ({ locations, next, ctx }) => {
+	return <Swiper
+		breakpoints={{
+			1440: {
+				grid: {
+					rows: 2
+				}
+			},
+		}}
+		spaceBetween={40}
+		slidesPerView={"auto"}
+		direction="vertical"
+		className="swiper__container"
+		pagination={{ clickable: true, el: ".swiper-pagination", type: "bullets" }}
+		modules={[Pagination, Mousewheel, Grid]}
+		freeMode={true}
+		mousewheel={{
+			releaseOnEdges: true,
+		}}
+	>
+		{locations.map((location, i) => <SwiperSlide key={i}>
+			<LocationCard
+				onPick={(location) => ctx.addLocation(location) && next()}
+				location={location}
+			/>
+		</SwiperSlide>)}
+	</Swiper>
+}
 
-	const [sortMode, setSortMode] = useState(defaultSortModes[0])
+const LocationMobile: React.FC<{ locations: TTDLocation[], ctx: IOrderContext, next: () => void }> = ({ locations, next, ctx }) => {
+	return <Swiper
+		spaceBetween={40}
+		slidesPerView={1}
+		direction="horizontal"
+		className="swiper__container"
+		pagination={{ clickable: true, el: ".swiper-pagination", type: "bullets" }}
+		modules={[Pagination, Mousewheel, Grid]}
+		freeMode={true}
+		mousewheel={{
+			releaseOnEdges: true,
+		}}
+	>
+		{locations.map((location, i) => <SwiperSlide key={i}>
+			<LocationCard
+				onPick={(location) => ctx.addLocation(location) && next()}
+				location={location}
+			/>
+		</SwiperSlide>)}
+	</Swiper>
+}
+
+const sortModes: SortMode[] = [
+	{
+		label: "Par prix",
+		value: "price"
+	}
+]
+
+const CarPicker: React.FC<Props> = ({ next, mounted }) => {
+
+	const [sortMode, setSortMode] = useState<SortMode | null>(null)
 
 	const ctx = useOrderContext()
+	const configCtx = useConfigContext()
 
-	const locations = ctx.item ? ctx.item.event.attributes.locations : null
+	const isDesktopOrMobile = useMediaQuery('(min-width: 782px)')
+
+	const locations = useMemo(() => {
+		const l = ctx.item?.event.attributes.locations || []
+		switch (sortMode?.value) {
+			case "price":
+				const cloneL = structuredClone(l)
+				return cloneL.sort((a, b) => a.serie_price - b.serie_price)
+			default:
+				return l
+		}
+	}, [ctx.item, sortMode])
+
+	useEffect(() => {
+		if (configCtx.isSwitching && mounted) {
+			document.querySelector('.option__picker .swiper-pagination')?.remove()
+		}
+	}, [configCtx.isSwitching])
+
+	useEffect(() => {
+		if (mounted)
+			return
+
+		const container = document.querySelector('.option__picker')
+		const pagination = document.createElement('div')
+		pagination.classList.add('swiper-pagination')
+		container?.appendChild(pagination)
+	}, [])
 
 	return <div className="car__picker">
 		<div className="car__picker__header">
@@ -21,16 +117,15 @@ const CarPicker: React.FC<Props> = ({ next }) => {
 			<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur odio quidem sequi ut, esse ipsum explicabo itaque sed eveniet repellat. Magnam asperiores sequi est cumque optio, quisquam earum nisi reprehenderit?</p>
 		</div>
 
-		<Sorting sortModes={defaultSortModes} sortMode={sortMode} setSortMode={setSortMode} />
+		<Sorting sortModes={sortModes} sortMode={sortMode} setSortMode={setSortMode} />
 
 		<div className="car__container">
-			<ul>
-				{locations && locations.map((location, i) => <LocationCard
-					onPick={(location) => ctx.addLocation(location) && next()}
-					key={i}
-					location={location}
-				/>)}
-			</ul>
+			{locations && <>
+				{isDesktopOrMobile ?
+					<LocationDesktop ctx={ctx} next={next} locations={locations} /> :
+					<LocationMobile ctx={ctx} next={next} locations={locations} />
+				}
+			</>}
 		</div>
 
 	</div>

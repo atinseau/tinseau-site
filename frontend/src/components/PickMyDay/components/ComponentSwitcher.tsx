@@ -1,5 +1,6 @@
 import gsap from "gsap"
 import React, { useEffect, useRef, useState } from "react"
+import { useMediaQuery } from "usehooks-ts"
 import useConfigContext from "../hooks/useConfigContext"
 
 interface Props<T> {
@@ -13,7 +14,8 @@ interface Props<T> {
 const ComponentSwitcher = <T extends Object>({ isSwitching, setIsSwitching, components, index, props }: Props<T>) => {
 
 	const [bufferIndex, setBufferIndex] = useState(index)
-	const [mainComponentMounted, setMainComponentMounted] = useState(false)
+
+	const isMobile = useMediaQuery("(max-width: 782px)")
 
 	const ctx = useConfigContext()
 
@@ -30,9 +32,12 @@ const ComponentSwitcher = <T extends Object>({ isSwitching, setIsSwitching, comp
 		const tl = gsap.timeline()
 
 		tl.to(ref.current, {
+			...(isMobile ? {
+				height: switchRef.current?.scrollHeight,
+			} : {}),
 			...(index > bufferIndex ? {
-				translateX: "-50%"
-			}: {
+				translateX: "-50%",
+			} : {
 				translateX: "+50%"
 			}),
 			duration: 0.5
@@ -46,14 +51,14 @@ const ComponentSwitcher = <T extends Object>({ isSwitching, setIsSwitching, comp
 		tl.to(switchRef.current, {
 			...(index > bufferIndex ? {
 				left: 0
-			}: {
+			} : {
 				right: 0
 			}),
 			duration: 0.5
 		}, "-=0.4")
 
-		
-		
+
+
 		tl.eventCallback('onStart', () => {
 			setIsSwitching(true)
 		})
@@ -67,11 +72,11 @@ const ComponentSwitcher = <T extends Object>({ isSwitching, setIsSwitching, comp
 
 	return <div className="component__switcher">
 		<div ref={ref} key={bufferIndex}>
-			<Component {...{...props, mounted: true}} />
+			<Component {...{ ...props, mounted: true }} />
 		</div>
 
 		{index !== bufferIndex && <div className={"component__switch " + (index > bufferIndex ? "to_right" : "to_left")} ref={switchRef} key={"b"}>
-			<NextComponent {...{...props, mounted: false}} />
+			<NextComponent {...{ ...props, mounted: false }} />
 		</div>}
 	</div>
 }

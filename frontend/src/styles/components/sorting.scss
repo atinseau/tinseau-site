@@ -21,6 +21,7 @@
 	ul {
 		@apply mt-2 top-full right-0 absolute h-0 overflow-hidden;
 		background-color: $main-color;
+		z-index: 100;
 
 		li {
 			font-family: $main-font;

@@ -37,7 +37,7 @@
 		@apply grid grid-cols-2;
 
 		>.menu__item:last-child {
-			@apply btn-primary;
+			@apply btn btn-primary;
 		}
 	}
 }

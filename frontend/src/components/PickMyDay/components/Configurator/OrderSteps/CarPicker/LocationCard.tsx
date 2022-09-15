@@ -7,7 +7,6 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import useDropdown from "src/hooks/useDropdown";
 import { getEnvConfig } from "src/functions/getConfig";
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
-import { getLocationByCarId } from "src/components/PickMyDay/contexts/OrderContext";
 
 interface Props {
 	location: TTDLocation
@@ -33,14 +32,14 @@ const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 	}, [])
 
 	const formatSeries = (serie: number, tours: number) => {
-		if (serie / serieFormat.current[0] === location.available_series)
+		if (serie / serieFormat.current[0] === location.exclusive_series_count)
 			return "Exclusivité sur la journée"
 		return `${serie} séries ${tours} tours`
 	}
 
 	const images: Image[] = location.car.data.attributes.images.data
 
-	return <li className="location__card">
+	return <div className="location__card">
 		<Image src={getEnvConfig().SERVER_ADDRESS + images[0].attributes.url} width={images[0].attributes.width} height={images[0].attributes.height} />
 		<div>
 			<div>
@@ -60,19 +59,19 @@ const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 								</li>)}
 							</ul>}
 						</div>
-						<h4>{serieId < series.length - 1 ? location.serie_price * (serieId + 1) : location.exclusive_price}€</h4>
+						<h4>{serieId + 1 !== location.exclusive_series_count ? location.serie_price * (serieId + 1) : location.exclusive_price}€</h4>
 					</div>
 				</div>
 				<p>{location.car.data.attributes.description}</p>
 			</div>
 			<Button 
 				onClick={() => onPick({car_id: location.car.data.id as string, serie_count: series[serieId].serie / serieFormat.current[0]})}
-				className={((ctx.item as OrderItem).order.locations || []).find((locItem, i) => locItem.car_id === location.car.data.id) ? "disabled" : ""}
+				variant={((ctx.item as OrderItem).order.locations || []).find((locItem, i) => locItem.car_id === location.car.data.id) ? "disabled" : "primary"}
 			>
 					Choisir
 			</Button>
 		</div>
-	</li>
+	</div>
 }
 
 export default LocationCard;

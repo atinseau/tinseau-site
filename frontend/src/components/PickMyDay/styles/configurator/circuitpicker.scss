@@ -3,10 +3,18 @@
 .circuit__picker {
 	@include option-header(".circuit__picker__header");
 
+	min-height: 500px;
+
 	.circuit__container {
 		@apply mt-8;
 		ul {
 			@apply flex flex-col gap-8;
+
+			@include w-min($desktop-breakpoint) {
+				@apply grid;
+				grid-template-columns: repeat(2, 1fr);
+			}
+
 			@import "./circuitcard.scss";
 		}
 	}

@@ -3,11 +3,25 @@ import React from "react";
 interface Props {
 	children: React.ReactNode
 	className?: string
+	type?: "button" | "submit" | "reset"
+	variant?: "primary" | "secondary" | "disabled"
 	onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
-const Button: React.FC<Props> = ({ children, onClick, className = ""}) => {
-	return (<button className={"btn btn-primary " + className} onClick={onClick}>
+const Button: React.FC<Props> = ({ children, onClick, className = "", type = "button", variant = "primary"}) => {
+
+	const getVariant = () => {
+		switch (variant) {
+			case "primary":
+				return "btn-primary"
+			case "secondary":
+				return "btn-secondary"
+			case "disabled":
+				return "btn-disabled"
+		}
+	}
+
+	return (<button className={"btn" + " " + getVariant() + (className ? " " + className: "")} onClick={onClick} type={type}>
 		{children}
 	</button>)
 }

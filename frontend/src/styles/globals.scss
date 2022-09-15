@@ -12,7 +12,31 @@
 @import "components/navbar.scss";
 @import "components/sorting.scss";
 @import "components/errorprovider.scss";
+@import "../components/Auth/styles/login.scss";
 
 
 @import "./pages/home.scss";
 @import "./pages/pickmyday.scss";
+
+
+.swiper-pagination {
+
+	@include w-max(782px) {
+		bottom: 35px !important;
+		width: fit-content !important;
+	}
+
+	right: -7px !important;
+
+	.swiper-pagination-bullet {
+		width: 10px;
+		height: 10px;
+
+		@apply bg-gray-700;
+		opacity: 1;
+
+		&.swiper-pagination-bullet-active {
+			background-color: $main-color;
+		}
+	}
+}

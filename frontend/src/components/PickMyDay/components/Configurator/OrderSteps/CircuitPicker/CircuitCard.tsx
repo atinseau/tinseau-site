@@ -16,7 +16,14 @@ const CircuitCard: React.FC<Props> = ({ onPick, circuit }) => {
 	const [selectedEventId, setSelectedEventId] = useState(0)
 	
 	const ctx = useOrderContext()
-	const selectedEvent = useMemo(() => circuit.attributes.events.data[selectedEventId], [selectedEventId])
+	const selectedEvent = useMemo(() => {
+		let event = circuit.attributes.events.data.at(selectedEventId)
+		if (!event) {
+			event = circuit.attributes.events.data[0]
+			setSelectedEventId(0)
+		}
+		return event 
+	}, [selectedEventId, circuit])
 
 	const logo = circuit.attributes.logo.data.attributes
 
@@ -26,11 +33,15 @@ const CircuitCard: React.FC<Props> = ({ onPick, circuit }) => {
 			<Image src={getEnvConfig().SERVER_ADDRESS + logo.url} width={logo.width} height={logo.height}/>
 			<div className="info">
 				<h2>{circuit.attributes.title}</h2>
-				<p>{selectedEvent.attributes.places} places restantes</p>
+				{ctx.orderType === "ttd"  && <p>{selectedEvent.attributes.places} places restantes</p>}
+				{ctx.orderType === "location" && <p>{(() => {
+					const locationsCount = selectedEvent.attributes.locations.filter((loc) => loc.available_series > 0).length
+					return locationsCount === 1 ? "Une location restante !": locationsCount + " locations restantes"
+				})()}</p>}
 			</div>
 			<Button 
-				onClick={() => onPick({circuit, event: circuit.attributes.events.data[selectedEventId]})}
-				className={ctx.items.find((item) => item.event.id === selectedEvent.id) ? "disabled": ""}
+				onClick={() => onPick({circuit, event: selectedEvent})}
+				variant={ctx.items.find((item) => item.event.id === selectedEvent.id) ? "disabled": "primary"}
 			>
 				Choisir
 			</Button>

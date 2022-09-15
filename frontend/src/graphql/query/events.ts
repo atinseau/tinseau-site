@@ -14,8 +14,10 @@ events {
 				${CAR_CHUNK}
 				exclusive_price
 				serie_format
+				exclusive_series_count
 				serie_price
 				available_series
+				${optionChunk('options')}
 			}
 			classic {
 				${optionChunk("options")}

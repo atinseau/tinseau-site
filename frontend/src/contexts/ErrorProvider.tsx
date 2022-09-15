@@ -3,10 +3,13 @@ import React, { forwardRef, useEffect, useRef, useState } from "react"
 import ErrorContext, {IError} from "./ErrorContext";
 
 import gsap from "gsap"
+import { useMediaQuery } from "usehooks-ts";
 
 interface Props {
 	children: React.ReactNode;
 }
+
+const TIME = 3000
 
 const ErrorItem = forwardRef<HTMLDivElement, IError & {onClose: () => void}>(({ message, title, type, onClose }, ref) => {
 	return <div className={"error__item " + type} ref={ref}>
@@ -29,6 +32,8 @@ const ErrorProvider: React.FC<Props> = ({ children }) => {
 	const errorRef = useRef<HTMLDivElement>(null)
 	const timeRef = useRef<any>(null)
 	const [error, setError] = useState<IError | null>(null)
+
+	const isMobile = useMediaQuery('(max-width: 782px)')
 
 	const createError = (error: IError) => setError(error)
 
@@ -56,12 +61,12 @@ const ErrorProvider: React.FC<Props> = ({ children }) => {
 		gsap.to(errorRef.current, {
 			duration: 0.3,
 			animation: "fadeIn",
-			transform: "translateY(20px)"
+			transform: isMobile ? "translateY(0)" : "translateY(20px)"
 		})
 
 		if (timeRef.current)
 			clearTimeout(timeRef.current)
-		timeRef.current = setTimeout(closeError, 4000)
+		timeRef.current = setTimeout(closeError, TIME)
 
 
 	}, [error])
