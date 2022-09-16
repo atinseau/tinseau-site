@@ -22,7 +22,7 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 	const [currentItemId, setCurrentItemId] = useState<number>(-1)
 	const [currentLocationId, setCurrentLocationId] = useState<number>(-1)
 
-	const [orderType, setOrderType] = useState<OrderType | null>("ttd")
+	const [orderType, setOrderType] = useState<OrderType | null>("location")
 
 	const [circuits, setCircuits] = useState<GraphqlData<Circuit[]>>({
 		data: []
