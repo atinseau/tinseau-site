@@ -1,23 +1,36 @@
 {
-  "extends": "@strapi/typescript-utils/tsconfigs/server",
-  "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "."
-  },
+  "extends": "adonis-preset-ts/tsconfig.json",
   "include": [
-    "./",
-    "./**/*.ts",
-    "./**/*.js",
-    "src/**/*.json"
+    "**/*",
+	"../global.d.ts"
   ],
   "exclude": [
-    "node_modules/",
-    "build/",
-    "dist/",
-    ".cache/",
-    ".tmp/",
-    "src/admin/",
-    "**/*.test.*",
-    "src/plugins/**"
-  ]
+    "node_modules",
+    "build"
+  ],
+  "compilerOptions": {
+    "outDir": "build",
+    "rootDir": "./",
+    "sourceMap": true,
+    "paths": {
+      "App/*": [
+        "./app/*"
+      ],
+      "Config/*": [
+        "./config/*"
+      ],
+      "Contracts/*": [
+        "./contracts/*"
+      ],
+      "Database/*": [
+        "./database/*"
+      ]
+    },
+    "types": [
+      "@adonisjs/core",
+      "@adonisjs/repl",
+      "@japa/preset-adonis/build/adonis-typings",
+      "@adonisjs/lucid"
+    ]
+  }
 }

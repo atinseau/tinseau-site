@@ -1,33 +1,33 @@
 {
-  "name": "backend-ts",
+  "name": "backend",
+  "version": "1.0.0",
   "private": true,
-  "version": "0.1.0",
-  "description": "A Strapi application",
   "scripts": {
-    "develop": "strapi develop",
-    "start": "strapi start",
-    "build": "strapi build",
-    "strapi": "strapi"
+    "dev": "node ace serve --watch ",
+    "build": "node ace build --production",
+    "start": "node server.js"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@adonisjs/assembler": "^5.8.1",
+    "@faker-js/faker": "^7.5.0",
+    "@japa/preset-adonis": "^1.2.0",
+    "@japa/runner": "^2.2.1",
+    "adonis-preset-ts": "^2.1.0",
+    "pino-pretty": "^9.1.0",
+    "typescript": "~4.6",
+    "youch": "^3.2.2",
+    "youch-terminal": "^2.1.5"
+  },
   "dependencies": {
-    "@heroicons/react": "^2.0.10",
-    "@strapi/plugin-graphql": "4.3.6",
-    "@strapi/plugin-i18n": "4.3.6",
-    "@strapi/plugin-users-permissions": "4.3.6",
-    "@strapi/strapi": "4.3.6",
-    "mysql": "2.18.1",
-    "typescript": "^4.8.2"
-  },
-  "author": {
-    "name": "A Strapi developer"
-  },
-  "strapi": {
-    "uuid": "74355bb7-2386-46aa-b581-43546f078456"
-  },
-  "engines": {
-    "node": ">=14.19.1 <=16.x.x",
-    "npm": ">=6.0.0"
-  },
-  "license": "MIT"
+    "@adonisjs/core": "^5.8.0",
+    "@adonisjs/lucid": "^18.1.1",
+    "@adonisjs/repl": "^3.1.0",
+    "luxon": "^3.0.3",
+    "mysql": "^2.18.1",
+    "mysql2": "2.3.3",
+    "proxy-addr": "^2.0.7",
+    "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.21",
+    "uuid": "^9.0.0"
+  }
 }

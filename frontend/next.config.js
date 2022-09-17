@@ -8,7 +8,6 @@ const globalEnv = {
  */
 const nextConfig = {
 	reactStrictMode: false,
-	swcMinify: true,
 	experimental: { images: { allowFutureImage: true } },
 	images: {
 		domains: [process.env.SERVER_IP]

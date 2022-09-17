@@ -10,7 +10,6 @@ interface Props {
 }
 
 
-
 const OrderPriceItem: React.FC<Props> = ({ orderItem, editMode, idx }) => {
 
 	const ctx = useOrderContext()
