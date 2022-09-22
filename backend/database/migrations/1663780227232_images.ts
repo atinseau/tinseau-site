@@ -1,18 +1,16 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-	protected tableName = 'cars'
+	protected tableName = 'images'
 
 	public async up() {
 		this.schema.createTable(this.tableName, (table) => {
 			table.uuid('id').primary()
+			table.string('title').notNullable()
+			table.string('description').notNullable()
 
-			table.string('name').notNullable().unique()
-			table.text('description').notNullable()
-
-			table.json('images').defaultTo([])
-
-			// images
+			table.string('url').notNullable().unique()
+			table.string('identifier').notNullable().unique()
 		})
 	}
 

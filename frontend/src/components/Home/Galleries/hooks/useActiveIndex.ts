@@ -11,12 +11,14 @@ const useActiveIndex = () => {
 	
 	const [activeIndex, setActiveIndex] = useState<number>(swiper.activeIndex)
 
+	const mounted = isMounted()
+
 	useEffect(() => {
-		if (!isMounted()) return
+		if (!mounted) return
 		swiper.on('slideChange', () => {
 			setActiveIndex(swiper.activeIndex)
 		})
-	}, [isMounted()])
+	}, [mounted, swiper])
 
 	const displayActiveIndex = useMemo(() => {
 		return formattedActiveIndex(activeIndex)

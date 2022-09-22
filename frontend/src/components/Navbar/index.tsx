@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
 
 	return <nav className="nav__bar">
 		<Link className="home__link" href={"/"}>
-			<Image src={logo} />
+			<Image src={logo} alt="logo"/>
 			tinseau.com
 		</Link>
 

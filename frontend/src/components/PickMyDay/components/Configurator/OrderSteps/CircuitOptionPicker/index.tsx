@@ -32,8 +32,8 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 					<div>
 						<InformationCircleIcon />
 						<div>
-							<h4>{ctx.item?.circuit.attributes.title}</h4>
-							<h5>{ctx.item?.event.attributes.title}</h5>
+							<h4>{ctx.item?.circuit.name}</h4>
+							<h5>{ctx.item?.event.title}</h5>
 						</div>
 					</div>
 					<Button onClick={() => ctx.nextItem()}>
@@ -48,38 +48,38 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 			<ul>
 				{ctx.item?.order.type === "ttd" && <li>
 					<div>
-						<h4>Accés piste <span>{ctx.item.event.attributes.classic.price}€</span></h4>
+						<h4>Accés piste <span>{ctx.item.event.track_access.price}€</span></h4>
 						<Incrementer
-							count={ctx.item.order.classic?.count || 0}
+							count={ctx.item.order.track_access?.count || 0}
 							setCount={(e) => {
 								const item = ctx.item as OrderItem
 								ctx.updateItem({
 									...item,
 									order: {
 										...item.order,
-										classic: {
-											...item.order.classic as WithOrderOptions<ClassicOrderItem>,
+										track_access: {
+											...item.order.track_access as WithOrderOptions<ClassicOrderItem>,
 											count: e,
 										}
 									}
 								})
 							}}
 							min={1}
-							max={ctx.item.event.attributes.places}
+							max={ctx.item.event.track_access.places}
 						/>
 					</div>
 					<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas distinctio exercitationem veritatis voluptas incidunt eligendi rerum molestiae quasi numquam nobis sit.</p>
 				</li>}
 
-				{ctx.item?.event.attributes.global_options.map((option, i) => <OptionRendered
+				{ctx.item?.event.options.map((option, i) => <OptionRendered
 					type="global"
 					mounted={mounted}
 					key={i}
 					option={option}
 				/>)}
 
-				{ctx.item?.order.type === "ttd" && ctx.item?.event.attributes.classic.options.map((option, i) => <OptionRendered
-					type="classic"
+				{ctx.item?.order.type === "ttd" && ctx.item?.event.track_access.options.map((option, i) => <OptionRendered
+					type="track_access"
 					mounted={mounted}
 					key={i}
 					option={option}
@@ -90,7 +90,7 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 				<div className="location__option__header">
 					<h3>Option de la voiture <WrenchScrewdriverIcon /></h3>
 					{(ctx.item?.order.locations?.length || 0) > 1 && <p>
-						voiture séléctionnée: <span className="car__name">{ctx.location?.car.data.attributes.name}</span>
+						voiture séléctionnée: <span className="car__name">{ctx.location?.car.name}</span>
 						<span onClick={() => {
 							const locationsCount = ctx.item?.order.locations?.length || 0
 							if (ctx.currentLocationId + 1 >= locationsCount) ctx.setCurrentLocationId(0)

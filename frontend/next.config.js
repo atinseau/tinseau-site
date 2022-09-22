@@ -10,7 +10,7 @@ const nextConfig = {
 	reactStrictMode: false,
 	experimental: { images: { allowFutureImage: true } },
 	images: {
-		domains: [process.env.SERVER_IP]
+		domains: [process.env.SERVER_IP, "placehold.it"]
 	},
 	publicRuntimeConfig: globalEnv,
 	serverRuntimeConfig: globalEnv

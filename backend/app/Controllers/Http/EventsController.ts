@@ -76,7 +76,7 @@ export default class EventsController {
 					exclusive_price: location.exclusive_price,
 					instance_price: location.instance_price,
 					car_id: car.id,
-					intances_amount: location.instances_amount,
+					instances_amount: location.instances_amount,
 					max_instances: location.instances_amount,
 					serie_format: location.serie_format as SerieFormat,
 					options: location.options as TTDOption[]

@@ -85,11 +85,11 @@ const CarPicker: React.FC<Props> = ({ next, mounted }) => {
 	const isDesktopOrMobile = useMediaQuery('(min-width: 782px)')
 
 	const locations = useMemo(() => {
-		const l = ctx.item?.event.attributes.locations || []
+		const l = ctx.item?.event.locations || []
 		switch (sortMode?.value) {
 			case "price":
 				const cloneL = structuredClone(l)
-				return cloneL.sort((a, b) => a.serie_price - b.serie_price)
+				return cloneL.sort((a, b) => a.instance_price - b.instance_price)
 			default:
 				return l
 		}

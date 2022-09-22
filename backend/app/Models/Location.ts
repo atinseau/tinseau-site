@@ -8,7 +8,7 @@ export default class Location extends BaseModelWithUuid {
 	public id: string
 
 	@column()
-	public intances_amount: number
+	public instances_amount: number
 
 	@column()
 	public max_instances: number

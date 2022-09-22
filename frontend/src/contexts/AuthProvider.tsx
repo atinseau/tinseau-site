@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react"
 import LoginModal from "src/components/Auth/LoginModal";
-import client from "src/graphql";
-import { LOGIN_QUERY, ME_QUERY, REGISTER_QUERY } from "src/graphql/query/auth";
 import AuthContext from "./AuthContext";
 
 
@@ -28,12 +26,12 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 	useEffect(() => {
 		(async () => {
 			if (localStorage.getItem("token")) {
-				const res = await client.query({
-					query: ME_QUERY,
-					errorPolicy: "all"
-				})
-				if (res.errors) localStorage.removeItem("token")
-				else setUser(res.data.me)
+				// const res = await client.query({
+				// 	query: ME_QUERY,
+				// 	errorPolicy: "all"
+				// })
+				// if (res.errors) localStorage.removeItem("token")
+				// else setUser(res.data.me)
 			}
 			setIsLoading(false)
 		})()
@@ -42,19 +40,19 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 	const toggleLoginModal = () => setLoginModal(!loginModal)
 
 	const sendAuthPayload = async (payload: { mode: "register" | "login", data: LoginData }) => {
-		const res = await client.mutate({
-			mutation: payload.mode === "register" ? REGISTER_QUERY : LOGIN_QUERY,
-			errorPolicy: "all",
-			variables: payload.data
-		})
-		if (res.errors) {
-			setError(res.errors)
-			return
-		}
-		setError(null)
+		// const res = await client.mutate({
+		// 	mutation: payload.mode === "register" ? REGISTER_QUERY : LOGIN_QUERY,
+		// 	errorPolicy: "all",
+		// 	variables: payload.data
+		// })
+		// if (res.errors) {
+		// 	setError(res.errors)
+		// 	return
+		// }
+		// setError(null)
 
-		window.localStorage.setItem("token", res.data[payload.mode].jwt)
-		setUser(res.data[payload.mode].user)
+		// window.localStorage.setItem("token", res.data[payload.mode].jwt)
+		// setUser(res.data[payload.mode].user)
 	}
 
 	return <AuthContext.Provider value={{

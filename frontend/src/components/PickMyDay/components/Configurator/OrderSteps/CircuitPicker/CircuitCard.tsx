@@ -6,8 +6,8 @@ import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext"
 import { getEnvConfig } from "src/functions/getConfig"
 
 interface Props {
-	onPick: (e: {circuit: Circuit, event: TTDEvent}) => void
-	circuit: Circuit
+	onPick: (e: {circuit: TTDCircuit, event: TTDEvent}) => void
+	circuit: TTDCircuit
 }
 
 const CircuitCard: React.FC<Props> = ({ onPick, circuit }) => {
@@ -16,26 +16,28 @@ const CircuitCard: React.FC<Props> = ({ onPick, circuit }) => {
 	const [selectedEventId, setSelectedEventId] = useState(0)
 	
 	const ctx = useOrderContext()
+	
 	const selectedEvent = useMemo(() => {
-		let event = circuit.attributes.events.data.at(selectedEventId)
+		let event = circuit.events.at(selectedEventId)
 		if (!event) {
-			event = circuit.attributes.events.data[0]
+			event = circuit.events[0]
 			setSelectedEventId(0)
 		}
 		return event 
 	}, [selectedEventId, circuit])
 
-	const logo = circuit.attributes.logo.data.attributes
+	// placeholder logo
+	const logo = "https://placehold.it/200x200"
 
 	return <li className="circuit__card">
 
 		<div className="circuit__card__header">
-			<Image src={getEnvConfig().SERVER_ADDRESS + logo.url} width={logo.width} height={logo.height}/>
+			<Image src={logo} width={100} height={100}/>
 			<div className="info">
-				<h2>{circuit.attributes.title}</h2>
-				{ctx.orderType === "ttd"  && <p>{selectedEvent.attributes.places} places restantes</p>}
+				<h2>{circuit.name}</h2>
+				{ctx.orderType === "ttd"  && <p>{selectedEvent.track_access.places} places restantes</p>}
 				{ctx.orderType === "location" && <p>{(() => {
-					const locationsCount = selectedEvent.attributes.locations.filter((loc) => loc.available_series > 0).length
+					const locationsCount = selectedEvent.locations.filter((loc) => loc.instances_amount > 0).length
 					return locationsCount === 1 ? "Une location restante !": locationsCount + " locations restantes"
 				})()}</p>}
 			</div>
@@ -48,17 +50,17 @@ const CircuitCard: React.FC<Props> = ({ onPick, circuit }) => {
 		</div>
 
 		<div className="desc">
-			<p>{circuit.attributes.description}</p>
-			{ctx.orderType === "ttd" && <h4>{selectedEvent.attributes.classic.price}€</h4>}
+			<p>{circuit.description}</p>
+			{ctx.orderType === "ttd" && <h4>{selectedEvent.track_access.price}€</h4>}
 		</div>
 
 		<ul className="days">
-			{circuit.attributes.events.data.map((event, i) => <li 
+			{circuit.events.map((event, i) => <li 
 				className={i === selectedEventId ? "selected": ""} 
 				key={i}
 				onClick={() => setSelectedEventId(i)}
 			>
-				{new Date(event.attributes.date).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
+				{new Date(event.date).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
 			</li>)}
 		</ul>
 

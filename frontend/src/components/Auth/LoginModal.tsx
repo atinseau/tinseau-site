@@ -3,12 +3,11 @@ import Button from "src/components/Library/Button";
 import { useForm } from "react-hook-form";
 
 import gsap from "gsap"
-import { ApolloError } from "@apollo/client";
 
 interface Props {
 	toggle: () => void
 	sendAuthPayload: (payload: { mode: "register" | "login", data: LoginData }) => void
-	error: ApolloError | undefined
+	error: any 
 }
 
 const LoginModal: React.FC<Props> = ({ toggle, sendAuthPayload, error }) => {
@@ -58,7 +57,7 @@ const LoginModal: React.FC<Props> = ({ toggle, sendAuthPayload, error }) => {
 				{getError() ? <p className="error">{getError()}</p> : null}
 
 				{registerMode && <div className="login__form__group my-4">
-					<label htmlFor="username">Nom d'utilisateur</label>
+					<label htmlFor="username">{"Nom d'utilisateur"}</label>
 					<input id="username" type="text" className="textbox" {...register('username', { required: true })} />
 				</div>}
 
@@ -75,7 +74,7 @@ const LoginModal: React.FC<Props> = ({ toggle, sendAuthPayload, error }) => {
 				<div className="login__form__group contoller">
 					<div>
 						{!registerMode && <Button type="submit">Se connecter</Button>}
-						<Button variant="secondary" type="submit" onClick={() => !registerMode && setRegisterMode(true)}>S'inscrire</Button>
+						<Button variant="secondary" type="submit" onClick={() => !registerMode && setRegisterMode(true)}>{"S'inscrire"}</Button>
 					</div>
 					{!registerMode ? <p>Mot de passe oublié ?</p> : <p onClick={() => setRegisterMode(false)}>Vous avez déjà un compte ?</p>}
 				</div>

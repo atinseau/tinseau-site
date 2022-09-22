@@ -14,13 +14,10 @@ const OptionRendered: React.FC<Props> = ({ option, type, mounted }) => {
 	const ctx = useOrderContext()
 
 	const memoizedOption = useMemo(() => {
-
 		let options: OrderOption[] = []
-
 		if (type === "global") options = (ctx.item as OrderItem).order.options
-		else if (type === "classic") options = (ctx.item as OrderItem).order.classic?.options || []
+		else if (type === "track_access") options = (ctx.item as OrderItem).order.track_access?.options || []
 		else if (type === "location") options = ((ctx.item as OrderItem).order.locations || [])[ctx.currentLocationId].options
-
 		return options.find((opt) => opt.name === option.name)
 	}, [ctx.item])
 
@@ -31,12 +28,12 @@ const OptionRendered: React.FC<Props> = ({ option, type, mounted }) => {
 	}, [])
 
 
-	return <li className={option.settings.type === "bool" && option.settings.value ? "disabled": ""}>
+	return <li className={option.settings.type === "bool" && option.settings.value === "true" ? "disabled": ""}>
 		<div>
 			<h4>
 				{option.name} <span>{option.price}€</span>
-				{option.settings.type === "bool" && option.settings.value ? <span>(inclus)</span> : null}
-				{option.settings.type === "number" && option.settings.value ? <span>(x{option.settings.value} inclus)</span> : null}
+				{option.settings.type === "bool" && option.settings.value === "true" ? <span>(inclus)</span> : null}
+				{option.settings.type === "number" && parseInt(option.settings.value) ? <span>(x{option.settings.value} inclus)</span> : null}
 			</h4>
 			{option.settings.type === "number" && <Incrementer
 				min={0}
@@ -52,7 +49,7 @@ const OptionRendered: React.FC<Props> = ({ option, type, mounted }) => {
 			{option.settings.type === "bool" && <Switch
 				value={memoizedOption?.value || false}
 				onChange={(e) => {
-					if (!memoizedOption || option.settings.value)
+					if (!memoizedOption || option.settings.value === "true")
 						return
 					ctx.updateOption(memoizedOption, type, e)
 				}}

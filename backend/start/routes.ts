@@ -51,4 +51,10 @@ Route.group(() => {
 		Route.delete('/', 'CarsController.deleteAll')
 	}).prefix('cars')
 
+	Route.group(() => {
+		Route.get('/', 'ImagesController.index')
+		Route.post('/create', 'ImagesController.create')
+		Route.delete('/', 'ImagesController.deleteAll')
+	}).prefix('images')
+
 }).prefix('api/v1')

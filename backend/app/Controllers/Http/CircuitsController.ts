@@ -14,13 +14,8 @@ export default class CircuitsController {
 	}
 
 	public async events() {
-		return await Circuit
-			.query()
-			.whereHas('events', (query) => query.where('events.id', '!=', "NULL"))
-			.preload('events', (eventQuery) => eventQuery
-				.preload('locations', (locationQuery) => locationQuery.preload('car'))
-				.preload('track_access')
-			)
+		return (await this.index())
+			.filter((circuit) => circuit.events.length > 0)
 	}
 
 	public async create(ctx: HttpContextContract) {

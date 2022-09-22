@@ -1,8 +1,7 @@
-import { useQuery } from "@apollo/client"
-import { GET_CIRCUITS_WITH_EVENTS } from "src/graphql/query/circuits"
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import OrderContext, { getLocationByCarId } from "./OrderContext"
 import useErrorContext from "src/hooks/useErrorContext"
+import useCircuits from "../hooks/useCircuits"
 
 interface Props {
 	children: React.ReactNode
@@ -24,24 +23,21 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 
 	const [orderType, setOrderType] = useState<OrderType | null>("location")
 
-	const [circuits, setCircuits] = useState<GraphqlData<Circuit[]>>({
-		data: []
-	})
+	const [circuits, setCircuits] = useCircuits()
 
 	const item = useMemo(() => bufferedItem || items.at(currentItemId) || null, [items, currentItemId, bufferedItem])
 
 	const location = useMemo(() => {
 		if (!item || currentLocationId == -1 || (!item.order.locations?.length)) return null
-		return getLocationByCarId(item.order.locations[currentLocationId].car_id, item.event.attributes.locations)
-	}, [item, currentItemId, currentLocationId])
+		return getLocationByCarId(item.order.locations[currentLocationId].car_id, item.event.locations)
+	}, [item, currentLocationId])
 
-	const { data, loading } = useQuery(GET_CIRCUITS_WITH_EVENTS)
 
-	useEffect(() => {
-		if (loading && !data)
-			return
-		setCircuits(data?.circuits || [])
-	}, [loading])
+	// useEffect(() => {
+	// 	if (loading && !data)
+	// 		return
+	// 	setCircuits(data?.circuits || [])
+	// }, [loading])
 
 	const nextItem = () => {
 		const nextId = currentItemId + 1 < items.length ? currentItemId + 1 : 0
@@ -73,8 +69,8 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 		setItems(newItems)
 	}
 
-	const createItem = (circuit: Circuit, event: TTDEvent) => {
-		const { attributes: { events, ...circuitWithoutEvents }, ...rest } = circuit
+	const createItem = (circuit: TTDCircuit, event: TTDEvent) => {
+		const { events, ...circuitWithoutEvents } = circuit
 		if (items.find((item) => item.event.id === event.id)) {
 			errorCtx.createError({
 				title: "Déjà choisi",
@@ -84,10 +80,7 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 			return false
 		}
 		const newItemList: OrderItem[] = [...items, {
-			circuit: {
-				attributes: circuitWithoutEvents,
-				...rest
-			},
+			circuit: circuitWithoutEvents,
 			event: event,
 			order: {
 				type: orderType as OrderType,
@@ -95,7 +88,7 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 				...(orderType === "location" ? {
 					locations: []
 				} : {
-					classic: {
+					track_access: {
 						count: 1,
 						options: []
 					}
@@ -107,19 +100,19 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 
 		errorCtx.createError({
 			title: "Événement choisi",
-			message: "Vous avez choisi \"" + event.attributes.title + "\"",
+			message: "Vous avez choisi \"" + event.title + "\"",
 			type: "success"
 		})
 		return true
 	}
 
 
-	const addLocation = (location: LocationItem) => {
+	const addLocation = (locationItem: TTDLocationItem) => {
 		if (!item || (item && item.order.type !== "location"))
 			return false
 
 		if (!item.order.locations) item.order.locations = []
-		if (item.order.locations.find((loc) => loc.car_id === location.car_id)) {
+		if (item.order.locations.find((loc) => loc.car_id === locationItem.car_id)) {
 			errorCtx.createError({
 				title: "Déjà choisi",
 				message: "Vous avez déjà choisi cette voiture",
@@ -129,12 +122,12 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 		}
 
 
-		item.order.locations.push({ ...location, options: [] })
+		item.order.locations.push({ ...locationItem, options: [] })
 		setCurrentLocationId(item.order.locations.length - 1)
 		setItems(structuredClone(items))
 		errorCtx.createError({
 			title: "Voiture choisi",
-			message: "Vous avez choisi \"" + getLocationByCarId(location.car_id, item.event.attributes.locations)?.car.data.attributes.name + "\"",
+			message: "Vous avez choisi \"" + getLocationByCarId(locationItem.car_id, item.event.locations)?.car.name + "\"",
 			type: "success"
 		})
 		return true
@@ -149,21 +142,20 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 		let initalValue = null
 		switch (option.type) {
 			case "bool":
-				initalValue = option.initalValue
+				initalValue = option.initalValue === "true" ? true : false
 				break
 			default: initalValue = 0
 		}
 
 		let options: OrderOption[] = []
 		if (type === "global") options = item.order.options
-		else if (type === "classic") options = item.order.classic?.options || []
+		else if (type === "track_access") options = item.order.track_access?.options || []
 		else if (type === "location") options = (item.order.locations || [])[currentLocationId]?.options
-
 		if (!options.find((o) => o.name === option.name)) {
-			options.push({ ...option, value: initalValue })
+			const newOption = { ...option, value: initalValue }
+			options.push(newOption)
 			itemsChanged = true
 		}
-
 		if (itemsChanged) setItems(structuredClone(items))
 	}
 
@@ -175,7 +167,7 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 
 		let options: OrderOption[] = []
 		if (type === "global") options = item.order.options
-		else if (type === "classic") options = item.order.classic?.options || []
+		else if (type === "track_access") options = item.order.track_access?.options || []
 		else if (type === "location") options = (item.order.locations || [])[currentLocationId]?.options
 
 		for (const o of options) {
@@ -206,7 +198,7 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 			if (option.settings.type === "number")
 				total += optionSelected.value * option.price
 			if (option.settings.type === "bool" && optionSelected.value)
-				total += option.settings.value ? 0 : option.price
+				total += option.settings.value === "true" ? 0 : option.price
 		})
 
 		return total
@@ -218,19 +210,19 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 		for (const item of items) {
 			if (item.order.type === "location") {
 				for (const locationItem of item.order.locations || []) {
-					const location = getLocationByCarId(locationItem.car_id, item.event.attributes.locations)
+					const location = getLocationByCarId(locationItem.car_id, item.event.locations)
 					if (!location) continue
-					total += locationItem.serie_count === location.available_series ?
+					total += locationItem.instance_amount === location.max_instances ?
 						location.exclusive_price :
-						locationItem.serie_count * location.serie_price
+						locationItem.instance_amount * location.instance_price
 					total += optionTotal(location.options, locationItem.options)
 				}
 			}
 			else if (item.order.type === "ttd") {
-				total += (item.order.classic?.count || 1) * item.event.attributes.classic.price
-				total += optionTotal(item.event.attributes.classic.options, item.order.classic?.options || [])
+				total += (item.order.track_access?.count || 1) * item.event.track_access.price
+				total += optionTotal(item.event.track_access.options, item.order.track_access?.options || [])
 			}
-			total += optionTotal(item.event.attributes.global_options, item.order.options)
+			total += optionTotal(item.event.options, item.order.options)
 		}
 
 		return total
