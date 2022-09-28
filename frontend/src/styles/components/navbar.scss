@@ -5,6 +5,61 @@
 	@apply flex flex-row justify-between items-center bg-black;
 }
 
+.nav__bar .auth__menu {
+	@apply relative;
+
+	>div {
+		@apply cursor-pointer flex items-center gap-4;
+
+		h5 {
+			color: $main-color;
+			font-family: $main-font;
+		}
+
+		img {
+			@apply rounded-full;
+			object-fit: contain;
+			width: 50px;
+			height: 50px;
+
+			border: 2px $main-color solid;
+		}
+
+		h5:hover {
+			color: $second-color;
+		}
+
+		img:hover {
+			border: 2px $second-color solid;
+		}
+	}
+
+	ul {
+		@apply absolute flex gap-2 items-center h-0 overflow-hidden mt-3;
+
+		background-color: $main-color;
+
+		li {
+			@apply cursor-pointer flex gap-2 items-center;
+			color: black;
+			padding: 5px 20px;
+			font-family: $main-font;
+
+			&:not(:last-child) {
+				border-bottom: 1px solid black;
+			}
+
+			&:hover {
+				background-color: $second-color;
+			}
+
+			svg {
+				@apply w-5 h-5;
+			}
+		}
+	}
+}
+
 .nav__bar .home__link {
 	color: $main-color;
 	padding-left: 0 !important;

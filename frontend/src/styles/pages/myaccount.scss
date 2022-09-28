@@ -1,0 +1,135 @@
+.account__container {
+
+	@include w-min(782px) {
+		min-height: calc(722px - $navbar-height);
+		height: calc(100vh - $navbar-height);
+	}
+
+	@include w-max(781px) {
+		@apply flex flex-col gap-4 w-full;
+
+		.menu__account  {
+			width: 100% !important;
+			ul {
+				padding-right: 0 !important;
+				@apply w-full;
+				li {
+					@apply w-full;
+				}
+			}
+		}
+	}
+
+	background: black;
+
+	@apply flex p-5;
+
+	.menu__account {
+		width: 400px;
+
+		ul {
+			@apply flex flex-col gap-4 pr-5;
+			font-family: $main-font;
+			font-size: 18px;
+			color: white;
+
+			li {
+				@apply flex items-center gap-3 p-2 cursor-pointer;
+				transition: all 0.3s ease-in-out;
+
+				svg {
+					@apply w-5 h-5;
+					margin-bottom: 1px;
+				}
+
+				&.selected,
+				&:hover {
+					background-color: $main-color;
+					color: black;
+				}
+			}
+		}
+	}
+
+	.account__component {
+		@apply bg-gray-800 w-full p-4 h-full;
+
+		h4,
+		h3 {
+			font-family: $main-font;
+			color: white;
+		}
+
+		h4 {
+			@apply text-gray-300;
+		}
+
+		input {
+			@apply w-full;
+		}
+
+		&.informations {
+
+			@apply flex flex-col;
+
+			.group {
+				@apply grid grid-cols-2 gap-4;
+				@include w-max(520px) {
+					@apply grid grid-cols-1;
+				}
+			}
+
+			.address {
+				@apply mt-8;
+
+				h3 {
+					font-size: 24px;
+					@apply mb-2;
+				}
+			}
+
+			.global {
+				h3 {
+					font-size: 24px;
+					@apply mb-3;
+				}
+			}
+
+			.logo {
+				@apply mt-8;
+
+				h3 {
+					font-size: 24px;
+					@apply mb-2;
+				}
+
+				>div {
+					@apply flex gap-4;
+					button {
+						height: fit-content;
+						font-size: 14px;
+						padding: 5px 20px;
+					}
+				}
+			}
+
+			.controller {
+				@apply flex-1 flex justify-end;
+
+				button {
+					align-self: end;
+					@apply flex items-center gap-4;
+
+					svg {
+						@apply w-6;
+					}
+				}
+			}
+
+		}
+
+
+		@import "src/components/MyAccount/styles/decharges.scss";
+	}
+
+}

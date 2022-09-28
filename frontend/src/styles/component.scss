@@ -72,5 +72,13 @@
 		&:focus {
 			@apply outline-none bg-gray-800;
 		}
+
+		&.dark {
+			@apply bg-gray-900;
+
+			&:focus {
+				@apply outline-none bg-black;
+			}
+		}
 	}
 }

@@ -17,7 +17,15 @@
 
 @import "./pages/home.scss";
 @import "./pages/pickmyday.scss";
+@import "./pages/myaccount.scss";
 
+#__next {
+	background-color: black;
+	.page__wrapper {
+		margin: auto;
+		max-width: 1500px;
+	}
+}
 
 .swiper-pagination {
 

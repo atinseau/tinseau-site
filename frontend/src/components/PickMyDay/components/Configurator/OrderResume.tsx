@@ -1,17 +1,25 @@
 import { Cog6ToothIcon, CreditCardIcon, LockClosedIcon, TrashIcon } from "@heroicons/react/24/solid";
 import React, { useEffect, useState } from "react"
+import useAuthContext from "src/hooks/useAuthContext";
 import useErrorContext from "src/hooks/useErrorContext";
 import Button from "../../../Library/Button";
 import useConfigContext from "../../hooks/useConfigContext";
 import useOrderContext from "../../hooks/useOrderContext";
+import OrderBilling from "../Billing";
 import OrderPriceItem from "./OrderPriceItem";
 
+interface Props {
+	
+}
 
-const OrderResume: React.FC = () => {
+const OrderResume: React.FC<Props> = () => {
 
 	const ctx = useOrderContext()
 	const configCtx = useConfigContext()
 	const errorCtx = useErrorContext()
+	const authCtx = useAuthContext()
+
+	const [openBilling, setOpenBilling] = useState(false)
 
 	const [editMode, setEditMode] = useState(false)
 	const [startDeleting, setStartDeleting] = useState(false)
@@ -54,6 +62,7 @@ const OrderResume: React.FC = () => {
 		<ul className="order__items">
 			{ctx.items.map((item, i) => <OrderPriceItem idx={i} editMode={editMode} orderItem={item} key={i} />)}
 		</ul>
+
 		<div className="order__submit">
 			<div>
 				<h4>TOTAL</h4>
@@ -64,12 +73,25 @@ const OrderResume: React.FC = () => {
 				if (!canPay())
 					return
 
-				console.log(ctx.items)
+				if (!authCtx.user) {
+					errorCtx.createError({
+						title: "Vous n'êtes pas connecté",
+						message: "Vous devez être connecté pour pouvoir passer une commande",
+						type: "danger"
+					})
+					authCtx.toggleLoginModal("login")
+					return
+				}
+
+				setOpenBilling(true)
 			}}>
 				Continuer
 				{!canPay() ? <LockClosedIcon /> : <CreditCardIcon />}
 			</Button>
 		</div>
+
+
+		{openBilling && <OrderBilling close={() => setOpenBilling(false)}/>}
 	</div>
 }
 

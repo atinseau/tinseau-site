@@ -1,0 +1,63 @@
+.order__billing {
+
+	@apply absolute top-0 left-0 flex items-center justify-center h-full w-full;
+
+	background-color: rgba(0, 0, 0, 0.801);
+	opacity: 0;
+
+	.billing__container {
+		@apply bg-gray-800;
+
+		transform: translateY(calc(100vh + 100%));
+
+		width: 500px;
+		min-height: 600px;
+
+		.billing__header {
+			background-color: $main-color;
+			color: black;
+			font-family: $main-font;
+			font-size: 18px;
+			@apply p-2;
+		}
+
+		.billing__body {
+
+			@apply p-4;
+
+			h4 {
+				font-size: 24px;
+				font-family: $main-font;
+				color: white;
+			}
+
+			p {
+				@apply text-gray-400;
+				font-size: 12px;
+			}
+
+			h5 {
+				margin-top: 10px;
+				font-size: 18px;
+				font-family: $main-font;
+				color: white;
+			}
+
+			ul {
+				@apply flex gap-2 mt-2;
+				li {
+					@apply rounded-full bg-gray-900 text-gray-300 cursor-pointer border-gray-600 border-[1px];
+					padding: 2px 10px;
+					font-size: 14px;
+					transition: all 0.3s ease-in-out;
+
+					&.selected, &:hover {
+						background-color: $main-color;
+						color: black;
+					}
+				}
+			}
+
+		}
+	}
+}

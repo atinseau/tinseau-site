@@ -1,5 +1,6 @@
 import { BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
-import BaseModelWithUuid from 'App/Functions/BaseModelWithUuid'
+import { jsonColumn } from 'App/Functions/jsonColumn'
+import { BaseModelWithUuid } from 'App/Functions/ModelExtension'
 import Car from './Car'
 import Event from './Event'
 
@@ -22,7 +23,7 @@ export default class Location extends BaseModelWithUuid {
 	@column()
 	public serie_format: SerieFormat
 
-	@column({ serialize: (value) => JSON.parse(value) })
+	@jsonColumn()
 	public options: TTDOption[]
 
 	@column()
@@ -35,5 +36,5 @@ export default class Location extends BaseModelWithUuid {
 	public car_id: string
 	@belongsTo(() => Car, { foreignKey: "car_id" })
 	public car: BelongsTo<typeof Car>
-	
+
 }

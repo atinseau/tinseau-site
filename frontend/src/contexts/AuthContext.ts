@@ -1,7 +1,10 @@
 import React, { createContext } from "react"
 
+export type AuthMode = "register" | "login"
+
 interface IAuthContext {
-	toggleLoginModal: () => void
+	toggleLoginModal: (mode: AuthMode) => void
+	logout: () => void
 	isAuth: boolean
 	isLoading: boolean
 	user: User | null

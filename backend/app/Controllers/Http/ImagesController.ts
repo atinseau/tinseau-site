@@ -5,7 +5,7 @@ import { schema } from "@ioc:Adonis/Core/Validator"
 
 export default class ImagesController {
 
-	public async index(ctx: HttpContextContract) {
+	public async index() {
 		return await Image.all()
 	}
 
@@ -28,6 +28,7 @@ export default class ImagesController {
 		image.title = body.title
 		image.description = body.description
 		image.url = body.image.filePath as string
+		image.type = "s3"
 		image.identifier = body.image.fileName as string
 
 		await image.save()

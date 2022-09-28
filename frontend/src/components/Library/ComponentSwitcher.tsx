@@ -1,10 +1,9 @@
 import gsap from "gsap"
 import React, { useEffect, useRef, useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
-import useConfigContext from "../hooks/useConfigContext"
 
 interface Props<T> {
-	components: React.FC<T>[],
+	components: React.FC<T & Object>[],
 	index: number,
 	isSwitching: boolean,
 	setIsSwitching: (isSwitching: boolean) => void,
@@ -16,9 +15,6 @@ const ComponentSwitcher = <T extends Object>({ isSwitching, setIsSwitching, comp
 	const [bufferIndex, setBufferIndex] = useState(index)
 
 	const isMobile = useMediaQuery("(max-width: 782px)")
-
-	const ctx = useConfigContext()
-
 	const ref = useRef<HTMLDivElement>(null)
 	const switchRef = useRef<HTMLDivElement>(null)
 
@@ -26,7 +22,7 @@ const ComponentSwitcher = <T extends Object>({ isSwitching, setIsSwitching, comp
 	const NextComponent = components[index]
 
 	useEffect(() => {
-		if (index == bufferIndex || isSwitching)
+		if (index < 0 || index > components.length || index == bufferIndex || isSwitching)
 			return
 
 		const tl = gsap.timeline()

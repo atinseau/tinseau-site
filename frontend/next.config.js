@@ -1,6 +1,6 @@
 const globalEnv = {
 	SERVER_ADDRESS: process.env.SERVER_ADDRESS,
-	SERVER_GRAPHQL: process.env.SERVER_GRAPHQL
+	SERVER_API: process.env.SERVER_API
 }
 
 /**
@@ -10,7 +10,7 @@ const nextConfig = {
 	reactStrictMode: false,
 	experimental: { images: { allowFutureImage: true } },
 	images: {
-		domains: [process.env.SERVER_IP, "placehold.it"]
+		domains: [process.env.SERVER_IP, "placehold.it", "s3.eu-west-3.amazonaws.com", "lh3.googleusercontent.com"],
 	},
 	publicRuntimeConfig: globalEnv,
 	serverRuntimeConfig: globalEnv

@@ -1,5 +1,5 @@
 .login__modal {
-	@apply absolute overflow-hidden top-0 left-0 bottom-0 right-0 opacity-0;
+	@apply absolute overflow-hidden top-0 left-0 h-screen opacity-0;
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0.801);
 
@@ -33,7 +33,7 @@
 			}
 
 			.login__form__group.contoller {
-				>div {
+				.basic__auth {
 					@apply flex flex-row mt-6 gap-4;
 
 					>* {
@@ -46,6 +46,26 @@
 					width: fit-content;
 					&:hover {
 						color: $main-color;
+					}
+				}
+
+				.google__auth {
+					padding: 16px 20px;
+					transition: all 0.3s ease-in-out;
+					@apply flex gap-4 items-center justify-center bg-black mt-2 cursor-pointer;
+
+					img {
+						width: 20px;
+					}
+
+					h4 {
+						@apply text-white;
+						font-family: $main-font;
+						font-size: 18px;
+					}
+
+					&:hover {
+						background-color: rgba(0, 0, 0, 0.493);
 					}
 				}
 			}

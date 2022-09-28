@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "../Library/Link"
 
-import { ChevronDownIcon } from "@heroicons/react/24/solid"
+import { HiChevronDown } from "react-icons/hi"
 import { useRouter } from "next/router"
 import useDropdown from "../../hooks/useDropdown"
 
@@ -19,7 +19,7 @@ const MenuItemWithSub: React.FC<Props> = ({ children, href, title }) => {
 	return router.pathname != href ? <li className={"menu__item sub__menu " + (href == router.pathname ? "active": "")}>
 		<Link href={href}>{title}</Link>
 		<>
-			<ChevronDownIcon onClick={toggle} />
+			<HiChevronDown onClick={toggle} />
 			{isOpen && <div ref={ref}>
 				{children}
 			</div>}

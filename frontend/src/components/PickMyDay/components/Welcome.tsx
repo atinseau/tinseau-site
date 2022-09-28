@@ -3,7 +3,7 @@ import Button from "../../Library/Button";
 import useOrderContext from "../hooks/useOrderContext";
 
 interface Props {
-	goToConfigurator: () => void
+	goToNext: () => void
 }
 
 const Welcome = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
@@ -12,7 +12,7 @@ const Welcome = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 
 	useEffect(() => {
 		if (ctx.orderType)
-			props.goToConfigurator()
+			props.goToNext()
 	}, [ctx.orderType])
 
 	return <div className="welcome" ref={ref}>

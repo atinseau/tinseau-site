@@ -16,7 +16,7 @@ const Configurator = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 	return ctx.orderType && <ConfigProvider>
 		<div className={"configurator " + (!props.isOnScreen ? "inital__state" : "")} ref={ref}>
 			<OptionPicker />
-			<OrderResume />
+			<OrderResume/>
 		</div>
 	</ConfigProvider>
 })

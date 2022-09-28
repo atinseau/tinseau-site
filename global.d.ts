@@ -18,11 +18,18 @@ type SerieFormat =
 	"s6 t7" |
 	"s4 t2"
 
-
+type TTDImage = {
+	id: string
+	title: string
+	description: string
+	url: string
+	identifier: string
+}
 
 type TTDOption = {
 	name: string
 	price: number
+	dechargeable?: "track_access" | "location" | "additionnal_driver"
 	settings: {
 		type: TTDOptionType
 		value: any
@@ -41,6 +48,7 @@ type TTDCar = {
 	id: string
 	name: string
 	description: string
+	images: TTDImage[]
 }
 
 type TTDLocation = {
@@ -79,6 +87,7 @@ type TTDCircuit = {
 	description: string
 	events: TTDEvent[]
 	options: TTDOption[]
+	logo: TTDImage
 }
 
 
@@ -92,7 +101,9 @@ type LoginData = {
 type User = {
 	id: string
 	email: string
-	username: string
+	created_at: Date
+	updated_at: Date
+	profil?: TTDImage
 }
 
 interface SortMode {

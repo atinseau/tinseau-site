@@ -1,5 +1,5 @@
 import { beforeDelete, column } from '@ioc:Adonis/Lucid/Orm'
-import BaseModelWithUuid from 'App/Functions/BaseModelWithUuid'
+import { BaseModelWithUuid } from 'App/Functions/ModelExtension'
 import Drive from "@ioc:Adonis/Core/Drive"
 
 export default class Image extends BaseModelWithUuid {
@@ -14,11 +14,15 @@ export default class Image extends BaseModelWithUuid {
 	public url: string
 
 	@column()
-	public identifier: string
+	public type: "s3" | "local" | "external"
+
+	@column()
+	public identifier?: string
 
 	@beforeDelete()
-	public static async deleteFile (image: Image) {
-		await Drive.delete(image.identifier)
+	public static async deleteFile(image: Image) {
+		if (image.type === "s3" && image.identifier)
+			await Drive.delete(image.identifier)
 	}
-
 }
+

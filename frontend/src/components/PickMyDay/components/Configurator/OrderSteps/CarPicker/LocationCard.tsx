@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react"
 import Image from "next/future/image";
 import Button from "src/components/Library/Button";
 
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { HiChevronDown } from "react-icons/hi";
 import useDropdown from "src/hooks/useDropdown";
 import { getEnvConfig } from "src/functions/getConfig";
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
@@ -31,6 +31,10 @@ const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 		}
 		return output
 	}, [])
+
+	useEffect(() => {
+		console.log(location)
+	}, [])
 	
 
 	const formatSeries = (serie: number, tours: number) => {
@@ -39,10 +43,10 @@ const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 		return `${serie} séries ${tours} tours`
 	}
 
-	const images = ["https://placehold.it/200x200", "https://placehold.it/200x200", "https://placehold.it/200x200"]
+	const images = location.car.images
 
 	return <div className="location__card">
-		<Image src={images[0]} width={200} height={200} />
+		<Image src={images[0].url} width={1920} height={1080} />
 		<div>
 			<div>
 				<div className="price">
@@ -53,7 +57,7 @@ const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 					<div>
 						<div className="format__dropdown" onClick={toggle}>
 							<p>{formatSeries(instances[serieId].serie, instances[serieId].tours)}</p>
-							<ChevronDownIcon />
+							<HiChevronDown />
 
 							{open && <ul ref={ref}>
 								{instances.map((instance, i) => <li key={i} onClick={() => setSerieId(i)}>

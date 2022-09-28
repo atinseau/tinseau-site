@@ -1,5 +1,5 @@
-import { AdjustmentsVerticalIcon, ArrowLongRightIcon, InformationCircleIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/solid"
-import React, { useEffect, useMemo } from "react"
+import { AdjustmentsVerticalIcon, ArrowLongRightIcon, ExclamationTriangleIcon, InformationCircleIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/solid"
+import React, { useMemo } from "react"
 import Button from "src/components/Library/Button"
 import Incrementer from "src/components/Library/Incrementer"
 import useOrderContext from "../../../../hooks/useOrderContext"
@@ -22,6 +22,10 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 		<div className="picker__header">
 			<h3>Ajouter des options</h3>
 			<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur quos vero, modi officia doloribus sapiente corrupti voluptates tempore asperiores aut dicta ex dolore iusto dolorem voluptatem, harum maiores. Quisquam, debitis!</p>
+			<p className="decharge">
+				<ExclamationTriangleIcon/>
+				Une décharge de responsabilité vous sera demandée pour certaines options
+			</p>
 		</div>
 
 		<div className="picker__container">
@@ -48,7 +52,11 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 			<ul>
 				{ctx.item?.order.type === "ttd" && <li>
 					<div>
-						<h4>Accés piste <span>{ctx.item.event.track_access.price}€</span></h4>
+						<h4>
+							<ExclamationTriangleIcon/>
+							Accés piste 
+							<span>{ctx.item.event.track_access.price}€</span>
+						</h4>
 						<Incrementer
 							count={ctx.item.order.track_access?.count || 0}
 							setCount={(e) => {

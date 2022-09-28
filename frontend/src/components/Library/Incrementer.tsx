@@ -1,4 +1,4 @@
-import { MinusIcon, PlusIcon } from "@heroicons/react/24/solid";
+import { HiMinus, HiPlus } from "react-icons/hi";
 import React from "react"
 import Button from "./Button";
 
@@ -26,13 +26,13 @@ const Incrementer: React.FC<Props> = ({ count, step = 1, setCount, max, min }) =
 
 	return <div className="incrementer">
 		<Button onClick={dec} variant={count == min ? "disabled": "primary"}>
-			<MinusIcon />
+			<HiMinus />
 		</Button>
 		<div className="result">
 			<p>{count}</p>
 		</div>
 		<Button onClick={inc} variant={count == max ? "disabled": "primary"}>
-			<PlusIcon />
+			<HiPlus />
 		</Button>
 	</div>
 }

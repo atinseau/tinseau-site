@@ -1,0 +1,53 @@
+.decharges {
+	@apply flex flex-col h-full;
+
+	.decharges__header {
+		h4 {
+			font-size: 26px;
+		}
+
+		p {
+			@apply text-gray-400;
+		}
+	}
+
+	.decharges__container {
+		@apply flex-1;
+	}
+
+	.decharges__footer {
+		@apply self-end;
+	}
+
+
+	&.new__one {
+		.decharges__container {
+			.decharges__type {
+				@apply mt-3;
+				>div:first-child {
+					@apply flex items-center gap-2;
+
+					h5 {
+						font-family: $main-font;
+						color: white;
+					}
+
+					p {
+						@apply flex gap-2 items-center cursor-pointer;
+						width: fit-content;
+						transition: all 0.3s ease-in-out;
+						padding: 3px 15px;
+						background-color: $main-color;
+						svg {
+							@apply w-5 h-5;
+						}
+
+						&:hover {
+							background-color: $second-color;
+						}
+					}
+				}
+			}
+		}
+	}
+}

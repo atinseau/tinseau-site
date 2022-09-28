@@ -1,6 +1,6 @@
 import React from "react"
 import Button from "../../Library/Button";
-import { ArrowRightIcon } from "@heroicons/react/24/solid";
+import { HiArrowRight } from "react-icons/hi";
 
 
 interface Props {
@@ -16,7 +16,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
 		<p>{event.description}</p>
 		<Button>
 			En savoir plus
-			<ArrowRightIcon />
+			<HiArrowRight />
 		</Button>
 	</div>
 }

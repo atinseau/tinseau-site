@@ -20,13 +20,32 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
+Route.post('/sign/callback', 'DechargesController.signCallback')
+
 Route.group(() => {
+
+	Route.group(() => {
+		Route.get('/', "UsersController.index")
+		Route.post('/register', "UsersController.register")
+		Route.post('/login', "UsersController.login")
+		Route.get('/google', "UsersController.google")
+		Route.get('/google/callback', "UsersController.googleCallback")
+
+		Route.delete('/', "UsersController.deleteAll")
+
+		Route.group(() => {
+			Route.get('/logout', "UsersController.logout")
+			Route.get('/me', "UsersController.me")
+		}).middleware('auth:api')
+
+	}).prefix('users')
 
 	Route.group(() => {
 		Route.get('/', 'CircuitsController.index')
 		Route.get('/events', 'CircuitsController.events')
 		Route.post('/create', 'CircuitsController.create')
 		Route.delete('/', 'CircuitsController.deleteAll')
+		Route.put('/:id', 'CircuitsController.update')
 	}).prefix('circuits')
 
 	Route.group(() => {
@@ -49,6 +68,7 @@ Route.group(() => {
 		Route.get('/', 'CarsController.index')
 		Route.post('/create', 'CarsController.create')
 		Route.delete('/', 'CarsController.deleteAll')
+		Route.put('/:id', "CarsController.update")
 	}).prefix('cars')
 
 	Route.group(() => {

@@ -1,8 +1,8 @@
 import getConfig from "next/config";
 
 type EnvConfig = {
-	SERVER_GRAPHQL: string
 	SERVER_ADDRESS: string
+	SERVER_API: string
 }
 
 function getEnvConfig(): EnvConfig {

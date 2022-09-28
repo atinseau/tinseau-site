@@ -19,7 +19,7 @@ const LocationPriceItem: React.FC<Props> = ({ orderItem, currentLocationId, even
 			return <li key={i} className="location__item">
 				<div>
 					<p>
-						{i === currentLocationId && orderItem.event.id === eventId && <span className="current__location" />}
+						{i === currentLocationId && orderItem.event.id === eventId && (orderItem.order.locations || []).length > 1 && <span className="current__location" />}
 						<span className="mr-1">{location.car.name}</span>
 						<span className="text-white">({
 							isExclusive ?

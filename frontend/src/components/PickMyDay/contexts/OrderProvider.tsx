@@ -7,6 +7,120 @@ interface Props {
 	children: React.ReactNode
 }
 
+// const defaultItems = [
+// 	{
+// 		"circuit": {
+// 			"id": "4d344d75-9e59-483b-8923-ddbacb82ce93",
+// 			"name": "Le mans bugatti",
+// 			"description": "lsdlkqs dlkq sldkq lskd qlksd",
+// 			"logo": {
+// 				"id": "53c48738-4429-422c-83ac-48bd20f65943",
+// 				"title": "Logo circuit",
+// 				"description": "Le mans buggatti",
+// 				"type": "s3",
+// 				"url": "https://s3.eu-west-3.amazonaws.com/tinseau-image/uploads/cl8ijifig0001x5jxa79y4nlv.png",
+// 				"identifier": "uploads/cl8ijifig0001x5jxa79y4nlv.png"
+// 			}
+// 		},
+// 		"event": {
+// 			"id": "5791ba48-4f05-4658-b1db-b9a403ce72ab",
+// 			"title": "Journée du 28 mars",
+// 			"date": "2022-09-15T22:00:00.000Z",
+// 			"description": "qlsdklqskdqsdlqsdlqskdlqksd",
+// 			"options": [
+// 				{
+// 					"name": "Accompagnateur",
+// 					"price": 100,
+// 					"settings": {
+// 						"type": "number",
+// 						"value": "0"
+// 					}
+// 				}
+// 			],
+// 			"circuit_id": "4d344d75-9e59-483b-8923-ddbacb82ce93",
+// 			"track_access": {
+// 				"id": "d106a62c-0406-47bb-be82-6f53f0de400f",
+// 				"places": 65,
+// 				"price": 550,
+// 				"options": [
+// 					{
+// 						"name": "Coach dédié",
+// 						"price": 200,
+// 						"settings": {
+// 							"type": "bool",
+// 							"value": "false"
+// 						}
+// 					}
+// 				],
+// 				"event_id": "5791ba48-4f05-4658-b1db-b9a403ce72ab"
+// 			},
+// 			"locations": [
+// 				{
+// 					"id": "64806f0d-b9df-4668-bc78-83a628a8515e",
+// 					"instances_amount": 5,
+// 					"max_instances": 5,
+// 					"exclusive_price": 5000,
+// 					"instance_price": 500,
+// 					"serie_format": "s4 t2",
+// 					"options": [
+// 						{
+// 							"name": "Pilote supplémentaire",
+// 							"price": 100,
+// 							"dechargeable": "additional_driver",
+// 							"settings": {
+// 								"type": "number",
+// 								"value": "0"
+// 							}
+// 						}
+// 					],
+// 					"event_id": "5791ba48-4f05-4658-b1db-b9a403ce72ab",
+// 					"car_id": "29d65ceb-86cf-4691-8bbd-8fb8d6c275e5",
+// 					"car": {
+// 						"id": "29d65ceb-86cf-4691-8bbd-8fb8d6c275e5",
+// 						"name": "bmw m3",
+// 						"description": "lqkdlqsldkqsl dklq sdlkq sd",
+// 						"images": [
+// 							{
+// 								"id": "96512882-7379-4f38-b0ce-be8b0445fe43",
+// 								"title": "Voiture de location",
+// 								"description": "Bmw m3",
+// 								"type": "s3",
+// 								"url": "https://s3.eu-west-3.amazonaws.com/tinseau-image/uploads/cl8ijsz0z000169jx8hx4ge7t.jpg",
+// 								"identifier": "uploads/cl8ijsz0z000169jx8hx4ge7t.jpg"
+// 							}
+// 						]
+// 					}
+// 				}
+// 			]
+// 		},
+// 		"order": {
+// 			"type": "location",
+// 			"options": [
+// 				{
+// 					"name": "Accompagnateur",
+// 					"type": "number",
+// 					"initalValue": "0",
+// 					"value": 0
+// 				}
+// 			],
+// 			"locations": [
+// 				{
+// 					"car_id": "29d65ceb-86cf-4691-8bbd-8fb8d6c275e5",
+// 					"instance_amount": 1,
+// 					"options": [
+// 						{
+// 							"name": "Pilote supplémentaire",
+// 							"type": "number",
+// 							"initalValue": "0",
+// 							"value": 2
+// 						}
+// 					]
+// 				}
+// 			]
+// 		}
+// 	}
+// ]
+
 
 const OrderProvider: React.FC<Props> = ({ children }) => {
 
@@ -21,7 +135,7 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 	const [currentItemId, setCurrentItemId] = useState<number>(-1)
 	const [currentLocationId, setCurrentLocationId] = useState<number>(-1)
 
-	const [orderType, setOrderType] = useState<OrderType | null>("location")
+	const [orderType, setOrderType] = useState<OrderType | null>(null)
 
 	const [circuits, setCircuits] = useCircuits()
 

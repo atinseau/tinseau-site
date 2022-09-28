@@ -1,9 +1,8 @@
 import Image from "next/future/image"
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useMemo, useState } from "react"
 
 import Button from "../../../../../Library/Button"
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext"
-import { getEnvConfig } from "src/functions/getConfig"
 
 interface Props {
 	onPick: (e: {circuit: TTDCircuit, event: TTDEvent}) => void
@@ -12,11 +11,9 @@ interface Props {
 
 const CircuitCard: React.FC<Props> = ({ onPick, circuit }) => {
 
-	
 	const [selectedEventId, setSelectedEventId] = useState(0)
-	
 	const ctx = useOrderContext()
-	
+
 	const selectedEvent = useMemo(() => {
 		let event = circuit.events.at(selectedEventId)
 		if (!event) {
@@ -27,12 +24,10 @@ const CircuitCard: React.FC<Props> = ({ onPick, circuit }) => {
 	}, [selectedEventId, circuit])
 
 	// placeholder logo
-	const logo = "https://placehold.it/200x200"
-
 	return <li className="circuit__card">
 
 		<div className="circuit__card__header">
-			<Image src={logo} width={100} height={100}/>
+			<Image src={circuit.logo.url} width={80} height={40}/>
 			<div className="info">
 				<h2>{circuit.name}</h2>
 				{ctx.orderType === "ttd"  && <p>{selectedEvent.track_access.places} places restantes</p>}

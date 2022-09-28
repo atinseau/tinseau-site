@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import React from "react"
 import Button from "../../Library/Button";
 
@@ -21,10 +21,10 @@ const CarouselController: React.FC = () => {
 		</div>
 		<div className="buttons">
 			<Button onClick={() => swiper.slidePrev()} className="left__button">
-				<ChevronLeftIcon/>
+				<HiChevronLeft/>
 			</Button>
 			<Button onClick={() => swiper.slideNext()}>
-				<ChevronRightIcon/>
+				<HiChevronRight/>
 			</Button>
 		</div>
 	</div>

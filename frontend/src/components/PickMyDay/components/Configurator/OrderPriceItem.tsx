@@ -29,7 +29,7 @@ const OrderPriceItem: React.FC<Props> = ({ orderItem, editMode, idx }) => {
 		<div className="order__price__item">
 			<div>
 				<h5>{orderItem.circuit.name}, <span>{orderItem.event.title}</span></h5>
-				{ctx.currentItemId === idx && <div className="current__order__item" />}
+				{ctx.currentItemId === idx && ctx.items.length > 1 && <div className="current__order__item" />}
 			</div>
 
 			{orderItem.order.type === "location" && <>

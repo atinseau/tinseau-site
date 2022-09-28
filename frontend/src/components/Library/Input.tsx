@@ -5,14 +5,15 @@ interface Props {
 	placeholder: string
 	name: string
 	id: string
+	variant?: "dark" | "light"
 	onChange?: (value: string) => void
 	value?: string
 }
 
-const Input: React.FC<Props> = ({ name, id, type, placeholder, value, onChange }) => {
+const Input: React.FC<Props> = ({ variant = "light", name, id, type, placeholder, value, onChange }) => {
 	return (<input 
 		type={type} 
-		className="textbox"
+		className={`textbox ${variant}`}
 		name={name}
 		id={id}
 		placeholder={placeholder}
