@@ -36,6 +36,11 @@ Route.group(() => {
 		Route.group(() => {
 			Route.get('/logout', "UsersController.logout")
 			Route.get('/me', "UsersController.me")
+
+			Route.group(() => {
+				Route.post('/new-session', 'CartsController.newSession')
+			}).prefix('cart')
+
 		}).middleware('auth:api')
 
 	}).prefix('users')

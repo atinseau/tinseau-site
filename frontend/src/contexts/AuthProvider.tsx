@@ -39,6 +39,10 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 		return !!user
 	}, [user])
 
+	const token = useMemo(() => {
+		return Cookie.get("token") || null
+	}, [user])
+
 	const getUser = async () => {
 		try {
 			const { data } = await axios.get(getEnvConfig().SERVER_API + "/users/me", {
@@ -138,6 +142,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 		isLoading,
 		isAuth,
 		user,
+		token,
 		logout,
 		toggleLoginModal
 	}}>

@@ -1,5 +1,7 @@
 import { Cog6ToothIcon, CreditCardIcon, LockClosedIcon, TrashIcon } from "@heroicons/react/24/solid";
+import axios from "axios";
 import React, { useEffect, useState } from "react"
+import { getEnvConfig } from "src/functions/getConfig";
 import useAuthContext from "src/hooks/useAuthContext";
 import useErrorContext from "src/hooks/useErrorContext";
 import Button from "../../../Library/Button";
@@ -9,7 +11,7 @@ import OrderBilling from "../Billing";
 import OrderPriceItem from "./OrderPriceItem";
 
 interface Props {
-	
+
 }
 
 const OrderResume: React.FC<Props> = () => {
@@ -83,7 +85,16 @@ const OrderResume: React.FC<Props> = () => {
 					return
 				}
 
-				setOpenBilling(true)
+				console.log(ctx.items)
+				
+				axios.post(getEnvConfig().SERVER_API + "/users/cart/new-session", ctx.items, {
+					headers: {
+						"Authorization": `Bearer ${authCtx.token}`
+					}
+				}).then((res) => {
+					console.log(res)
+					setOpenBilling(true)
+				})
 			}}>
 				Continuer
 				{!canPay() ? <LockClosedIcon /> : <CreditCardIcon />}
@@ -91,7 +102,7 @@ const OrderResume: React.FC<Props> = () => {
 		</div>
 
 
-		{openBilling && <OrderBilling close={() => setOpenBilling(false)}/>}
+		{openBilling && <OrderBilling close={() => setOpenBilling(false)} />}
 	</div>
 }
 

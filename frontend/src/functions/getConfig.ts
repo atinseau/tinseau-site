@@ -12,6 +12,7 @@ function getEnvConfig(): EnvConfig {
 	return config.publicRuntimeConfig;
 }
 
+
 export {
 	getEnvConfig
 }

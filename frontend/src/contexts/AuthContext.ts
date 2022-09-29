@@ -8,6 +8,7 @@ interface IAuthContext {
 	isAuth: boolean
 	isLoading: boolean
 	user: User | null
+	token: string | null
 }
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext)

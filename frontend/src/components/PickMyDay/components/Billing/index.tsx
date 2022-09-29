@@ -71,6 +71,8 @@ const OrderBilling: React.FC<Props> = ({ close }) => {
 				<h4>Décharge de responsabilité</h4>
 				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum neque officiis hic quisquam recusandae omnis, distinctio consectetur laudantium vel eos excepturi dolore porro non voluptate atque odio! Culpa, ea vero?</p>
 
+				<p className="counter">Vos places seront reservé pendent encore {new Date().getMinutes()}min !</p>
+
 				<h5>Votre décharge est pour un(e) ?</h5>
 				<ul>
 					{dechargeableItems.map((item, index) => <li onClick={() => setSelectedDechargeableItem(index)} key={index} className={selectedDechargeableItem === index ? "selected": ""}>
