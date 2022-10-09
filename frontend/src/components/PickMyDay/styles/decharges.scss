@@ -1,0 +1,145 @@
+.order__decharges {
+
+	@apply absolute top-0 left-0 flex items-center justify-center h-full w-full;
+
+	z-index: 1;
+	background-color: rgba(0, 0, 0, 0.801);
+	opacity: 0;
+
+	.decharges__container {
+		@apply bg-gray-800 flex flex-col;
+
+		transform: translateY(calc(100vh + 100%));
+
+		min-height: 600px;
+
+		.decharges__header {
+			background-color: $main-color;
+			color: black;
+			font-family: $main-font;
+			font-size: 18px;
+			@apply p-2;
+		}
+
+		.decharges__body {
+
+			@apply flex flex-row flex-1;
+
+			h4 {
+				font-size: 24px;
+				font-family: $main-font;
+				color: white;
+			}
+
+
+			.left {
+				@apply p-4 flex-1 flex flex-col;
+
+				p {
+					@apply text-gray-400;
+					font-size: 12px;
+					width: calc(500px - 2rem);
+
+					&.counter {
+						@apply mt-2 font-bold;
+
+						span {
+							@apply text-green-600;
+						}
+					}
+				}
+
+				h5 {
+					margin-top: 10px;
+					font-size: 18px;
+					font-family: $main-font;
+					color: white;
+				}
+
+				ul {
+					@apply flex gap-2 mt-2;
+
+					li {
+						@apply rounded-full bg-gray-900 text-gray-300 cursor-pointer border-gray-600 border-[1px];
+						padding: 2px 10px;
+						font-size: 14px;
+						transition: all 0.3s ease-in-out;
+
+						&.selected,
+						&:hover {
+							background-color: $main-color;
+							color: black;
+						}
+					}
+				}
+
+				.decharges__list {
+					@apply flex-1 flex items-center justify-center;
+
+					.no__decharges {
+						@apply flex items-center flex-col;
+
+						h5 {
+							font-family: Arial, Helvetica, sans-serif;
+							font-size: 16px;
+							@apply text-gray-400 mb-2;
+						}
+
+						button {
+							padding: 8px 12px;
+							font-size: 15px;
+						}
+					}
+				}
+			}
+
+			.right {
+				@apply my-4 px-4 border-gray-600 border-l-[1px];
+				min-width: 200px;
+
+				.event__list {
+					@apply flex flex-col gap-4 mt-2;
+					li {
+						@apply flex flex-row justify-between gap-8;
+
+						>div {
+							h5 {
+								@apply text-gray-400;
+								font-size: 14px;
+
+								.current {
+									@apply rounded-full;
+									content: "";
+									display: inline-block;
+									width: 10px;
+									height: 10px;
+									background-color: $main-color;
+								}
+							}
+
+							h6 {
+								@apply text-gray-500;
+								font-size: 12px;
+							}
+						}
+
+						button {
+							padding: 4px 5px;
+							height: fit-content;
+							font-size: 14px;
+						}
+					}
+				}
+			}
+		}
+
+		.decharges__footer {
+			@apply px-4 pb-4;
+
+			button {
+				padding: 4px 12px;
+				font-size: 15px;
+			}
+		}
+	}
+}

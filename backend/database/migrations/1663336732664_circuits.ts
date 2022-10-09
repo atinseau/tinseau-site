@@ -11,7 +11,7 @@ export default class extends BaseSchema {
 			table.text('description').notNullable()
 			table
 				.uuid('logo_id')
-				.references('images.id')
+				.references('files.id')
 				.onDelete('SET NULL')
 		})
 	}

@@ -7,6 +7,7 @@
 
 .nav__bar .auth__menu {
 	@apply relative;
+	z-index: 1;
 
 	>div {
 		@apply cursor-pointer flex items-center gap-4;

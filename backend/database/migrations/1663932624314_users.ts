@@ -14,7 +14,7 @@ export default class UsersSchema extends BaseSchema {
 
 			table
 				.uuid('profil_id')
-				.references('images.id')
+				.references('files.id')
 				.onDelete('SET NULL')
 			
 			table.timestamp('created_at', { useTz: true }).notNullable()

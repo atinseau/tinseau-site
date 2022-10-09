@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import getConfig from "next/config";
 
 type EnvConfig = {
@@ -12,7 +13,15 @@ function getEnvConfig(): EnvConfig {
 	return config.publicRuntimeConfig;
 }
 
+const headers = () => {
+	return {
+		headers: {
+			Authorization: "Bearer " + Cookies.get("token")
+		}
+	}
+}
 
 export {
+	headers,
 	getEnvConfig
 }

@@ -3,7 +3,7 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import { createNameDescValidation, imageOptionalValidation, imageRequiredValidation, updateNameDescValidation } from 'App/Functions/validators'
 
 import Circuit from "App/Models/Circuit"
-import Image from 'App/Models/Image'
+import File from 'App/Models/File'
 
 export default class CircuitsController {
 	public async index() {
@@ -27,7 +27,7 @@ export default class CircuitsController {
 		const newCircuitCreateSchema = schema.create({...createNameDescValidation, ...imageRequiredValidation})
 		const {image: imageId, ...body} = await ctx.request.validate({ schema: newCircuitCreateSchema })
 		const circuit = await Circuit.create(body)
-		const image = await Image.find(imageId)
+		const image = await File.find(imageId)
 
 		if (!image) {
 			await circuit.delete()
@@ -52,7 +52,7 @@ export default class CircuitsController {
 		if (body.description) circuit.description = body.description
 		if (body.image) {
 			await circuit.related('logo').dissociate()
-			const image = await Image.find(body.image)
+			const image = await File.find(body.image)
 			if (!image) {
 				ctx.response.notFound({
 					message: "Image not found"

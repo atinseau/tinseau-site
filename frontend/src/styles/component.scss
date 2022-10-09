@@ -36,6 +36,14 @@
 		cursor: not-allowed;
 	}
 
+	.btn-danger {
+		@apply bg-red-500 text-white;
+
+		&:hover {
+			@apply bg-red-600;
+		}
+	}
+
 
 
 
@@ -67,18 +75,34 @@
 
 
 	.textbox {
-		@apply bg-gray-800 text-white p-2;
+		@apply bg-gray-900 text-white p-2;
 
 		&:focus {
-			@apply outline-none bg-gray-800;
+			@apply outline-none;
+		}
+
+		&.bright {
+			@apply bg-gray-800;
+			&:focus, &:hover {
+				@apply bg-gray-700;
+			}
 		}
 
 		&.dark {
-			@apply bg-gray-900;
 
-			&:focus {
-				@apply outline-none bg-black;
+			&:focus,
+			&:hover {
+				@apply bg-black;
+			}
+		}
+
+		&.light {
+
+			&:focus,
+			&:hover {
+				@apply bg-gray-700 #{!important};
 			}
 		}
 	}
+
 }

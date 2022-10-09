@@ -59,14 +59,13 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
 	useEffect(() => {
 		(async () => {
-
-			console.log(Cookie.get('token'))
-
-			if (Cookie.get("token"))
+			if (Cookie.get("token") && !user)
 				await getUser()
+			else if (!Cookie.get("token") && user)
+				setUser(null)
 			setIsLoading(false)
 		})()
-	}, [])
+	}, [router])
 
 	const toggleLoginModal = (mode: AuthMode) => setModal({ mode, open: !modal.open })
 

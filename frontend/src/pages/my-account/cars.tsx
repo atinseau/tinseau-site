@@ -1,10 +1,11 @@
 import AccountWrapper from "src/components/MyAccount/AccountWrapper";
+import Cars from "src/components/MyAccount/Cars";
 
 
-const Cars = () => {
+const CarsPage = () => {
 	return <AccountWrapper title="Mes voitures">
-		<h1>My cars</h1>
+		<Cars/>
 	</AccountWrapper>
 }
 
-export default Cars;
+export default CarsPage;

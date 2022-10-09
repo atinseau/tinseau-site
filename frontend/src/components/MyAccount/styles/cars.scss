@@ -1,0 +1,49 @@
+.cars {
+	@apply flex flex-col h-full;
+
+	.cars__header {
+		h4 {
+			font-size: 26px;
+		}
+
+		p {
+			@apply text-gray-400;
+		}
+	}
+
+	.cars__container {
+		@apply flex-1;
+	}
+
+	&.list {
+		.cars__footer {
+			@apply self-end;
+		}
+	}
+
+	&.new__one {
+		.cars__container {
+			@apply flex flex-col gap-4;
+
+			.cars__form {
+				@apply grid grid-cols-2 gap-4 mt-6;
+
+				.form__group {
+					h5 {
+						@apply text-gray-400 mb-1;
+						font-size: 14px;
+					}
+				}
+			}
+		}
+
+		.cars__footer {
+			@apply flex justify-between;
+
+			>button svg {
+				@apply w-5 h-5;
+			}
+		}
+	}
+
+}

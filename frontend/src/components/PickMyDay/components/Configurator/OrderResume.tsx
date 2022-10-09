@@ -1,13 +1,12 @@
 import { Cog6ToothIcon, CreditCardIcon, LockClosedIcon, TrashIcon } from "@heroicons/react/24/solid";
-import axios from "axios";
 import React, { useEffect, useState } from "react"
-import { getEnvConfig } from "src/functions/getConfig";
+import { VscLoading } from "react-icons/vsc";
 import useAuthContext from "src/hooks/useAuthContext";
 import useErrorContext from "src/hooks/useErrorContext";
 import Button from "../../../Library/Button";
 import useConfigContext from "../../hooks/useConfigContext";
 import useOrderContext from "../../hooks/useOrderContext";
-import OrderBilling from "../Billing";
+import OrderDecharges from "../Decharges";
 import OrderPriceItem from "./OrderPriceItem";
 
 interface Props {
@@ -16,12 +15,12 @@ interface Props {
 
 const OrderResume: React.FC<Props> = () => {
 
+	const [loading, setLoading] = useState(false)
+
 	const ctx = useOrderContext()
 	const configCtx = useConfigContext()
 	const errorCtx = useErrorContext()
 	const authCtx = useAuthContext()
-
-	const [openBilling, setOpenBilling] = useState(false)
 
 	const [editMode, setEditMode] = useState(false)
 	const [startDeleting, setStartDeleting] = useState(false)
@@ -85,24 +84,23 @@ const OrderResume: React.FC<Props> = () => {
 					return
 				}
 
-				console.log(ctx.items)
-				
-				axios.post(getEnvConfig().SERVER_API + "/users/cart/new-session", ctx.items, {
-					headers: {
-						"Authorization": `Bearer ${authCtx.token}`
-					}
-				}).then((res) => {
-					console.log(res)
-					setOpenBilling(true)
+				setLoading(true)
+				ctx.startStockSession(() => {
+					setLoading(false)
+					ctx.setOpenDechargeDialog(true)
 				})
 			}}>
-				Continuer
-				{!canPay() ? <LockClosedIcon /> : <CreditCardIcon />}
+				{!loading ? <>
+					Continuer
+					{!canPay() ? <LockClosedIcon /> : <CreditCardIcon />}
+				</> : <VscLoading className="animate-spin" />}
 			</Button>
 		</div>
 
 
-		{openBilling && <OrderBilling close={() => setOpenBilling(false)} />}
+		{ctx.openDechargeDialog && <OrderDecharges
+			close={() => ctx.setOpenDechargeDialog(false)}
+		/>}
 	</div>
 }
 

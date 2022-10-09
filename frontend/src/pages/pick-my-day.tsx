@@ -3,7 +3,6 @@ import Wrapper from "../components/Wrapper"
 import Welcome from "../components/PickMyDay/components/Welcome";
 import Configurator from "../components/PickMyDay/components/Configurator";
 import useConfiguratorAnimation from "../components/PickMyDay/hooks/useConfiguratorAnimation";
-import OrderBilling from "src/components/PickMyDay/components/Billing";
 
 const GetMyDay = () => {
 

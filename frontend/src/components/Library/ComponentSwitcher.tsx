@@ -1,4 +1,4 @@
-import gsap from "gsap"
+import { gsap } from "gsap"
 import React, { useEffect, useRef, useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
 
@@ -75,6 +75,23 @@ const ComponentSwitcher = <T extends Object>({ isSwitching, setIsSwitching, comp
 			<NextComponent {...{ ...props, mounted: false }} />
 		</div>}
 	</div>
+}
+
+
+const useSwitcher = (initialState: number) => {
+	const [isSwitching, setIsSwitching] = useState(false)
+	const [index, setIndex] = useState(initialState)
+
+	return {
+		isSwitching,
+		setIsSwitching,
+		index,
+		setIndex
+	}
+}
+
+export {
+	useSwitcher
 }
 
 export default ComponentSwitcher;

@@ -10,6 +10,7 @@
   ],
   "compilerOptions": {
     "outDir": "build",
+	"jsx": "react",
     "rootDir": "./",
     "sourceMap": true,
     "paths": {

@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BelongsTo, belongsTo, beforeDelete } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, BelongsTo, belongsTo, beforeDelete, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import { BaseModelWithUuid } from 'App/Functions/ModelExtension'
-import Image from './Image'
+import File from './File'
+import Decharge from './Decharge'
 
 export default class User extends BaseModelWithUuid {
 	@column()
@@ -19,14 +20,18 @@ export default class User extends BaseModelWithUuid {
 	@column()
 	public profil_id: string
 
-	@belongsTo(() => Image, { foreignKey: "profil_id" })
-	public profil: BelongsTo<typeof Image>
+	@belongsTo(() => File, { foreignKey: "profil_id" })
+	public profil: BelongsTo<typeof File>
 
 	@column.dateTime({ autoCreate: true })
 	public createdAt: DateTime
 
 	@column.dateTime({ autoCreate: true, autoUpdate: true })
 	public updatedAt: DateTime
+
+
+	@hasMany(() => Decharge, { foreignKey: "user_id" })
+	public decharges: HasMany<typeof Decharge>
 
 	@beforeSave()
 	public static async hashPassword(User: User) {
@@ -37,7 +42,7 @@ export default class User extends BaseModelWithUuid {
 
 	@beforeDelete()
 	public static async deleteProfil(user: User) {
-		const profil = await Image.find(user.profil_id)
+		const profil = await File.find(user.profil_id)
 		if (profil) await profil.delete()
 	}
 

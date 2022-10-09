@@ -5,10 +5,12 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"start": "next start"
+		"start": "next start",
+		"analyse": "ANALYZE=true yarn build"
 	},
 	"dependencies": {
 		"@heroicons/react": "^2.0.11",
+		"@next/bundle-analyzer": "^12.3.1",
 		"@types/js-cookie": "^3.0.2",
 		"axios": "^0.27.2",
 		"graphql": "^16.6.0",
@@ -19,6 +21,7 @@
 		"react-dom": "18.2.0",
 		"react-hook-form": "^7.35.0",
 		"react-icons": "^4.4.0",
+		"react-sketch-canvas": "^6.2.0",
 		"sharp": "^0.31.0",
 		"socket.io-client": "^4.5.2",
 		"swiper": "^8.3.2",

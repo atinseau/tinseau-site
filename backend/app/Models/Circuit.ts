@@ -1,7 +1,7 @@
 import { BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import { BaseModelWithUuid } from 'App/Functions/ModelExtension'
 import Event from './Event'
-import Image from './Image'
+import File from './File'
 
 export default class Circuit extends BaseModelWithUuid {
 
@@ -19,6 +19,6 @@ export default class Circuit extends BaseModelWithUuid {
 	@column({ serializeAs: null })
 	public logo_id?: string
 	
-	@belongsTo(() => Image, { foreignKey: "logo_id" })
-	public logo: BelongsTo<typeof Image>
+	@belongsTo(() => File, { foreignKey: "logo_id" })
+	public logo: BelongsTo<typeof File>
 }

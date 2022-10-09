@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
-import gsap from "gsap"
+import {gsap} from "gsap"
 
-const useBillingOpen = (close: () => void) => {
+const useDechargesOpen = (close: () => void) => {
 
 	const containerRef = useRef<HTMLDivElement>(null)
 	const modalRef = useRef<HTMLDivElement>(null)
@@ -27,6 +27,8 @@ const useBillingOpen = (close: () => void) => {
 		}, "-=0.3")
 
 		tl.play()
+
+		return () => document.body.removeAttribute('style')
 	}, [])
 
 	const handleClose = () => {
@@ -49,4 +51,4 @@ const useBillingOpen = (close: () => void) => {
 }
 
 
-export default useBillingOpen;
+export default useDechargesOpen;

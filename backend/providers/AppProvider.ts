@@ -14,8 +14,11 @@ export default class AppProvider {
 
 	public async ready() {
 		if (this.app.environment === "web") {
-			const socket = (await import('App/Services/socket')).default
-			socket.boot()
+			const webSocket = (await import('App/Services/WebSocket')).default
+			const stockTracker = (await import('App/Services/StockTracker')).default
+			
+			webSocket.boot()
+			stockTracker.boot()
 		}
 	}
 

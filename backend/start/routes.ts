@@ -20,8 +20,6 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.post('/sign/callback', 'DechargesController.signCallback')
-
 Route.group(() => {
 
 	Route.group(() => {
@@ -38,10 +36,22 @@ Route.group(() => {
 			Route.get('/me', "UsersController.me")
 
 			Route.group(() => {
-				Route.post('/new-session', 'CartsController.newSession')
+				Route.post('/new-stock-session', 'CartsController.newStockSession')
+				Route.get('/stock-session', 'CartsController.getStockSession')
+				Route.get('/all-stock-session', 'CartsController.getAllStockSessions')
+				Route.delete('/stock-session', 'CartsController.deleteStockSession')
 			}).prefix('cart')
 
+			Route.group(() => {
+				Route.post('/download', 'DechargesController.downloadDecharge')
+				Route.post('/create', 'DechargesController.createDecharge')
+				Route.get('/', 'DechargesController.index')
+			}).prefix('decharges')
+
 		}).middleware('auth:api')
+
+		Route.get('/decharges/all', 'DechargesController.all')
+		Route.delete('/decharges/all', 'DechargesController.deleteAll')
 
 	}).prefix('users')
 
@@ -77,9 +87,9 @@ Route.group(() => {
 	}).prefix('cars')
 
 	Route.group(() => {
-		Route.get('/', 'ImagesController.index')
-		Route.post('/create', 'ImagesController.create')
-		Route.delete('/', 'ImagesController.deleteAll')
-	}).prefix('images')
+		Route.get('/', 'FilesController.index')
+		Route.post('/create', 'FilesController.create')
+		Route.delete('/', 'FilesController.deleteAll')
+	}).prefix('files')
 
 }).prefix('api/v1')

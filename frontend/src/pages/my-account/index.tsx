@@ -2,7 +2,6 @@ import AccountWrapper from "src/components/MyAccount/AccountWrapper";
 import useAuthContext from "src/hooks/useAuthContext";
 
 import User from "public/images/user.jpg"
-import { GetServerSideProps } from "next";
 import { useMemo } from "react";
 import Input from "src/components/Library/Input";
 import Image from "next/future/image";
@@ -16,27 +15,22 @@ const MyAccount = () => {
 	const logo = useMemo(() => {
 		if (!authCtx.user || !authCtx.user.profil)
 			return User
-		return authCtx.user.profil.url 
+		return authCtx.user.profil.url
 	}, [authCtx.user])
 
 	return <AccountWrapper title="Mes informations" className="informations">
-		
+
 		<div className="global">
 			<h3>Vos informations</h3>
 			<div className="group">
 				<div>
 					<h4>Nom d'utilisateur</h4>
-					<Input
-						
-						variant="dark"
-					/>
+					<Input />
 				</div>
 
 				<div>
 					<h4>Date de naissance</h4>
-					<Input
-						variant="dark"
-					/>
+					<Input />
 				</div>
 			</div>
 		</div>
@@ -46,23 +40,17 @@ const MyAccount = () => {
 			<div className="group">
 				<div>
 					<h4>Ville</h4>
-					<Input
-						variant="dark"
-					/>
+					<Input />
 				</div>
 
 				<div>
 					<h4>Adresse</h4>
-					<Input
-						variant="dark"
-					/>
+					<Input />
 				</div>
 
 				<div>
 					<h4>Code postal</h4>
-					<Input
-						variant="dark"
-					/>
+					<Input />
 				</div>
 
 			</div>
@@ -88,21 +76,21 @@ const MyAccount = () => {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-	const { token } = ctx.req.cookies
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+// 	const { token } = ctx.req.cookies
 
-	if (!token) {
-		return {
-			redirect: {
-				destination: '/',
-				permanent: false
-			}
-		}
-	}
+// 	if (!token) {
+// 		return {
+// 			redirect: {
+// 				destination: '/',
+// 				permanent: false
+// 			}
+// 		}
+// 	}
 
-	return {
-		props: {}
-	}
-}
+// 	return {
+// 		props: {}
+// 	}
+// }
 
 export default MyAccount;

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import Image from "next/future/image"
 
-import gsap from "gsap"
+import { gsap } from "gsap"
 import { AuthMode } from "src/contexts/AuthContext";
 
 import googleIcon from "public/images/google.png"
@@ -70,17 +70,17 @@ const LoginModal: React.FC<Props> = ({ modal, signWithGoogle, toggle, sendAuthPa
 
 				<div className="login__form__group my-4">
 					<label htmlFor="email">Email</label>
-					<input autoComplete="email" id="email" type="email" className="textbox" {...register('email', { required: true })} />
+					<input autoComplete="email" id="email" type="email" className="textbox bright" {...register('email', { required: true })} />
 				</div>
 
 				{registerMode && <div className="login__form__group my-4">
 					<label htmlFor="username">{"Nom d'utilisateur"}</label>
-					<input autoComplete="username" id="username" type="text" className="textbox" {...register('username', { required: true })} />
+					<input autoComplete="username" id="username" type="text" className="textbox bright" {...register('username', { required: true })} />
 				</div>}
 
 				<div className="login__form__group">
 					<label htmlFor="password">Mot de passe</label>
-					<input id="password" type="password" className="textbox" {...register('password', { required: true })} />
+					<input id="password" type="password" className="textbox bright" {...register('password', { required: true })} />
 				</div>
 
 				<div className="login__form__group contoller">

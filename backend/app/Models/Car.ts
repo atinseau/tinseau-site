@@ -1,7 +1,7 @@
 import { beforeDelete, column, HasMany, hasMany, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import { BaseModelWithUuid } from 'App/Functions/ModelExtension'
 
-import Image from './Image'
+import File from './File'
 import Location from './Location'
 
 export default class Car extends BaseModelWithUuid {
@@ -15,12 +15,12 @@ export default class Car extends BaseModelWithUuid {
 	@hasMany(() => Location, { foreignKey: "car_id" })
 	public locations: HasMany<typeof Location>
 
-	@manyToMany(() => Image, {
+	@manyToMany(() => File, {
 		pivotForeignKey: "related_id",
-		pivotRelatedForeignKey: "image_id",
-		pivotTable: "morph_images"
+		pivotRelatedForeignKey: "file_id",
+		pivotTable: "morph_files"
 	})
-	public images: ManyToMany<typeof Image>
+	public images: ManyToMany<typeof File>
 
 	@beforeDelete()
 	public static async detachImages(car: Car) {

@@ -44,7 +44,7 @@ const AccountWrapper: React.FC<Props> = ({ children, title, className }) => {
 		<div className={"account__container"}>
 			<div className="menu__account">
 				<ul>
-					{links.map((link, index) => <li onClick={() => router.push(link.href)} key={index} className={router.asPath === link.href ? "selected": ""}>
+					{links.map((link, index) => <li onClick={() => router.push(link.href)} key={index} className={router.asPath.split('?')[0] === link.href ? "selected": ""}>
 						{React.createElement(link.logo, {})}
 						<a>{link.name}</a>
 					</li>)}					

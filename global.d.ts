@@ -1,5 +1,7 @@
 type With<T, U> = T & U
 
+type ReactDispatch<T> = React.Dispatch<React.SetStateAction<T>>
+
 type OrderType =
 	"location" |
 	"ttd"
@@ -8,7 +10,7 @@ type OrderOptionType =
 	"track_access" |
 	"location" |
 	"global"
-	
+
 type TTDOptionType =
 	"bool" |
 	"number"
@@ -17,6 +19,11 @@ type SerieFormat =
 	"s3 t4" |
 	"s6 t7" |
 	"s4 t2"
+
+type DechargeType =
+	"track_access" |
+	"location" |
+	"additionnal_driver"
 
 type TTDImage = {
 	id: string
@@ -29,7 +36,7 @@ type TTDImage = {
 type TTDOption = {
 	name: string
 	price: number
-	dechargeable?: "track_access" | "location" | "additionnal_driver"
+	dechargeable?: DechargeType
 	settings: {
 		type: TTDOptionType
 		value: any
@@ -136,3 +143,27 @@ type OrderItem = {
 }
 
 
+
+type CartPayload = {
+	ttd: OrderItem[]
+}
+
+type Tracker = {
+	id: string
+	type: "location" | "track_access"
+	hold: number
+}
+
+type StockSession = {
+	remainingTime: string
+	trackers: Tracker[]
+	items: OrderItem[]
+}
+
+
+
+type DechargeBuilder = {
+	type: DechargeType
+	data?: any
+	signature?: Buffer
+}

@@ -2,7 +2,7 @@ import { ExclamationTriangleIcon, InformationCircleIcon, ShieldCheckIcon, Shield
 import React, { forwardRef, useEffect, useRef, useState } from "react"
 import ErrorContext, {IError} from "./ErrorContext";
 
-import gsap from "gsap"
+import {gsap} from "gsap"
 import { useMediaQuery } from "usehooks-ts";
 
 interface Props {

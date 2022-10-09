@@ -1,19 +1,80 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import DechargesGenerator from 'App/Services/Decharges'
+
+import Drive from "@ioc:Adonis/Core/Drive"
+
+import { schema } from "@ioc:Adonis/Core/Validator"
+
+import sharp from "sharp"
+import { optimize, OptimizedSvg } from 'svgo'
+import Decharge from 'App/Models/Decharge'
+import File from 'App/Models/File'
 
 export default class DechargesController {
 
-	static readonly types = ["track_access", "location", "additional_driver"]
-
-	public async index() {
-		
+	public async all() {
+		return await Decharge.query()
+			.preload('file')
 	}
 
-	public async myDecharges() {
+	public async index(ctx: HttpContextContract) {
+		const user = ctx.auth.user
+		const decharges = await user?.related('decharges')
+			.query()
+			.preload('file')
 
+		return decharges
 	}
 
-	public signCallback() {
-		return "ok"
+
+	public async createDecharge(ctx: HttpContextContract) {
+		const user = ctx.auth.user!
+		const body = await DechargesGenerator.validate(ctx.request.body())
+
+		const svg = (optimize(body.signature, { multipass: true }) as OptimizedSvg)
+			.data.replace(' style="width:100%;height:100%"', '')
+
+		const buffer = await DechargesGenerator.createDecharge({
+			...body,
+			signature: await sharp(Buffer.from(svg)).png().trim().toBuffer()
+		})
+
+		const decharge = await user.related('decharges').create({
+			type: body.type,
+			data: body.data
+		})
+
+		const dechargeIdentifier = (new Date().getTime() + " " + body.data.fullname).replace(/ /g, "_").toLowerCase() + ".pdf"
+		const bucket = Drive.use('s3').bucket("tinseau-decharge")
+
+		await bucket.put(dechargeIdentifier, buffer)
+
+		const file = await File.create({
+			url: await bucket.getUrl(dechargeIdentifier),
+			description: "Decharge: " + body.data.fullname,
+			title: "Decharge de responsabilité",
+			metadata: {
+				drive: "s3",
+				type: "pdf",
+				bucket: "tinseau-decharge",
+				identifier: dechargeIdentifier
+			}
+		})
+
+		await decharge.related('file').associate(file)
+		return decharge
 	}
 
+	public async downloadDecharge(ctx: HttpContextContract) {
+		const buffer = await DechargesGenerator.createDecharge({
+			type: "additionnal_driver"
+		})
+		ctx.response.header("Content-Type", "application/pdf")
+		return buffer
+	}
+
+	public async deleteAll() {
+		return (await Decharge.all())
+			.map((decharge) => decharge.delete())
+	}
 }

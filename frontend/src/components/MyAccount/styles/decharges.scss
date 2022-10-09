@@ -16,36 +16,95 @@
 	}
 
 	.decharges__footer {
-		@apply self-end;
+		@apply flex justify-between;
+
+		>button svg {
+			@apply w-5 h-5;
+		}
+
+		>div {
+			@apply self-end flex flex-row gap-2;
+		}
+	}
+
+	&.list {
+		.decharges__footer {
+			@apply self-end;
+		}
 	}
 
 
 	&.new__one {
 		.decharges__container {
+			@apply flex flex-col gap-4 mt-6;
+
 			.decharges__type {
-				@apply mt-3;
-				>div:first-child {
-					@apply flex items-center gap-2;
+
+				>div,
+				ul {
+					@apply flex flex-row gap-4;
+				}
+
+				ul {
+					@apply gap-2;
+
+					li {
+						@apply cursor-pointer bg-gray-900 text-gray-300 rounded-full items-center justify-center px-2;
+						font-size: 14px;
+						line-height: 23px;
+						transition: all 0.3s ease-in-out;
+
+						&.selected,
+						&:hover {
+							color: black;
+							background-color: $main-color;
+						}
+					}
+				}
+
+				h5 {
+					@apply text-white;
+					font-family: $main-font;
+					font-size: 18px;
+				}
+			}
+
+			.decharges__form {
+				@apply grid grid-cols-2 gap-4;
+
+				.form__group {
+					h5 {
+						@apply text-gray-400 mb-1;
+						font-size: 14px;
+					}
+				}
+			}
+
+			.decharges__signature {
+				@apply mt-4 mb-6 flex flex-1 flex-col;
+
+				.h {
+					@apply flex flex-row justify-between items-center mb-2;
 
 					h5 {
+						@apply text-white;
+						font-size: 28px;
+						line-height: 28px;
 						font-family: $main-font;
-						color: white;
 					}
 
-					p {
-						@apply flex gap-2 items-center cursor-pointer;
-						width: fit-content;
-						transition: all 0.3s ease-in-out;
-						padding: 3px 15px;
-						background-color: $main-color;
+					.trash {
+						@apply bg-red-500 text-white p-2 cursor-pointer;
+
 						svg {
 							@apply w-5 h-5;
 						}
-
-						&:hover {
-							background-color: $second-color;
-						}
 					}
+				}
+
+				.canvas {
+					@apply border-none #{!important};
+					min-height: 300px;
 				}
 			}
 		}

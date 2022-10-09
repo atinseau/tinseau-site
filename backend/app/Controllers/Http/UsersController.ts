@@ -3,8 +3,8 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
 
 import { schema, rules } from "@ioc:Adonis/Core/Validator"
-import socket from 'App/Services/socket'
-import Image from 'App/Models/Image'
+import socket from 'App/Services/WebSocket'
+import File from 'App/Models/File'
 
 export default class UsersController {
 
@@ -110,11 +110,14 @@ export default class UsersController {
 		}
 
 		if (!user.profil_id && googleUser.avatarUrl) {
-			const image = await Image.create({
+			const image = await File.create({
 				description: "Avatar de " + user.username,
 				url: googleUser.avatarUrl as string,
 				title: "Avatar",
-				type: "external"
+				metadata: {
+					drive: "external",
+					type: "image"
+				}
 			})
 			await user.related('profil').associate(image)
 		}

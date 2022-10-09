@@ -10,6 +10,8 @@ export interface IOrderContext {
 	item: OrderItem | null
 	location: TTDLocation | null
 	circuits: TTDCircuit[]
+	stockSession: StockSession | undefined
+	openDechargeDialog: boolean
 
 	setBufferedItem: (item: OrderItem | null) => void
 	setCurrentLocationId: (id: number) => void
@@ -27,6 +29,12 @@ export interface IOrderContext {
 	updateItem: (item: OrderItem) => void
 
 	getTotal: () => number
+
+	// STOCK SESSION
+
+	startStockSession: (onStart: () => void) => void
+	setOpenDechargeDialog: (open: boolean) => void
+	deleteStockSession: () => void
 
 }
 

@@ -1,10 +1,10 @@
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
-import DechargesController from 'App/Controllers/Http/DechargesController'
+import DechargesGenerator from 'App/Services/Decharges'
 
 const optionValidation = schema.object().members({
 	name: schema.string(),
 	price: schema.number(),
-	dechargeable: schema.enum.optional(DechargesController.types),
+	dechargeable: schema.enum.optional(DechargesGenerator.types),
 	settings: schema.object().members({
 		type: schema.enum(["bool", "number"]),
 		value: schema.string()

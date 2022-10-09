@@ -22,5 +22,6 @@ export default Env.rules({
 	DRIVE_DISK: Env.schema.enum(['local', 's3'] as const),
 	NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
 	GOOGLE_CLIENT_ID: Env.schema.string(),
-	GOOGLE_CLIENT_SECRET: Env.schema.string()
+	GOOGLE_CLIENT_SECRET: Env.schema.string(),
+	STOCK_TRACKER_DURATION: Env.schema.number()
 })
