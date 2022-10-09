@@ -1,6 +1,6 @@
 #/bin/bash
 
-WORKDIR=/home/arthur/DEV/STRAPI/tinseau-site
+source ./variables.sh
 
 function stop() {
 	echo "Stopping all processes"
