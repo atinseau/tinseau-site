@@ -1,0 +1,11 @@
+{
+	"license": "MIT",
+	"scripts": {
+		"backend:dev": "cd backend && yarn dev",
+		"frontend:dev": "cd frontend && yarn dev",
+		"dev": "concurrently \"yarn backend:dev\" \"yarn frontend:dev\""
+	},
+	"devDependencies": {
+		"concurrently": "^7.4.0"
+	}
+}
