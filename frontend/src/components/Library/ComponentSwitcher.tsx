@@ -3,14 +3,14 @@ import React, { useEffect, useRef, useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
 
 interface Props<T> {
-	components: React.FC<T & Object>[],
+	components: React.FC<With<T, { mounted: boolean }>>[],
 	index: number,
 	isSwitching: boolean,
 	setIsSwitching: (isSwitching: boolean) => void,
 	props: T
 }
 
-const ComponentSwitcher = <T extends Object>({ isSwitching, setIsSwitching, components, index, props }: Props<T>) => {
+function ComponentSwitcher<T>({ isSwitching, setIsSwitching, components, index, props }: Props<T>) {
 
 	const [bufferIndex, setBufferIndex] = useState(index)
 

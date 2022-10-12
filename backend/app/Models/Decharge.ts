@@ -4,6 +4,7 @@ import { BaseModelWithUuid } from 'App/Functions/ModelExtension'
 import { jsonColumn } from 'App/Functions/jsonColumn'
 
 import File from './File'
+import User from './User'
 
 export default class Decharge extends BaseModelWithUuid {
 	@column.dateTime({ autoCreate: true })
@@ -15,11 +16,17 @@ export default class Decharge extends BaseModelWithUuid {
 	@column()
 	public user_id: string
 
+	@belongsTo(() => User, { foreignKey: "user_id" })
+	public user: BelongsTo<typeof User>
+
 	@jsonColumn()
 	public data: { [key: string]: any }
 
 	@column()
 	public type: DechargeType
+
+	@column()
+	public expiration: Date
 
 	@column()
 	public file_id: string
@@ -29,6 +36,8 @@ export default class Decharge extends BaseModelWithUuid {
 
 	@beforeDelete()
 	public static async deleteFile(decharge: Decharge) {
+		if (!decharge.file_id)
+			return
 		const file = await decharge.related('file').query().first()
 		if (file)
 			await file.delete()

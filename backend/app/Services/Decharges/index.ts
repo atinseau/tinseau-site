@@ -1,5 +1,6 @@
 import { generate } from "./bases"
-import { schema, validator } from "@ioc:Adonis/Core/Validator"
+import { schema, validator, rules } from "@ioc:Adonis/Core/Validator"
+import UserCar from "App/Models/UserCar"
 
 
 
@@ -19,8 +20,8 @@ export default class DechargesGenerator {
 			tel: schema.string()
 		}
 
-		if (type === "location") {
-			mainSchema["location"] = schema.string()
+		if (type === "track_access") {
+			mainSchema["car_id"] = schema.string([rules.uuid({ version: 4 })])
 		}
 
 		return mainSchema
@@ -52,6 +53,18 @@ export default class DechargesGenerator {
 	}
 
 	static async createDecharge(builder: DechargeBuilder) {
+		if (builder.type === "track_access") {
+			const userCar = await UserCar.find(builder.data.car_id)
+			if (!userCar)
+				throw new Error("La voiture n'existe pas")
+			builder = {
+				...builder,
+				data: {
+					...builder.data,
+					car: userCar
+				}
+			}
+		}
 		return await generate(builder)
 	}
 }

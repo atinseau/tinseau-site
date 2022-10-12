@@ -9,19 +9,20 @@ import { getEnvConfig, headers } from "src/functions/getConfig";
 import DechargeForm from "./DechargeForm";
 import DechargeSignature from "./DechargeSignature";
 import DechargeTypeSelector from "./DechargeTypeSelector";
-import useDechargeForm from "./hooks/useDechargeForm";
 
 import type { ReactSketchCanvasRef } from "react-sketch-canvas";
 import useErrorContext from "src/hooks/useErrorContext";
+import useErrorForm from "src/hooks/useErrorForm";
 
 interface Props {
 	back: () => void
-	next: () => void 
+	next: () => void
+	mounted: boolean
 }
 
-const NewOne: React.FC<Props> = ({ back }) => {
+const NewOne: React.FC<Props> = ({ back, mounted }) => {
 
-	const { register, handleSubmit } = useDechargeForm()
+	const { register, handleSubmit, control } = useErrorForm("Impossible de créer la décharge")
 
 	const errorCtx = useErrorContext()
 
@@ -37,8 +38,8 @@ const NewOne: React.FC<Props> = ({ back }) => {
 			})
 	}
 
-	return <form className="decharges new__one" onSubmit={handleSubmit(async (e) => {
-		
+	const submit = async (e: any) => {
+
 		if (await canvasRef.current?.getSketchingTime() === 0) {
 			errorCtx.createError({
 				title: "Signature manquante",
@@ -55,8 +56,21 @@ const NewOne: React.FC<Props> = ({ back }) => {
 			signature: svg,
 			data: e
 		}
-		console.log(body)
-	})}>
+
+		axios.post(getEnvConfig().SERVER_API + "/users/decharges/create", body, headers())
+			.then((res) => {
+				back()
+			})
+			.catch(() => {
+				errorCtx.createError({
+					title: "Erreur",
+					message: "Une erreur est survenue lors de la création de la décharge",
+					type: "danger"
+				})
+			})
+	}
+
+	return <form className="decharges new__one" onSubmit={handleSubmit(submit)}>
 		<div className="decharges__header">
 			<h4>Création d'une nouvelle décharge de responsabilité</h4>
 			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem quasi repellendus sunt explicabo id aliquid impedit beatae, nulla aliquam dicta nemo aperiam molestiae dolorem non temporibus quibusdam nobis. Tenetur, quidem?
@@ -65,7 +79,7 @@ const NewOne: React.FC<Props> = ({ back }) => {
 
 		<div className="decharges__container">
 			<DechargeTypeSelector />
-			<DechargeForm register={register} />
+			<DechargeForm register={register} control={control} mounted={mounted} />
 			<DechargeSignature ref={canvasRef} />
 		</div>
 

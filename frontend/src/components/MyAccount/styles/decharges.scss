@@ -28,6 +28,36 @@
 	}
 
 	&.list {
+		
+		.decharges__container {
+			.decharges__list {
+				@apply mt-8 grid grid-cols-2;
+				li {
+					@apply text-white flex flex-row items-center justify-between;
+					h3 {
+						font-size: 20px;
+						color: $main-color;
+					}
+					p {
+						font-size: 15px;
+
+						span {
+							@apply text-gray-300 ml-2;
+							font-size: 11px;
+							font-family: Arial, Helvetica, sans-serif;
+						}
+					}
+
+					.controller {
+						@apply flex flex-row gap-2;
+						button {
+							padding: 10px;
+						}
+					}
+				}
+			}
+		}
+		
 		.decharges__footer {
 			@apply self-end;
 		}

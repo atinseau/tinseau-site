@@ -16,17 +16,17 @@ const locationValidation = schema.object().members({
 	exclusive_price: schema.number(),
 	instance_price: schema.number(),
 	serie_format: schema.enum(["s3 t4", "s6 t7", "s4 t2"]),
-	car_id: schema.string([rules.uuid()]),
+	car_id: schema.string([rules.uuid({ version: 4 })]),
 	options: schema.array.optional([rules.minLength(1)]).members(optionValidation)
 })
 
 
 const imageRequiredValidation = {
-	image: schema.string([rules.uuid({ version: '4' })])
+	image: schema.string([rules.uuid({ version: 4 })])
 }
 
 const imageOptionalValidation = {
-	image: schema.string.optional([rules.uuid({ version: '4' })])
+	image: schema.string.optional([rules.uuid({ version: 4 })])
 }
 
 const imagesRequiredValidation = {

@@ -3,13 +3,6 @@ import { BaseModelWithUuid } from 'App/Functions/ModelExtension'
 import Drive from "@ioc:Adonis/Core/Drive"
 import { jsonColumn } from 'App/Functions/jsonColumn'
 
-interface FileMeta {
-	identifier?: string
-	bucket?: "tinseau-image" | "tinseau-decharge"
-	drive: "s3" | "local" | "external"
-	type: "image" | "pdf" | "video" | "audio"
-}
-
 export default class File extends BaseModelWithUuid {
 
 
@@ -39,12 +32,16 @@ export default class File extends BaseModelWithUuid {
 
 	@beforeDelete()
 	public static async deleteFile(file: File) {
-		if (
-			file.metadata.drive === "s3" &&
-			file.metadata.identifier &&
-			file.metadata.bucket
-		)
-			await Drive.use('s3').bucket(file.metadata.bucket).delete(file.metadata.identifier)
+		try {
+			if (
+				file.metadata.drive === "s3" &&
+				file.metadata.identifier &&
+				file.metadata.bucket
+			)
+				await Drive.use('s3').bucket(file.metadata.bucket).delete(file.metadata.identifier)
+		} catch (e) {
+			console.log(e)
+		}
 	}
 }
 

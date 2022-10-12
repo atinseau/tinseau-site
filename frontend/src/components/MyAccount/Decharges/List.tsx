@@ -1,12 +1,30 @@
-import React from "react"
+import axios from "axios";
+import React, { useEffect, useState } from "react"
+import { HiDownload, HiTrash } from "react-icons/hi";
 import Button from "src/components/Library/Button";
+import { getEnvConfig, headers } from "src/functions/getConfig";
 
 interface Props {
 	next: () => void,
-	back: () => void
+	back: () => void,
+	mounted: boolean
 }
 
-const List: React.FC<Props> = ({ next, back }) => {
+const List: React.FC<Props> = ({ next, back, mounted }) => {
+
+	const [decharges, setDecharges] = useState<TTDDecharge[]>([])
+
+	useEffect(() => {
+		if (!mounted)
+			return
+
+		axios.get(getEnvConfig().SERVER_API + "/users/decharges", headers())
+			.then(({ data }) => {
+				console.log(data)
+				setDecharges(data)
+			})
+	}, [])
+
 	return <div className="decharges list">
 
 		<div className="decharges__header">
@@ -15,7 +33,33 @@ const List: React.FC<Props> = ({ next, back }) => {
 		</div>
 
 		<div className="decharges__container">
-			
+			<ul className="decharges__list">
+				{decharges.map((decharge, i) => {
+
+					const leftDays = Math.round((new Date(decharge.expiration).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
+
+					return <li key={i}>
+						<div>
+							<h3>{decharge.type === "track_access" ? "Decharge annuelle" : "--"}</h3>
+							<p>
+								Pour <strong>{decharge.data.fullname}</strong>
+								{leftDays > 0 ? 
+									<span>(valable encore <strong>{leftDays} jours)</strong></span>:
+									<span>(<strong>expirée</strong>)</span>
+								}
+							</p>
+						</div>
+						<div className="controller">
+							{leftDays > 0 && <Button>
+								<HiDownload />
+							</Button>}
+							<Button variant="danger">
+								<HiTrash />
+							</Button>
+						</div>
+					</li>
+				})}
+			</ul>
 		</div>
 
 		<div className="decharges__footer">

@@ -34,7 +34,7 @@ export default class EventsController {
 			date: schema.date(),
 			description: schema.string(),
 			locations: schema.array.optional().members(locationValidation),
-			circuit_id: schema.string([rules.uuid()]),
+			circuit_id: schema.string([rules.uuid({ version: 4 })]),
 			track_access: trackAccessValidation,
 			options: schema.array.optional().members(optionValidation)
 		})

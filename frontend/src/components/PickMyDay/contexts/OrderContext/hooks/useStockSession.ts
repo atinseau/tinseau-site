@@ -44,7 +44,7 @@ const useStockSession = (
 	}, [authCtx.user])
 
 	useEffect(() => {
-		if (!authCtx.isAuth)
+		if (!authCtx.user)
 			return
 
 		axios.get<StockSession>(getEnvConfig().SERVER_API + "/users/cart/stock-session", headers())
@@ -55,7 +55,7 @@ const useStockSession = (
 			.catch((e) => {
 				console.log(e.response.data)
 			})
-	}, [authCtx.isAuth])
+	}, [authCtx.user])
 
 	useEffect(() => {
 		if (!stockSession || isStartSession.current) return

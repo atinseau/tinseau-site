@@ -14,12 +14,14 @@ export default class extends BaseSchema {
 			table
 				.uuid('file_id')
 				.references('files.id')
-				.onDelete("SET NULL")
+				.onDelete("CASCADE")
 
 			table
 				.uuid('user_id')
 				.references('users.id')
 				.onDelete('CASCADE')
+
+			table.date('expiration').notNullable()
 
 			/**
 			 * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

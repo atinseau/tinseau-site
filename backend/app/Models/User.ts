@@ -4,6 +4,7 @@ import { column, beforeSave, BelongsTo, belongsTo, beforeDelete, hasMany, HasMan
 import { BaseModelWithUuid } from 'App/Functions/ModelExtension'
 import File from './File'
 import Decharge from './Decharge'
+import UserCar from './UserCar'
 
 export default class User extends BaseModelWithUuid {
 	@column()
@@ -29,6 +30,8 @@ export default class User extends BaseModelWithUuid {
 	@column.dateTime({ autoCreate: true, autoUpdate: true })
 	public updatedAt: DateTime
 
+	@hasMany(() => UserCar, { foreignKey: "user_id" })
+	public cars: HasMany<typeof UserCar>
 
 	@hasMany(() => Decharge, { foreignKey: "user_id" })
 	public decharges: HasMany<typeof Decharge>

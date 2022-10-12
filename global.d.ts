@@ -2,6 +2,13 @@ type With<T, U> = T & U
 
 type ReactDispatch<T> = React.Dispatch<React.SetStateAction<T>>
 
+interface FileMeta {
+	identifier?: string
+	bucket?: "tinseau-image" | "tinseau-decharge"
+	drive: "s3" | "local" | "external"
+	type: "image" | "pdf" | "video" | "audio"
+}
+
 type OrderType =
 	"location" |
 	"ttd"
@@ -30,7 +37,7 @@ type TTDImage = {
 	title: string
 	description: string
 	url: string
-	identifier: string
+	metadata: FileMeta
 }
 
 type TTDOption = {
@@ -166,4 +173,20 @@ type DechargeBuilder = {
 	type: DechargeType
 	data?: any
 	signature?: Buffer
+}
+
+type TTDDecharge<T = any> = {
+	created_at: string
+	data: T
+	file_id: string
+	expiration: string
+	id: string
+	type: DechargeType
+	updated_at: string
+	user_id: string
+}
+
+
+type UserCar = {
+	id: string
 }

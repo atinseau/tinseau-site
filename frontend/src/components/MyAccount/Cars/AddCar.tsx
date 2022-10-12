@@ -2,7 +2,7 @@ import { ChevronLeftIcon } from "@heroicons/react/24/solid"
 import React from "react"
 import Button from "src/components/Library/Button"
 import Input from "src/components/Library/Input"
-import Switch from "src/components/Library/Switch"
+import useErrorForm from "src/hooks/useErrorForm"
 
 interface Props {
 	next: () => void
@@ -10,7 +10,14 @@ interface Props {
 }
 
 const AddCar: React.FC<Props> = ({ back }) => {
-	return <form className="cars new__one">
+
+	const { register, handleSubmit } = useErrorForm("Impossible d'ajouter votre voiture")
+
+	const submit = async (e: any) => {
+		console.log(e)
+	}
+
+	return <form className="cars new__one" onSubmit={handleSubmit(submit)}>
 		<div className="cars__header">
 			<h4>Ajout d'une nouvelle voiture</h4>
 			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, doloribus aperiam voluptatem error iusto tempora. Aliquam labore necessitatibus rem unde modi maiores eum nobis perspiciatis fugit sit doloribus, accusantium delectus.
@@ -21,28 +28,28 @@ const AddCar: React.FC<Props> = ({ back }) => {
 			<div className="cars__form">
 				<div className="form__group">
 					<h5>Marque</h5>
-					<Input/>
+					<Input {...register("model", { required: { value: true, message: "Veuillez entrer le model de votre voiture" } })}/>
 				</div>
 
 				<div className="form__group">
 					<h5>Model</h5>
-					<Input/>
+					<Input {...register("brand", { required: { value: true, message: "Veuillez renseigner la marque de votre voiture" } })}/>
 				</div>
 
 				<div className="form__group">
 					<h5>Immatriculation</h5>
-					<Input/>
+					<Input {...register("registration", { required: { value: true, message: "Veuillez renseigner l'immatriculation de votre voiture" } })}/>
 				</div>
 
 				<div className="form__group">
 					<h5>Compagnie d'assurance</h5>
-					<Input/>
+					<Input {...register("assurance_name", { required: { value: true, message: "Le nom de l'assurance de cette voiture est manquante" } })}/>
 				</div>
 
 				
 				<div className="form__group">
 					<h5>Numéro contract assurance</h5>
-					<Input/>
+					<Input {...register("assurance_number", { required: { value: true, message: "Le numéro de l'assurance de cette voiture est manquante" } })}/>
 				</div>
 			</div>
 		</div>

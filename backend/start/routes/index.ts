@@ -20,40 +20,9 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
+import "./users"
+
 Route.group(() => {
-
-	Route.group(() => {
-		Route.get('/', "UsersController.index")
-		Route.post('/register', "UsersController.register")
-		Route.post('/login', "UsersController.login")
-		Route.get('/google', "UsersController.google")
-		Route.get('/google/callback', "UsersController.googleCallback")
-
-		Route.delete('/', "UsersController.deleteAll")
-
-		Route.group(() => {
-			Route.get('/logout', "UsersController.logout")
-			Route.get('/me', "UsersController.me")
-
-			Route.group(() => {
-				Route.post('/new-stock-session', 'CartsController.newStockSession')
-				Route.get('/stock-session', 'CartsController.getStockSession')
-				Route.get('/all-stock-session', 'CartsController.getAllStockSessions')
-				Route.delete('/stock-session', 'CartsController.deleteStockSession')
-			}).prefix('cart')
-
-			Route.group(() => {
-				Route.post('/download', 'DechargesController.downloadDecharge')
-				Route.post('/create', 'DechargesController.createDecharge')
-				Route.get('/', 'DechargesController.index')
-			}).prefix('decharges')
-
-		}).middleware('auth:api')
-
-		Route.get('/decharges/all', 'DechargesController.all')
-		Route.delete('/decharges/all', 'DechargesController.deleteAll')
-
-	}).prefix('users')
 
 	Route.group(() => {
 		Route.get('/', 'CircuitsController.index')
@@ -61,35 +30,39 @@ Route.group(() => {
 		Route.post('/create', 'CircuitsController.create')
 		Route.delete('/', 'CircuitsController.deleteAll')
 		Route.put('/:id', 'CircuitsController.update')
-	}).prefix('circuits')
+	})
+		.prefix('circuits')
 
 	Route.group(() => {
 		Route.get('/', 'EventsController.index')
 		Route.put('/:id', 'EventsController.update')
 		Route.post('/create', 'EventsController.create')
 		Route.delete('/', 'EventsController.deleteAll')
-
 		Route.get('/tracks-accesses', 'EventsController.trackAccesses')
 		Route.delete('/tracks-accesses', 'EventsController.trackAccessDelete')
-
-	}).prefix('events')
+	})
+		.prefix('events')
 
 	Route.group(() => {
 		Route.get('/', 'LocationsController.index')
 		Route.delete('/', 'LocationsController.deleteAll')
-	}).prefix('locations')
+	})
+		.prefix('locations')
 
 	Route.group(() => {
 		Route.get('/', 'CarsController.index')
 		Route.post('/create', 'CarsController.create')
 		Route.delete('/', 'CarsController.deleteAll')
 		Route.put('/:id', "CarsController.update")
-	}).prefix('cars')
+	})
+		.prefix('cars')
 
 	Route.group(() => {
 		Route.get('/', 'FilesController.index')
 		Route.post('/create', 'FilesController.create')
 		Route.delete('/', 'FilesController.deleteAll')
-	}).prefix('files')
+	})
+		.prefix('files')
 
-}).prefix('api/v1')
+})
+	.prefix('api/v1')

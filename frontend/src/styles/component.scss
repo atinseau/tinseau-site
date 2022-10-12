@@ -83,7 +83,9 @@
 
 		&.bright {
 			@apply bg-gray-800;
-			&:focus, &:hover {
+
+			&:focus,
+			&:hover {
 				@apply bg-gray-700;
 			}
 		}
@@ -101,6 +103,44 @@
 			&:focus,
 			&:hover {
 				@apply bg-gray-700 #{!important};
+			}
+		}
+	}
+
+
+	.dropdown {
+		@apply relative flex flex-row gap-4 justify-between p-2;
+		background-color: $main-color;
+		font-family: $main-font;
+		transition: all 0.3s ease-in-out;
+		cursor: pointer;
+
+
+		&:hover, &:focus {
+			background-color: $second-color;
+		}
+
+		>p {}
+
+		>svg {
+			@apply w-6 h-6;
+		}
+
+		ul {
+			@apply absolute top-full left-0 mt-2 h-0 overflow-hidden;
+			background-color: $main-color;
+			min-width: 100px;
+
+			li {
+				@apply px-2;
+				cursor: pointer;
+				transition: all 0.3s ease-in-out;
+				&:hover {
+					background-color: $second-color;
+				}
+				&:not(:last-child) {
+					@apply border-b-[1px] border-gray-400;
+				}
 			}
 		}
 	}

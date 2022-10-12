@@ -1,51 +1,85 @@
-import type { UseFormRegister, FieldValues } from "react-hook-form";
+import { useEffect, useMemo } from "react";
+import type { UseFormRegister, FieldValues, Control } from "react-hook-form";
+import { Controller } from "react-hook-form";
+import Dropdown from "src/components/Library/Dropdown";
 import Input from "src/components/Library/Input";
+import useAuthContext from "src/hooks/useAuthContext";
 
 interface Props {
 	register: UseFormRegister<FieldValues>
+	control: Control<FieldValues, any>
+	mounted: boolean
 }
 
-const DechargeForm: React.FC<Props> = ({ register }) => {
+const DechargeForm: React.FC<Props> = ({ register, control, mounted }) => {
+
+	const authCtx = useAuthContext()
+
+	useEffect(() => {
+		if (!mounted)
+			return
+		authCtx.getUserCars()
+	}, [])
 
 	return <div className="decharges__form">
 		<div className="form__group">
 			<h5>Nom et prénom</h5>
-			<Input placeholder="Nom et prénom" {...register('fullname', { required: { value: true, message: "Il faut un nom et un prénom" },  })} />
+			<Input placeholder="Nom et prénom" {...register('fullname', { required: { value: true, message: "Il faut un nom et un prénom" }, })} />
 		</div>
 
 		<div className="form__group">
 			<h5>Adresse</h5>
-			<Input placeholder="Adresse" {...register('address', { required:  { value: true, message: "Merci de fournir une adresse" } })} />
+			<Input placeholder="Adresse" {...register('address', { required: { value: true, message: "Merci de fournir une adresse" } })} />
 		</div>
 
 		<div className="form__group">
 			<h5>Code postal</h5>
-			<Input placeholder="Code postal" {...register('postal', { required:  { value: true, message: "Merci de fournir votre code postal" } })} />
+			<Input placeholder="Code postal" {...register('postal', { required: { value: true, message: "Merci de fournir votre code postal" } })} />
 		</div>
 
 		<div className="form__group">
 			<h5>Email</h5>
-			<Input placeholder="Email" {...register('email', { required:  { value: true, message: "Il faut renseigné un email" }, })} />
+			<Input placeholder="Email" {...register('email', { required: { value: true, message: "Il faut renseigné un email" }, })} />
 		</div>
 
 		<div className="form__group">
 			<h5>Tel. Portable</h5>
-			<Input placeholder="Tel. Portable" {...register('tel', { required:  { value: true, message: "Il faut renseigné un numéro de téléphone" }, })} />
+			<Input placeholder="Tel. Portable" {...register('tel', { required: { value: true, message: "Il faut renseigné un numéro de téléphone" }, })} />
 		</div>
 
 		<div className="form__group">
 			<h5>Ville</h5>
-			<Input placeholder="Ville" {...register('city', { required:  { value: true, message: "Merci de renseigné votre ville" } })} />
+			<Input placeholder="Ville" {...register('city', { required: { value: true, message: "Merci de renseigné votre ville" } })} />
 		</div>
 
 		<div className="form__group">
 			<h5>Profession</h5>
-			<Input placeholder="Profession" {...register('jobs', { required:  { value: true, message: "Votre profession est manqante" } })} />
+			<Input placeholder="Profession" {...register('jobs', { required: { value: true, message: "Votre profession est manqante" } })} />
 		</div>
 
 		<div className="form__group">
 			<h5>Numéro de permis de conduire</h5>
-			<Input placeholder="Numéro de permis de conduire" {...register('license', { required:  { value: true, message: "Vous n'avez pas entré de numéro de permis de conduire" } })} />
+			<Input placeholder="Numéro de permis de conduire" {...register('license', { required: { value: true, message: "Vous n'avez pas entré de numéro de permis de conduire" } })} />
+		</div>
+
+		<div className="form__group">
+			<h5>Séléctionner votre voiture</h5>
+			<Controller
+				name="car"
+				rules={{ required: { value: true, message: "Vous devez séléctioné une voiture" } }}
+				control={control}
+				render={({ field: { onChange } }) => <Dropdown
+					items={[
+						{ car: "Voiture 1", value: "car 1" },
+						{ car: "Voiture 2", value: "car 2" }
+					]}
+					onChange={(e) => {
+						onChange(e)
+					}}
+					label="Votre voiture"
+					keyExtractor={e => e.car}
+				/>}
+			/>
 		</div>
 	</div>
 }

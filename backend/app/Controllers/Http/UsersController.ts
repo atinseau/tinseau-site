@@ -19,8 +19,9 @@ export default class UsersController {
 		})
 	}
 
-	public async index() {
-		return await User.query().preload('profil')
+	public async all() {
+		return await User.query()
+			.preload('profil')
 	}
 
 	public async deleteAll() {
@@ -62,7 +63,7 @@ export default class UsersController {
 
 		if (await User.findBy('email', body.email)) {
 			return ctx.response.forbidden({
-				message: "Un utilisateur existe déjà avec cet email"
+				error: "Un utilisateur existe déjà avec cet email"
 			})
 		}
 
