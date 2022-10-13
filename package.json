@@ -1,6 +1,12 @@
 {
 	"license": "MIT",
+	"private": "true",
+	"workspaces": [
+		"frontend",
+		"backend"
+	],
 	"scripts": {
+		"install": "",
 		"backend:dev": "cd backend && yarn dev",
 		"frontend:dev": "cd frontend && yarn dev",
 		"dev": "concurrently \"yarn backend:dev\" \"yarn frontend:dev\""
