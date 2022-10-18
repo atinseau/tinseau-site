@@ -1,6 +1,6 @@
-import Sorting from "src/components/Library/Sorting";
+import { Sorting } from "src/components/Library";
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useMemo, useState } from "react"
 import CircuitCard from "./CircuitCard";
 import { orderByClosestDate } from "src/functions/dates";
 
@@ -32,9 +32,9 @@ const CircuitPicker: React.FC<Props> = ({ next }) => {
 				const circuits = structuredClone(ctx.circuits)
 				for (const circuit of circuits)
 					circuit.events = orderByClosestDate(circuit.events, (event) => new Date(event.date))
-				
+
 				// @ts-ignore
-				return orderByClosestDate(circuits, (circuit) => !circuit.events.length ? new Date(null): new Date(circuit.events[0].date)).reverse()
+				return orderByClosestDate(circuits, (circuit) => !circuit.events.length ? new Date(null) : new Date(circuit.events[0].date)).reverse()
 
 			} case "price": {
 				if (ctx.orderType === "location")

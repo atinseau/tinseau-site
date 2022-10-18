@@ -3,9 +3,8 @@ import useAuthContext from "src/hooks/useAuthContext";
 
 import User from "public/images/user.jpg"
 import { useMemo } from "react";
-import Input from "src/components/Library/Input";
+import { Input, Button } from "src/components/Library";
 import Image from "next/future/image";
-import Button from "src/components/Library/Button";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
 const MyAccount = () => {

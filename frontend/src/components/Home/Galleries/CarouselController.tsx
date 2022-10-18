@@ -1,8 +1,8 @@
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import React from "react"
-import Button from "../../Library/Button";
 
 import useActiveIndex from "./hooks/useActiveIndex";
+import { Button } from "src/components/Library";
 
 
 

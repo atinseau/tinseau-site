@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react"
 
 import Image from "next/future/image";
-import Button from "src/components/Library/Button";
+import { Button } from "src/components/Library";
 
 import { HiChevronDown } from "react-icons/hi";
 import useDropdown from "src/hooks/useDropdown";
@@ -20,7 +20,7 @@ const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 	const [open, toggle, ref] = useDropdown<HTMLUListElement>()
 	const [serieId, setSerieId] = useState(0)
 
-	
+
 	const instances = useMemo(() => {
 		const output = []
 		for (let i = 0; i < location.instances_amount; i++) {
@@ -35,7 +35,7 @@ const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 	useEffect(() => {
 		console.log(location)
 	}, [])
-	
+
 
 	const formatSeries = (serie: number, tours: number) => {
 		if (serie / serieFormat.current[0] === location.max_instances)
@@ -70,11 +70,11 @@ const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 				</div>
 				<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum accusantium atque quam, est doloremque corporis modi ducimus omnis? Facilis asperiores vel, adipisci accusantium quod similique dolores suscipit at sit nam.</p>
 			</div>
-			<Button 
-				onClick={() => onPick({car_id: location.car.id as string, instance_amount: instances[serieId].serie / serieFormat.current[0]})}
+			<Button
+				onClick={() => onPick({ car_id: location.car.id as string, instance_amount: instances[serieId].serie / serieFormat.current[0] })}
 				variant={((ctx.item as OrderItem).order.locations || []).find((locItem, i) => locItem.car_id === location.car.id) ? "disabled" : "primary"}
 			>
-					Choisir
+				Choisir
 			</Button>
 		</div>
 	</div>

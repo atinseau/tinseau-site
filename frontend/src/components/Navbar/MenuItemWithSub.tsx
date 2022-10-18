@@ -1,5 +1,5 @@
 import React from "react"
-import Link from "../Library/Link"
+import { Link } from "src/components/Library"
 
 import { HiChevronDown } from "react-icons/hi"
 import { useRouter } from "next/router"
@@ -16,7 +16,7 @@ const MenuItemWithSub: React.FC<Props> = ({ children, href, title }) => {
 	const [isOpen, toggle, ref] = useDropdown()
 	const router = useRouter()
 
-	return router.pathname != href ? <li className={"menu__item sub__menu " + (href == router.pathname ? "active": "")}>
+	return router.pathname != href ? <li className={"menu__item sub__menu " + (href == router.pathname ? "active" : "")}>
 		<Link href={href}>{title}</Link>
 		<>
 			<HiChevronDown onClick={toggle} />

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { AuthMode } from "..";
 
 
-
 const useModal = () => {
 	const [modal, setModal] = useState<{ mode: AuthMode, open: boolean }>({ mode: "login", open: false })
 

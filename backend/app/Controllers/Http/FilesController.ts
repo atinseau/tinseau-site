@@ -23,8 +23,7 @@ export default class FilesController {
 		const file = new File()
 
 		await body.file.moveToDisk("./", {
-			visibility: "public",
-			name: body.file.clientName
+			visibility: "public"
 		}, "s3")
 
 		file.title = body.title

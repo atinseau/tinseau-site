@@ -1,7 +1,6 @@
 import { AdjustmentsVerticalIcon, ArrowLongRightIcon, ExclamationTriangleIcon, InformationCircleIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/solid"
 import React, { useMemo } from "react"
-import Button from "src/components/Library/Button"
-import Incrementer from "src/components/Library/Incrementer"
+import { Button, Incrementer } from "src/components/Library"
 import useOrderContext from "../../../../hooks/useOrderContext"
 import OptionRendered from "./OptionRenderer"
 
@@ -23,7 +22,7 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 			<h3>Ajouter des options</h3>
 			<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur quos vero, modi officia doloribus sapiente corrupti voluptates tempore asperiores aut dicta ex dolore iusto dolorem voluptatem, harum maiores. Quisquam, debitis!</p>
 			<p className="decharge">
-				<ExclamationTriangleIcon/>
+				<ExclamationTriangleIcon />
 				Une décharge de responsabilité vous sera demandée pour certaines options
 			</p>
 		</div>
@@ -53,8 +52,8 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 				{ctx.item?.order.type === "ttd" && <li>
 					<div>
 						<h4>
-							<ExclamationTriangleIcon/>
-							Accés piste 
+							<ExclamationTriangleIcon />
+							Accés piste
 							<span>{ctx.item.event.track_access.price}€</span>
 						</h4>
 						<Incrementer
@@ -116,7 +115,7 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 							option={option}
 						/>)}
 					</ul>
-				</>: <div className="no__location__option">
+				</> : <div className="no__location__option">
 					<p>Actuellement aucune option disponible pour cette voiture !</p>
 				</div>}
 

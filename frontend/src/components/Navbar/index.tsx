@@ -1,6 +1,5 @@
 import Image from "next/future/image";
 import React from "react";
-import Link from "../Library/Link";
 import MenuItem from "./MenuItem";
 import MenuWrapper from "./MenuWrapper";
 
@@ -8,6 +7,7 @@ import logo from "public/images/logo.png"
 import MenuItemWithSub from "./MenuItemWithSub";
 import useAuthContext from "src/hooks/useAuthContext";
 import AuthMenu from "./AuthMenu";
+import { Link } from "src/components/Library";
 
 const Navbar: React.FC = () => {
 
@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
 
 	return <nav className="nav__bar">
 		<Link className="home__link" href={"/"}>
-			<Image src={logo} alt="logo"/>
+			<Image src={logo} alt="logo" />
 			tinseau.com
 		</Link>
 
@@ -35,11 +35,11 @@ const Navbar: React.FC = () => {
 		</MenuWrapper>
 
 		{!authCtx.isLoading ? <>
-			{!authCtx.user  ? <MenuWrapper className="right__menu">
+			{!authCtx.user ? <MenuWrapper className="right__menu">
 				<MenuItem onClick={() => authCtx.toggleLoginModal("login")} title="Login" />
 				<MenuItem onClick={() => authCtx.toggleLoginModal("register")} title="Register" />
-			</MenuWrapper>: <AuthMenu/>}
-		</>: null}
+			</MenuWrapper> : <AuthMenu />}
+		</> : null}
 	</nav>
 }
 

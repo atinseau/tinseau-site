@@ -1,5 +1,5 @@
 import React from "react"
-import Link from "../Library/Link"
+import { Link } from "src/components/Library"
 import { useRouter } from "next/router"
 
 interface Props {
@@ -12,8 +12,8 @@ const MenuItem: React.FC<Props> = ({ href, title, onClick }) => {
 
 	const router = useRouter()
 
-	return <li className={"menu__item " + (href == router.pathname ? "active": "")}>
-		{onClick ? <a onClick={onClick}>{title}</a> : <Link href={href || "/"}>{title}</Link> } 
+	return <li className={"menu__item " + (href == router.pathname ? "active" : "")}>
+		{onClick ? <a onClick={onClick}>{title}</a> : <Link href={href || "/"}>{title}</Link>}
 	</li>
 }
 

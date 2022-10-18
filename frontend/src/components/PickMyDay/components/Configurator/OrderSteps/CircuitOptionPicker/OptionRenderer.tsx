@@ -1,7 +1,6 @@
 import { HiExclamation } from "react-icons/hi";
 import React, { useEffect, useMemo } from "react"
-import Incrementer from "src/components/Library/Incrementer";
-import Switch from "src/components/Library/Switch";
+import { Incrementer, Switch } from "src/components/Library";
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
 
 interface Props {
@@ -29,10 +28,10 @@ const OptionRendered: React.FC<Props> = ({ option, type, mounted }) => {
 	}, [])
 
 
-	return <li className={option.settings.type === "bool" && option.settings.value === "true" ? "disabled": ""}>
+	return <li className={option.settings.type === "bool" && option.settings.value === "true" ? "disabled" : ""}>
 		<div>
 			<h4>
-				{option.dechargeable && <HiExclamation/>}
+				{option.dechargeable && <HiExclamation />}
 				{option.name} <span>{option.price}€</span>
 				{option.settings.type === "bool" && option.settings.value === "true" ? <span>(inclus)</span> : null}
 				{option.settings.type === "number" && parseInt(option.settings.value) ? <span>(x{option.settings.value} inclus)</span> : null}

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import Button from "../../Library/Button";
+import { Button } from "src/components/Library";
 import useOrderContext from "../hooks/useOrderContext";
 
 interface Props {

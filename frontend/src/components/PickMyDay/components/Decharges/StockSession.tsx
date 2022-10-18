@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { createPortal } from "react-dom";
 
 import { MdTimer } from "react-icons/md"
-import Counter from "src/components/Library/Counter";
+import { Counter } from "src/components/Library";
 
 interface Props {
 	stockSession: StockSession
@@ -19,7 +19,7 @@ const StockSession: React.FC<Props> = ({ stockSession }) => {
 		<MdTimer />
 		<div>
 			<h3>Commande en cours</h3>
-			<p><Counter endDate={stockSession.remainingTime}/></p>
+			<p><Counter endDate={stockSession.remainingTime} /></p>
 		</div>
 	</div>, document.body)
 }

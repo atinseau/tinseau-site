@@ -189,4 +189,12 @@ type TTDDecharge<T = any> = {
 
 type UserCar = {
 	id: string
+	brand: string
+	model: string
+	registration: string
+	assurance_name: string
+	assurance_number: string
+	user_id: string
+	created_at: string
+	updated_at: string
 }

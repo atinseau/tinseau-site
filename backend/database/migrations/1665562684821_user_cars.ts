@@ -19,6 +19,7 @@ export default class extends BaseSchema {
 				.uuid('user_id')
 				.references('users.id')
 				.onDelete('CASCADE')
+				.notNullable()
 
 			table.timestamp('created_at', { useTz: true })
 			table.timestamp('updated_at', { useTz: true })

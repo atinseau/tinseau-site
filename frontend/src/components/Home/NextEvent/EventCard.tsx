@@ -1,6 +1,6 @@
 import React from "react"
-import Button from "../../Library/Button";
 import { HiArrowRight } from "react-icons/hi";
+import { Button } from "src/components/Library";
 
 
 interface Props {

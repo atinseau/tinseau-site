@@ -1,11 +1,5 @@
 .login__modal {
-	@apply absolute overflow-hidden top-0 left-0 h-screen opacity-0;
-	width: 100%;
-	background-color: rgba(0, 0, 0, 0.801);
-
 	.login__container {
-		@apply flex items-center justify-center h-full;
-
 		.login__form {
 			@apply bg-gray-900 p-8;
 
@@ -72,3 +66,7 @@
 		}
 	}
 }
+
+
+
+

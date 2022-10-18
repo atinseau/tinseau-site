@@ -1,10 +1,11 @@
 import { DateTime } from 'luxon'
-import { BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { beforeDelete, BelongsTo, belongsTo, column, HasMany, hasMany, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import { BaseModelWithUuid } from 'App/Functions/ModelExtension'
 import User from './User'
+import File from './File'
 
 export default class UserCar extends BaseModelWithUuid {
-	
+
 	@column.dateTime({ autoCreate: true })
 	public createdAt: DateTime
 
@@ -31,5 +32,19 @@ export default class UserCar extends BaseModelWithUuid {
 
 	@belongsTo(() => User)
 	public user: BelongsTo<typeof User>
+
+	@manyToMany(() => File, {
+		pivotForeignKey: "related_id",
+		pivotRelatedForeignKey: "file_id",
+		pivotTable: "morph_files"
+	})
+	public images: ManyToMany<typeof File>
+
+	@beforeDelete()
+	public static async deleteImages(car: UserCar) {
+		const images = await car.related('images').query()
+		for (const image of images)
+			await image.delete()
+	}
 
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react"
 import { HiDownload, HiTrash } from "react-icons/hi";
-import Button from "src/components/Library/Button";
+import { Button } from "src/components/Library";
 import { getEnvConfig, headers } from "src/functions/getConfig";
 
 interface Props {
@@ -43,8 +43,8 @@ const List: React.FC<Props> = ({ next, back, mounted }) => {
 							<h3>{decharge.type === "track_access" ? "Decharge annuelle" : "--"}</h3>
 							<p>
 								Pour <strong>{decharge.data.fullname}</strong>
-								{leftDays > 0 ? 
-									<span>(valable encore <strong>{leftDays} jours)</strong></span>:
+								{leftDays > 0 ?
+									<span>(valable encore <strong>{leftDays} jours)</strong></span> :
 									<span>(<strong>expirée</strong>)</span>
 								}
 							</p>

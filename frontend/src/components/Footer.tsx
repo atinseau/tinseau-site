@@ -1,5 +1,5 @@
 import React from "react"
-import Link from "./Library/Link";
+import { Link } from "src/components/Library";
 
 const Footer: React.FC = () => {
 	return <footer>

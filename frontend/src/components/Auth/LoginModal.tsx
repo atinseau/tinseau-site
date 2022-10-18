@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import Button from "src/components/Library/Button";
+import {Button} from "src/components/Library";
 import { useForm } from "react-hook-form";
 
 import Image from "next/future/image"
@@ -56,8 +56,8 @@ const LoginModal: React.FC<Props> = ({ modal, signWithGoogle, toggle, sendAuthPa
 		return null
 	}
 
-	return <div className="login__modal" ref={modalRef} onClick={closeModal}>
-		<div className="login__container">
+	return <div className="login__modal modal" ref={modalRef} onClick={closeModal}>
+		<div className="login__container modal__container">
 			<form className="login__form" onSubmit={handleSubmit((e) => {
 				console.log("submit")
 				sendAuthPayload({ mode: registerMode ? "register" : "login", data: e }).then(() => {

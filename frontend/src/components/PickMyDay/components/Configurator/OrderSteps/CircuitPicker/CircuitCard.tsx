@@ -1,7 +1,7 @@
 import Image from "next/future/image"
 import React, { useMemo, useState } from "react"
+import { Button } from "src/components/Library"
 
-import Button from "../../../../../Library/Button"
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext"
 
 interface Props {

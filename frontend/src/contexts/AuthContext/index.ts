@@ -11,7 +11,12 @@ interface IAuthContext {
 
 	// user actions
 
-	getUserCars: () => Promise<UserCar[]>
+	carActions: {
+		cars: UserCar[]
+		setCars: React.Dispatch<React.SetStateAction<UserCar[]>>
+		fetch: () => void
+		remove: (id: string) => void
+	}
 }
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext)

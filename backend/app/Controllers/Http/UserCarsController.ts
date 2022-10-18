@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { schema } from "@ioc:Adonis/Core/Validator"
+import { schema, validator } from "@ioc:Adonis/Core/Validator"
+import File from 'App/Models/File'
 import UserCar from 'App/Models/UserCar'
 
 export default class UserCarsController {
@@ -8,10 +9,14 @@ export default class UserCarsController {
 		const cars = await ctx.auth.user!
 			.related('cars')
 			.query()
+			.preload('images')
 		return cars
 	}
 
 	public async create(ctx: HttpContextContract) {
+
+		const user = ctx.auth.user!
+
 		const CreateUserCarSchema = schema.create({
 			brand: schema.string(),
 			model: schema.string(),
@@ -19,15 +24,41 @@ export default class UserCarsController {
 			assurance_name: schema.string(),
 			assurance_number: schema.string()
 		})
-		const body = await ctx.request.validate({ schema: CreateUserCarSchema })
+
+		const data = JSON.parse(ctx.request.body().data)
+		const body = await validator.validate({ schema: CreateUserCarSchema, data: data })
+
+		let car: UserCar | undefined
+
 		try {
-			const car = await ctx.auth.user!.related('cars').create(body)
+			car = await user.related('cars').create(body)
+			for (const file of ctx.request.files('images')) {
+				await file.moveToDisk('./user_cars', {
+					visibility: "public"
+				}, "s3")
+				await car.related('images').create({
+					title: file.clientName,
+					description: "Image d'une voiture de l'utilisateur: " + user.username,
+					url: file.filePath as string,
+					metadata: {
+						identifier: file.fileName,
+						drive: "s3",
+						type: "image"
+					}
+				})
+			}
 			return car
 		} catch (e) {
+
+			console.log(e)
+
+			if (car)
+				await car.delete()
 			ctx.response.badRequest({
 				error: "Une voiture avec cette immatriculation existe déjà"
 			})
 		}
+
 	}
 
 	public async deleteOne(ctx: HttpContextContract) {
@@ -47,7 +78,7 @@ export default class UserCarsController {
 
 	// DEBUG
 	public async all() {
-		return await UserCar.all()
+		return await UserCar.query().preload('images')
 	}
 
 	public async deleteAll() {

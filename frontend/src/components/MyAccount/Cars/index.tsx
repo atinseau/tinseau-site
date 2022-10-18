@@ -3,7 +3,6 @@ import AddCar from "./AddCar";
 import List from "./List";
 
 
-
 const Cars = () => {
 	const {
 		isSwitching,

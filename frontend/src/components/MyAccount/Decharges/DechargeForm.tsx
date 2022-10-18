@@ -1,8 +1,9 @@
-import { useEffect, useMemo } from "react";
+import Link from "next/link";
+import { useEffect } from "react";
 import type { UseFormRegister, FieldValues, Control } from "react-hook-form";
 import { Controller } from "react-hook-form";
-import Dropdown from "src/components/Library/Dropdown";
-import Input from "src/components/Library/Input";
+import { Dropdown, Input } from "src/components/Library";
+
 import useAuthContext from "src/hooks/useAuthContext";
 
 interface Props {
@@ -15,10 +16,12 @@ const DechargeForm: React.FC<Props> = ({ register, control, mounted }) => {
 
 	const authCtx = useAuthContext()
 
+	const { cars, fetch } = authCtx.carActions
+
 	useEffect(() => {
 		if (!mounted)
 			return
-		authCtx.getUserCars()
+		fetch()
 	}, [])
 
 	return <div className="decharges__form">
@@ -62,23 +65,27 @@ const DechargeForm: React.FC<Props> = ({ register, control, mounted }) => {
 			<Input placeholder="Numéro de permis de conduire" {...register('license', { required: { value: true, message: "Vous n'avez pas entré de numéro de permis de conduire" } })} />
 		</div>
 
-		<div className="form__group">
+		<div className="form__group dropdown__cars">
 			<h5>Séléctionner votre voiture</h5>
 			<Controller
 				name="car"
 				rules={{ required: { value: true, message: "Vous devez séléctioné une voiture" } }}
 				control={control}
-				render={({ field: { onChange } }) => <Dropdown
-					items={[
-						{ car: "Voiture 1", value: "car 1" },
-						{ car: "Voiture 2", value: "car 2" }
-					]}
-					onChange={(e) => {
-						onChange(e)
-					}}
-					label="Votre voiture"
-					keyExtractor={e => e.car}
-				/>}
+				render={({ field: { onChange } }) => <>
+
+					<p className="add__label">Pour ajouter une voiture cliquer <Link href={"/my-account/cars"}>ici</Link></p>
+
+					{!cars.length ? <div className="no__cars">
+						<p>Vous n'avez pas encore ajouté de voiture !</p>
+					</div> : <Dropdown
+						items={cars}
+						onChange={(e) => {
+							onChange(e)
+						}}
+						label="Votre voiture"
+						keyExtractor={e => e.brand + " " + e.model}
+					/>}
+				</>}
 			/>
 		</div>
 	</div>

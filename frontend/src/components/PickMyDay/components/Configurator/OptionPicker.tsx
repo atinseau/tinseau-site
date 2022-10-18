@@ -2,7 +2,7 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import useConfigContext from "src/components/PickMyDay/hooks/useConfigContext";
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
 import React from "react"
-import Button from "../../../Library/Button";
+import { Button } from "src/components/Library";
 import ComponentSwitcher from "src/components/Library/ComponentSwitcher";
 
 const OptionPicker: React.FC = () => {
@@ -56,7 +56,7 @@ const OptionPicker: React.FC = () => {
 			<Button onClick={configCtx.prev} variant={configCtx.step === 0 ? "disabled" : "primary"}>
 				<HiChevronLeft />
 			</Button>
-			<Button variant={isDisabled() ? "disabled": "primary"} onClick={() => !isDisabled() && configCtx.next()}>
+			<Button variant={isDisabled() ? "disabled" : "primary"} onClick={() => !isDisabled() && configCtx.next()}>
 				<HiChevronRight />
 			</Button>
 		</div>

@@ -1,4 +1,4 @@
-import Sorting from "src/components/Library/Sorting";
+import { Sorting } from "src/components/Library";
 import React, { useEffect, useMemo, useState } from "react"
 import LocationCard from "./LocationCard";
 import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
