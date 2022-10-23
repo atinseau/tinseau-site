@@ -1,5 +1,5 @@
 import React from "react"
-import useOrderContext from "../../hooks/useOrderContext"
+import { useOrderContext } from "src/hooks"
 import LocationPriceItem from "./LocationPriceItem"
 import OptionResumeRender from "./OptionResumeRender"
 
@@ -35,7 +35,7 @@ const OrderPriceItem: React.FC<Props> = ({ orderItem, editMode, idx }) => {
 			{orderItem.order.type === "location" && <>
 				{!orderItem.order.locations?.length ? <div className="no__location">
 					<h6>Vous n'avez pas encore choisi de voiture</h6>
-				</div> : <LocationPriceItem eventId={ctx.item?.event.id || ""} orderItem={orderItem} currentLocationId={ctx.currentLocationId}/>}
+				</div> : <LocationPriceItem eventId={ctx.item?.event.id || ""} orderItem={orderItem} currentLocationId={ctx.currentLocationId} />}
 			</>}
 
 			<ul>

@@ -1,21 +1,22 @@
-import { TrashIcon } from "@heroicons/react/24/solid";
 import React, { useEffect } from "react"
 import { Button } from "src/components/Library";
-import useAuthContext from "src/hooks/useAuthContext";
+import { useSwitcherContext } from "src/components/Library/ComponentSwitcher";
+import { useAuthContext } from "src/hooks";
 import CarItem from "./CarItem";
 
 interface Props {
 	next: () => void
-	mounted: boolean
 }
 
-const List: React.FC<Props> = ({ next, mounted }) => {
+const List: React.FC<Props> = ({ next }) => {
 
 	const authCtx = useAuthContext()
+	const switcherCtx = useSwitcherContext()
+
 	const { cars, fetch, remove } = authCtx.carActions
 
 	useEffect(() => {
-		if (!mounted)
+		if (!switcherCtx.isMounted)
 			return
 		fetch()
 	}, [])
@@ -27,9 +28,11 @@ const List: React.FC<Props> = ({ next, mounted }) => {
 		</div>
 
 		<div className="cars__container">
-			<ul>
+			{cars.length ? <ul>
 				{cars.map((car, i) => <CarItem key={i} car={car} remove={remove} />)}
-			</ul>
+			</ul> : <div className="no__cars">
+				<p>Vous n'avez pas encore ajouté de voiture !</p>
+			</div>}
 		</div>
 
 		<div className="cars__footer">

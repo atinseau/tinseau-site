@@ -1,16 +1,30 @@
 import { gsap } from "gsap"
-import React, { useEffect, useRef, useState } from "react"
+import React, { createContext, useContext, useEffect, useRef, useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
 
-interface Props<T> {
-	components: React.FC<With<T, { mounted: boolean }>>[],
+interface Props {
+	components: React.FC<{ next: () => void, back: () => void }>[],
 	index: number,
 	isSwitching: boolean,
+	shouldAnimate?: boolean,
 	setIsSwitching: (isSwitching: boolean) => void,
-	props: T
+	props: any
 }
 
-function ComponentSwitcher<T>({ isSwitching, setIsSwitching, components, index, props }: Props<T>) {
+interface SwitcherContextI {
+	isMounted: boolean
+}
+
+const SwitcherContext = createContext<SwitcherContextI>({} as SwitcherContextI)
+
+function ComponentSwitcher<T>({
+	isSwitching,
+	shouldAnimate,
+	setIsSwitching,
+	components,
+	index,
+	props
+}: Props) {
 
 	const [bufferIndex, setBufferIndex] = useState(index)
 
@@ -21,8 +35,16 @@ function ComponentSwitcher<T>({ isSwitching, setIsSwitching, components, index, 
 	const Component = components[bufferIndex]
 	const NextComponent = components[index]
 
+	// track if switcher is not animated
 	useEffect(() => {
-		if (index < 0 || index > components.length || index == bufferIndex || isSwitching)
+		if (shouldAnimate)
+			return
+		setBufferIndex(index)
+	}, [shouldAnimate, index])
+
+	useEffect(() => {
+
+		if (!shouldAnimate || index < 0 || index > components.length || index == bufferIndex || isSwitching)
 			return
 
 		const tl = gsap.timeline()
@@ -36,7 +58,7 @@ function ComponentSwitcher<T>({ isSwitching, setIsSwitching, components, index, 
 			} : {
 				translateX: "+50%"
 			}),
-			duration: 0.5
+			duration: 0.5,
 		})
 
 		tl.to(ref.current, {
@@ -66,17 +88,25 @@ function ComponentSwitcher<T>({ isSwitching, setIsSwitching, components, index, 
 
 	}, [index])
 
-	return <div className="component__switcher">
-		<div ref={ref} key={bufferIndex}>
-			<Component {...{ ...props, mounted: true }} />
+	return <SwitcherContext.Provider value={{
+		isMounted: bufferIndex === index
+	}}>
+		<div className="component__switcher">
+			{shouldAnimate ? <>
+				<div ref={ref} key={bufferIndex}>
+					<Component {...props} />
+				</div>
+				{index !== bufferIndex && <div className={"component__switch " + (index > bufferIndex ? "to_right" : "to_left")} ref={switchRef} key={"b"}>
+					<NextComponent {...props} />
+				</div>}
+			</> : <div>
+				<NextComponent {...props} />
+			</div>}
 		</div>
-
-		{index !== bufferIndex && <div className={"component__switch " + (index > bufferIndex ? "to_right" : "to_left")} ref={switchRef} key={"b"}>
-			<NextComponent {...{ ...props, mounted: false }} />
-		</div>}
-	</div>
+	</SwitcherContext.Provider>
 }
 
+const useSwitcherContext = () => useContext(SwitcherContext)
 
 const useSwitcher = (initialState: number) => {
 	const [isSwitching, setIsSwitching] = useState(false)
@@ -91,6 +121,7 @@ const useSwitcher = (initialState: number) => {
 }
 
 export {
+	useSwitcherContext,
 	useSwitcher
 }
 

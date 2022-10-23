@@ -54,7 +54,7 @@
 
 			// car
 
-			.car__modal {
+			.car__modal, .decharge__modal {
 
 				@apply bg-gray-900 p-6;
 
@@ -69,7 +69,7 @@
 					font-size: 14px;
 				}
 
-				.car__modal__buttons {
+				.car__modal__buttons, .decharge__modal__buttons {
 					@apply flex flex-row gap-2;
 					button {
 						padding: 8px;

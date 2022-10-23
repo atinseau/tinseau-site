@@ -31,7 +31,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 		error
 	} = useAuthActions(getUser)
 
-	const { carActions } = useUserActions(user) 
+	const { carActions, dechargeActions } = useUserActions(user) 
 
 	return <AuthContext.Provider value={{
 		isLoading,
@@ -39,7 +39,8 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 		token,
 		logout,
 		toggleLoginModal,
-		carActions
+		carActions,
+		dechargeActions
 	}}>
 		{children}
 		{modal.open && <LoginModal

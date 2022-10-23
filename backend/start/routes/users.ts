@@ -29,8 +29,9 @@ Route.group(() => {
 				.prefix('cart')
 
 			Route.group(() => {
-				Route.post('/download', 'DechargesController.downloadDecharge')
+				Route.post('/download/:id?', 'DechargesController.downloadDecharge')
 				Route.post('/create', 'DechargesController.createDecharge')
+				Route.delete('/remove/:id', 'DechargesController.deleteDecharge')
 				Route.get('/', 'DechargesController.index')
 			})
 				.prefix('decharges')

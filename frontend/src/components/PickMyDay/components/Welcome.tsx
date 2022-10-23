@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { Button } from "src/components/Library";
-import useOrderContext from "../hooks/useOrderContext";
+import { useOrderContext } from "src/hooks";
 
 interface Props {
 	goToNext: () => void

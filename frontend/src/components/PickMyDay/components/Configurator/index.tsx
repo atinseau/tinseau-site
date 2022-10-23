@@ -1,8 +1,8 @@
 import ConfigProvider from "src/components/PickMyDay/contexts/ConfigProvider";
-import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
 import React from "react"
 import OptionPicker from "./OptionPicker";
 import OrderResume from "./OrderResume";
+import { useOrderContext } from "src/hooks";
 
 interface Props {
 	isOnScreen: boolean
@@ -15,7 +15,7 @@ const Configurator = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 	return ctx.orderType && <ConfigProvider>
 		<div className={"configurator " + (!props.isOnScreen ? "inital__state" : "")} ref={ref}>
 			<OptionPicker />
-			<OrderResume/>
+			<OrderResume />
 		</div>
 	</ConfigProvider>
 })

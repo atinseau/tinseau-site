@@ -29,6 +29,7 @@
 
 					img {
 						height: 100px;
+						object-fit: cover;
 					}
 
 					.car__data {
@@ -40,15 +41,20 @@
 							font-size: 16px;
 						}
 
-						>div {
+						>div:not(.bottom__car) {
 							@apply w-fit text-gray-400 grid grid-cols-2 gap-x-2;
 							font-size: 12px;
 						}
 
-						.added {
-							@apply text-gray-500 mt-2;
-							font-size: 14px;
+						.bottom__car {
+							@apply flex flex-row gap-2;
+							p {
+								@apply text-gray-500 mt-2;
+								font-size: 14px;
+							}
 						}
+
+						
 					}
 
 					.trash__icon {
@@ -60,6 +66,15 @@
 							@apply w-5 h-5 text-white;
 						}
 					}
+				}
+			}
+
+			.no__cars {
+				@apply h-full w-full flex items-center justify-center;
+				p {
+					font-size: 24px;
+					font-family: $main-font;
+					color: $main-color;
 				}
 			}
 		}

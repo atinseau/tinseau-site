@@ -5,7 +5,7 @@ import { styles, variables } from '../variables';
 import fs from "fs"
 import path from "path"
 
-const logo = fs.readFileSync(path.join(__dirname, ".." + '/images/logo.png'))
+const logo = fs.readFileSync(path.join('public/images/logo.png'))
 
 const Header = () => {
 	return <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>

@@ -1,15 +1,22 @@
+import React from "react";
 import ComponentSwitcher, { useSwitcher } from "src/components/Library/ComponentSwitcher";
 import AddCar from "./AddCar";
 import List from "./List";
 
 
-const Cars = () => {
+interface Props {
+	serverQuery: Object & {
+		startBy?: string
+	}
+}
+
+const Cars: React.FC<Props> = ({ serverQuery }) => {
 	const {
 		isSwitching,
 		index,
 		setIsSwitching,
 		setIndex
-	} = useSwitcher(0)
+	} = useSwitcher(serverQuery.startBy === "new" ? 1 : 0)
 
 	return <ComponentSwitcher
 		components={[List, AddCar]}

@@ -11,6 +11,7 @@ export default class extends BaseSchema {
 			table.string('model').notNullable()
 			
 			table.string('registration').notNullable().unique()
+			table.boolean('allow_image_sharing').notNullable().defaultTo(false)
 
 			table.string('assurance_name').notNullable()
 			table.string('assurance_number').notNullable()

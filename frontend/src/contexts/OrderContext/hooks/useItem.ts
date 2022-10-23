@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react"
-import useErrorContext from "src/hooks/useErrorContext"
+import { useEffect, useMemo, useState } from "react"
+import { useErrorContext } from "src/hooks"
 
 
 const useItem = (
@@ -9,7 +9,8 @@ const useItem = (
 	orderType: OrderType | null,
 	setItems: ReactDispatch<OrderItem[]>,
 	setCurrentItemId: ReactDispatch<number>,
-	setCurrentLocationId: ReactDispatch<number>
+	setCurrentLocationId: ReactDispatch<number>,
+	setOrderType: ReactDispatch<OrderType | null>,
 ) => {
 
 	const errorCtx = useErrorContext()
@@ -66,6 +67,7 @@ const useItem = (
 		const nextId = currentItemId + 1 < items.length ? currentItemId + 1 : 0
 		if (items[nextId].order.type === "location")
 			setCurrentLocationId(0)
+		setOrderType(items[nextId].order.type)
 		setCurrentItemId(nextId)
 	}
 

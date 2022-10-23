@@ -64,5 +64,9 @@ Route.group(() => {
 	})
 		.prefix('files')
 
+	Route.get('hello', () => {
+		return { hello: 'world' }
+	})
+
 })
 	.prefix('api/v1')

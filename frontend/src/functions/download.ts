@@ -1,3 +1,5 @@
+import axios from "axios"
+import { getEnvConfig, headers } from "./getConfig"
 
 
 
@@ -11,6 +13,18 @@ const download = (url: string, name: string, mode?: string) => {
 	a.click()
 }
 
+
+const downloadDecharge = (type: DechargeType, id?: string) => {
+	axios.post(getEnvConfig().SERVER_API + "/users/decharges/download" + (id ? "/" + id: ""), { type: type }, {
+		headers: headers().headers,
+		responseType: 'blob'
+	})
+		.then(async (e) => {
+			download(window.URL.createObjectURL(e.data), "decharge.pdf", "_blank")
+		})
+}
+
 export {
-	download
+	download,
+	downloadDecharge
 }

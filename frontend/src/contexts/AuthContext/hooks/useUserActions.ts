@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useCallback, useState } from "react"
 import { getEnvConfig, headers } from "src/functions/getConfig"
-import useErrorContext from "src/hooks/useErrorContext"
+import { useErrorContext } from "src/hooks"
 
 
 const useUserActions = (user: User | null) => {
@@ -9,11 +9,20 @@ const useUserActions = (user: User | null) => {
 	const errorCtx = useErrorContext()
 
 	const [cars, setCars] = useState<UserCar[]>([])
+	const [decharges, setDecharges] = useState<TTDDecharge[]>([])
 
 	const fetchCar = useCallback(() => {
 		axios.get(getEnvConfig().SERVER_API + "/users/cars", headers()).then((cars) => {
 			setCars(cars.data)
 		})
+	}, [user])
+
+	const fetchDecharges = useCallback(() => {
+		axios.get(getEnvConfig().SERVER_API + "/users/decharges", headers())
+			.then(({ data }) => {
+				console.log(data)
+				setDecharges(data)
+			})
 	}, [user])
 
 	const removeCar = useCallback((id: string) => {
@@ -26,14 +35,21 @@ const useUserActions = (user: User | null) => {
 				})
 				fetchCar()
 			})
-			.catch(() => {
-				errorCtx.createError({
-					title: "Erreur",
-					message: "Une erreur est survenue",
-					type: "danger",
-				})
-			})
+			.catch(() => errorCtx.regularError())
 	}, [cars])
+
+	const removeDecharge = useCallback((id: string) => {
+		axios.delete(getEnvConfig().SERVER_API + "/users/decharges/remove/" + id, headers())
+			.then(() => {
+				errorCtx.createError({
+					title: "Décharge supprimée",
+					message: "La décharge a bien été supprimée",
+					type: "success",
+				})
+				fetchDecharges()
+			})
+			.catch(() => errorCtx.regularError())
+	}, [decharges])
 
 	return {
 		carActions: {
@@ -41,6 +57,13 @@ const useUserActions = (user: User | null) => {
 			setCars,
 			fetch: fetchCar,
 			remove: removeCar
+		},
+
+		dechargeActions: {
+			decharges,
+			setDecharges,
+			fetch: fetchDecharges,
+			remove: removeDecharge
 		}
 	}
 

@@ -1,7 +1,7 @@
 import { HiChevronDown } from "react-icons/hi";
 import React, { useEffect } from "react"
-import useDropdown from "../../hooks/useDropdown";
 import Button from "./Button";
+import { useDropdown } from "src/hooks";
 
 interface Props {
 	sortMode: SortMode | null,

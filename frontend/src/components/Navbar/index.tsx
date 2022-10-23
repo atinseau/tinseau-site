@@ -5,7 +5,7 @@ import MenuWrapper from "./MenuWrapper";
 
 import logo from "public/images/logo.png"
 import MenuItemWithSub from "./MenuItemWithSub";
-import useAuthContext from "src/hooks/useAuthContext";
+import { useAuthContext } from "src/hooks";
 import AuthMenu from "./AuthMenu";
 import { Link } from "src/components/Library";
 

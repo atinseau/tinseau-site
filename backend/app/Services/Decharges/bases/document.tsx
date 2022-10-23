@@ -3,7 +3,7 @@ import { Page, Document, Font, View, Text, Image } from '@react-pdf/renderer';
 import Header from './components/Header';
 import { styles, variables } from './variables';
 
-Font.register({ family: "Bebas Neue", src: __dirname + "/fonts/BebasNeue-Regular.ttf" })
+Font.register({ family: "Bebas Neue", src: "public/fonts/BebasNeue-Regular.ttf" })
 
 interface Props {
 	document: DechargeBuilder
@@ -82,7 +82,8 @@ const MyDocument: React.FC<Props> = ({ document }) => {
 					</View>
 					<View style={{ position: "relative", fontFamily: variables.primaryFont, marginTop: 30, marginLeft: 30 }}>
 						<Text>Votre signature:</Text>
-						{document.signature && <View style={{ width: 400, left: 120, top: -20, position: "absolute" }}>
+						{/* border: 2, borderColor: "black" */}
+						{document.signature && <View style={{ width: 400, height: 65, left: 120, top: -25, position: "absolute" }}>
 							<Image style={{ objectFit: "contain" }} src={document.signature} cache={false} />
 						</View>}
 					</View>

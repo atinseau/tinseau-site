@@ -2,7 +2,7 @@ import axios from "axios"
 import { useRouter } from "next/router"
 import { useEffect, useRef, useState } from "react"
 import { getEnvConfig, headers } from "src/functions/getConfig"
-import useAuthContext from "src/hooks/useAuthContext"
+import { useAuthContext } from "src/hooks"
 
 
 

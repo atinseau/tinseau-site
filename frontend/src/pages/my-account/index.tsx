@@ -1,5 +1,5 @@
 import AccountWrapper from "src/components/MyAccount/AccountWrapper";
-import useAuthContext from "src/hooks/useAuthContext";
+import { useAuthContext } from "src/hooks";
 
 import User from "public/images/user.jpg"
 import { useMemo } from "react";

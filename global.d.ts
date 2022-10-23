@@ -32,6 +32,12 @@ type DechargeType =
 	"location" |
 	"additionnal_driver"
 
+type DechargeableItem = {
+	name: string
+	required_amount: any
+	type: DechargeType
+}
+
 type TTDImage = {
 	id: string
 	title: string
@@ -171,6 +177,7 @@ type StockSession = {
 
 type DechargeBuilder = {
 	type: DechargeType
+	skeleton: boolean
 	data?: any
 	signature?: Buffer
 }
@@ -190,11 +197,25 @@ type TTDDecharge<T = any> = {
 type UserCar = {
 	id: string
 	brand: string
+	images: TTDImage[]
 	model: string
 	registration: string
+	allow_image_sharing: boolean
 	assurance_name: string
 	assurance_number: string
 	user_id: string
 	created_at: string
 	updated_at: string
+}
+
+
+// Decharge
+
+type EventsPayload = {
+	[id: string]: {
+		selectedDechargeableItem: number
+		meta: {
+			additionnal_driver_agreement?: boolean
+		}
+	}
 }

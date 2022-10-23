@@ -57,7 +57,7 @@ export default class CartsController {
 		const stockSession = StockTracker.getStockSession(user?.id)
 
 		if (!stockSession) {
-			ctx.response.forbidden({
+			ctx.response.notFound({
 				message: "Vous n'avez pas de session de stock"
 			})
 			return

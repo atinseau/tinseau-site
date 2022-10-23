@@ -1,17 +1,18 @@
 import { HiExclamation } from "react-icons/hi";
 import React, { useEffect, useMemo } from "react"
 import { Incrementer, Switch } from "src/components/Library";
-import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
+import { useOrderContext } from "src/hooks";
+import { useSwitcherContext } from "src/components/Library/ComponentSwitcher";
 
 interface Props {
 	option: TTDOption
 	type: OrderOptionType
-	mounted: boolean
 }
 
-const OptionRendered: React.FC<Props> = ({ option, type, mounted }) => {
+const OptionRendered: React.FC<Props> = ({ option, type }) => {
 
 	const ctx = useOrderContext()
+	const switcherCtx = useSwitcherContext()
 
 	const memoizedOption = useMemo(() => {
 		let options: OrderOption[] = []
@@ -22,7 +23,7 @@ const OptionRendered: React.FC<Props> = ({ option, type, mounted }) => {
 	}, [ctx.item])
 
 	useEffect(() => {
-		if (mounted || !ctx.item)
+		if (switcherCtx.isMounted || !ctx.item)
 			return
 		ctx.addOption({ name: option.name, type: option.settings.type, initalValue: option.settings.value }, type)
 	}, [])

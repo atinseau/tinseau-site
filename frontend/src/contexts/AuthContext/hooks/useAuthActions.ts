@@ -2,8 +2,7 @@ import axios, { AxiosError } from "axios"
 import Cookies from "js-cookie"
 import { useState } from "react"
 import { getEnvConfig } from "src/functions/getConfig"
-import useErrorContext from "src/hooks/useErrorContext"
-import useSocket from "src/hooks/useSocket"
+import { useErrorContext, useSocket } from "src/hooks"
 import { AuthMode } from ".."
 
 
@@ -63,7 +62,7 @@ const useAuthActions = (getUser: () => Promise<void>) => {
 	}
 
 
-	return  {
+	return {
 		sendAuthPayload,
 		signWithGoogle,
 		error,

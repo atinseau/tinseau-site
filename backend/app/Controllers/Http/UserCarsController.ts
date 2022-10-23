@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, validator } from "@ioc:Adonis/Core/Validator"
-import File from 'App/Models/File'
 import UserCar from 'App/Models/UserCar'
 
 export default class UserCarsController {
@@ -10,6 +9,7 @@ export default class UserCarsController {
 			.related('cars')
 			.query()
 			.preload('images')
+
 		return cars
 	}
 
@@ -22,7 +22,8 @@ export default class UserCarsController {
 			model: schema.string(),
 			registration: schema.string(),
 			assurance_name: schema.string(),
-			assurance_number: schema.string()
+			assurance_number: schema.string(),
+			allow_image_sharing: schema.boolean()
 		})
 
 		const data = JSON.parse(ctx.request.body().data)

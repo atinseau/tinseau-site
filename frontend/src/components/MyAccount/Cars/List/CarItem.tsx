@@ -1,5 +1,6 @@
 import { TrashIcon } from "@heroicons/react/24/solid";
-import React from "react";
+import Image from "next/future/image";
+import React, { useEffect } from "react";
 import { Button } from "src/components/Library";
 import Modal, { useModal } from "src/components/Library/Modal";
 
@@ -14,7 +15,10 @@ const CarItem: React.FC<Props> = ({ car, remove }) => {
 
 	return <>
 		<li>
-			<img src={"https://via.placeholder.com/300x150"} />
+			{!car.images.length ?
+				<img src={"https://via.placeholder.com/300x150"} /> :
+				<Image src={car.images[0].url} width={250} height={100} />
+			}
 			<div className="car__data">
 				<h4>Model: {car.model}</h4>
 
@@ -25,7 +29,10 @@ const CarItem: React.FC<Props> = ({ car, remove }) => {
 					<p>Immatriculation: <strong>{car.registration}</strong></p>
 				</div>
 
-				<p className="added">Ajouté le: <strong>{new Date(car.created_at).toLocaleDateString()}</strong></p>
+				<div className="bottom__car">
+					<p className="added">Ajouté le: <strong>{new Date(car.created_at).toLocaleDateString()}</strong></p>
+					<p className="sharing">Partage des images: <strong>{car.allow_image_sharing ? "OUI" : "NON"}</strong></p>
+				</div>
 			</div>
 
 			<div className="trash__icon" onClick={() => toggle()}>

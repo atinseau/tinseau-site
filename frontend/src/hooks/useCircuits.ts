@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react"
 import { getEnvConfig } from "src/functions/getConfig";
-import useAxios from "src/hooks/useAxios";
+import { useAxios } from "src/hooks";
 
 const useCircuits = (): [TTDCircuit[], React.Dispatch<React.SetStateAction<TTDCircuit[]>>] => {
 
@@ -17,3 +17,4 @@ const useCircuits = (): [TTDCircuit[], React.Dispatch<React.SetStateAction<TTDCi
 }
 
 export default useCircuits;
+

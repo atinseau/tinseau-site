@@ -6,7 +6,7 @@ import UserCar from "App/Models/UserCar"
 
 export default class DechargesGenerator {
 
-	static readonly types = ["track_access", "location", "additional_driver"]
+	static readonly types: DechargeType[] = ["track_access", "location", "additionnal_driver"]
 
 	private static getSchema(type: DechargeType) {
 		const mainSchema = {
@@ -53,7 +53,7 @@ export default class DechargesGenerator {
 	}
 
 	static async createDecharge(builder: DechargeBuilder) {
-		if (builder.type === "track_access") {
+		if (builder.skeleton === false && builder.type === "track_access") {
 			const userCar = await UserCar.find(builder.data.car_id)
 			if (!userCar)
 				throw new Error("La voiture n'existe pas")

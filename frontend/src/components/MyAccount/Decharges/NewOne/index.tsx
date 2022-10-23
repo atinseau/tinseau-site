@@ -1,9 +1,9 @@
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
-import React, { useRef } from "react"
+import React, { useRef, useState } from "react"
 
 import Button from "src/components/Library/Button";
-import { download } from "src/functions/download";
+import { download, downloadDecharge } from "src/functions/download";
 import { getEnvConfig, headers } from "src/functions/getConfig";
 
 import DechargeForm from "./DechargeForm";
@@ -11,34 +11,25 @@ import DechargeSignature from "./DechargeSignature";
 import DechargeTypeSelector from "./DechargeTypeSelector";
 
 import type { ReactSketchCanvasRef } from "react-sketch-canvas";
-import useErrorContext from "src/hooks/useErrorContext";
-import useErrorForm from "src/hooks/useErrorForm";
+import { useErrorContext, useErrorForm } from "src/hooks";
 
 interface Props {
 	back: () => void
 	next: () => void
-	mounted: boolean
 }
 
-const NewOne: React.FC<Props> = ({ back, mounted }) => {
+const NewOne: React.FC<Props> = ({ back }) => {
 
 	const { register, handleSubmit, control } = useErrorForm("Impossible de créer la décharge")
-
 	const errorCtx = useErrorContext()
-
 	const canvasRef = useRef<ReactSketchCanvasRef>(null)
 
-	const downloadDecharge = () => {
-		axios.post(getEnvConfig().SERVER_API + "/users/decharges/download", { type: "track_access" }, {
-			headers: headers().headers,
-			responseType: 'blob'
-		})
-			.then(async (e) => {
-				download(window.URL.createObjectURL(e.data), "decharge.pdf", "_blank")
-			})
-	}
+	const [type, setType] = useState<DechargeType>("track_access")
 
 	const submit = async (e: any) => {
+
+		if (type === "track_access" && e.car_id)
+			e.car_id = e.car_id.id
 
 		if (await canvasRef.current?.getSketchingTime() === 0) {
 			errorCtx.createError({
@@ -78,8 +69,8 @@ const NewOne: React.FC<Props> = ({ back, mounted }) => {
 		</div>
 
 		<div className="decharges__container">
-			<DechargeTypeSelector />
-			<DechargeForm register={register} control={control} mounted={mounted} />
+			<DechargeTypeSelector type={type} setType={setType}/>
+			<DechargeForm register={register} control={control} />
 			<DechargeSignature ref={canvasRef} />
 		</div>
 
@@ -88,7 +79,7 @@ const NewOne: React.FC<Props> = ({ back, mounted }) => {
 				<ChevronLeftIcon />
 			</Button>
 			<div>
-				<Button variant="secondary" onClick={downloadDecharge}>Consulter le document</Button>
+				<Button variant="secondary" onClick={() => downloadDecharge(type)}>Consulter le document</Button>
 				<Button type="submit">Crée la décharge</Button>
 			</div>
 		</div>

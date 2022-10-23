@@ -1,21 +1,28 @@
-import { AdjustmentsVerticalIcon, ArrowLongRightIcon, ExclamationTriangleIcon, InformationCircleIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/solid"
-import React, { useMemo } from "react"
+import React from "react"
+
+import {
+	AdjustmentsVerticalIcon,
+	ExclamationTriangleIcon,
+	InformationCircleIcon,
+	WrenchScrewdriverIcon
+} from "@heroicons/react/24/solid"
+
+import {
+	CgArrowsExchangeAltV
+} from "react-icons/cg"
+
 import { Button, Incrementer } from "src/components/Library"
-import useOrderContext from "../../../../hooks/useOrderContext"
+import { useOrderContext } from "src/hooks"
 import OptionRendered from "./OptionRenderer"
 
 interface Props {
 	next: () => void
 	prev: () => void
-
-	mounted: boolean
 }
 
-const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
+const CircuitOptionPicker: React.FC<Props> = () => {
 
 	const ctx = useOrderContext()
-
-	const itemsCount = useMemo(() => ctx.items.length, [])
 
 	return <div className="circuit__option__picker">
 		<div className="picker__header">
@@ -29,7 +36,7 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 
 		<div className="picker__container">
 
-			{itemsCount > 1 && <div className="selected">
+			{ctx.items.length > 1 && <div className="selected">
 				<p>Journée selectionnée:</p>
 				<div>
 					<div>
@@ -40,7 +47,7 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 						</div>
 					</div>
 					<Button onClick={() => ctx.nextItem()}>
-						<ArrowLongRightIcon />
+						<CgArrowsExchangeAltV />
 					</Button>
 				</div>
 
@@ -60,6 +67,7 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 							count={ctx.item.order.track_access?.count || 0}
 							setCount={(e) => {
 								const item = ctx.item as OrderItem
+
 								ctx.updateItem({
 									...item,
 									order: {
@@ -80,14 +88,12 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 
 				{ctx.item?.event.options.map((option, i) => <OptionRendered
 					type="global"
-					mounted={mounted}
 					key={i}
 					option={option}
 				/>)}
 
 				{ctx.item?.order.type === "ttd" && ctx.item?.event.track_access.options.map((option, i) => <OptionRendered
 					type="track_access"
-					mounted={mounted}
 					key={i}
 					option={option}
 				/>)}
@@ -110,7 +116,6 @@ const CircuitOptionPicker: React.FC<Props> = ({ prev, mounted }) => {
 					<ul>
 						{ctx.item?.order.type === "location" && ctx.location && ctx.location.options.map((option, i) => <OptionRendered
 							type="location"
-							mounted={mounted}
 							key={i}
 							option={option}
 						/>)}

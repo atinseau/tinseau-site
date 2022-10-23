@@ -6,9 +6,9 @@ import { ChevronLeftIcon } from "@heroicons/react/24/solid"
 import { Button, Input, Switch } from "src/components/Library"
 import { getEnvConfig, headers } from "src/functions/getConfig"
 import { Swiper, SwiperSlide } from "swiper/react"
+import { Controller } from "react-hook-form";
 
-import useErrorForm from "src/hooks/useErrorForm"
-import useErrorContext from "src/hooks/useErrorContext"
+import { useErrorContext, useErrorForm } from "src/hooks"
 
 import 'swiper/css';
 
@@ -19,39 +19,32 @@ interface Props {
 
 const AddCar: React.FC<Props> = ({ back }) => {
 
-	const { register, handleSubmit } = useErrorForm("Impossible d'ajouter votre voiture")
+	const errorCtx = useErrorContext()
+
+	const { register, handleSubmit, control } = useErrorForm("Impossible d'ajouter votre voiture")
+
+	const [images, setImages] = useState<File[] | undefined>()
+	const [allow, setAllow] = useState(false)
 
 	const inputRef = useRef<HTMLInputElement>(null)
 
-	const [images, setImages] = useState<File[] | undefined>()
-
-	const [allow, setAllow] = useState(false)
-
-	const errorCtx = useErrorContext()
-
 	const submit = async (e: any) => {
-
 		const formData = new FormData()
-
 		formData.append('data', JSON.stringify(e))
-
 		if (images) {
 			for (const image of images)
 				formData.append('images', image)
 		}
-
 		axios.post(getEnvConfig().SERVER_API + "/users/cars/create", formData, headers())
 			.then((res) => {
 				console.log(res.data)
 				back()
 			})
 			.catch((err) => {
-
 				console.log(err)
-
 				errorCtx.createError({
 					title: "Impossible d'ajouter votre voiture",
-					message: "Raison: " + (err?.response?.data?.error || "Une erreur est survenue") ,
+					message: "Raison: " + (err?.response?.data?.error || "Une erreur est survenue"),
 					type: "danger"
 				})
 			})
@@ -68,12 +61,12 @@ const AddCar: React.FC<Props> = ({ back }) => {
 			<div className="cars__form">
 				<div className="form__group">
 					<h5>Marque</h5>
-					<Input {...register("model", { required: { value: true, message: "Veuillez entrer le model de votre voiture" } })} />
+					<Input {...register("brand", { required: { value: true, message: "Veuillez renseigner la marque de votre voiture" } })} />
 				</div>
 
 				<div className="form__group">
 					<h5>Model</h5>
-					<Input {...register("brand", { required: { value: true, message: "Veuillez renseigner la marque de votre voiture" } })} />
+					<Input {...register("model", { required: { value: true, message: "Veuillez entrer le model de votre voiture" } })} />
 				</div>
 
 				<div className="form__group">
@@ -119,10 +112,17 @@ const AddCar: React.FC<Props> = ({ back }) => {
 					</Swiper>
 				</div>
 
-				{images && <div className="allow">
-					<p>Autoriser Tinseau.com à utiliser les photos de ma voiture pour enrichir les images du site ?</p>
-					<Switch onChange={setAllow} value={allow} />
-				</div>}
+				<Controller
+					name="allow_image_sharing"
+					control={control}
+					defaultValue={false}
+					render={({ field: { onChange, value } }) => <>
+						{images && <div className="allow">
+							<p>Autoriser Tinseau.com à utiliser les photos de ma voiture pour enrichir les images du site ?</p>
+							<Switch onChange={(e) => { console.log(e); onChange(e) }} value={value || false} />
+						</div>}
+					</>}
+				/>
 			</div>
 		</div>
 

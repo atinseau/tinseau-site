@@ -1,5 +1,5 @@
 import React from "react"
-import { getLocationByCarId } from "../../contexts/OrderContext"
+import { getLocationByCarId } from "src/contexts/OrderContext"
 import OptionResumeRender from "./OptionResumeRender"
 
 interface Props {

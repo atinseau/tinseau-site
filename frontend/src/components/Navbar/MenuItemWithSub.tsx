@@ -3,7 +3,7 @@ import { Link } from "src/components/Library"
 
 import { HiChevronDown } from "react-icons/hi"
 import { useRouter } from "next/router"
-import useDropdown from "../../hooks/useDropdown"
+import { useDropdown } from "src/hooks"
 
 interface Props {
 	children: React.ReactNode

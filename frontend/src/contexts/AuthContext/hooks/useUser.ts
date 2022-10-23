@@ -3,7 +3,7 @@ import Cookies from "js-cookie"
 import { useRouter } from "next/router"
 import { useEffect, useMemo, useState } from "react"
 import { getEnvConfig } from "src/functions/getConfig"
-import useErrorContext from "src/hooks/useErrorContext"
+import { useErrorContext } from "src/hooks"
 
 
 const useUser = () => {

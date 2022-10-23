@@ -1,8 +1,10 @@
 import { DateTime } from 'luxon'
-import { beforeDelete, BelongsTo, belongsTo, column, HasMany, hasMany, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { beforeDelete, BelongsTo, belongsTo, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import { BaseModelWithUuid } from 'App/Functions/ModelExtension'
+
 import User from './User'
 import File from './File'
+import Decharge from './Decharge'
 
 export default class UserCar extends BaseModelWithUuid {
 
@@ -17,6 +19,9 @@ export default class UserCar extends BaseModelWithUuid {
 
 	@column()
 	public model: string
+
+	@column()
+	public allow_image_sharing: boolean
 
 	@column()
 	public registration: string
@@ -45,6 +50,16 @@ export default class UserCar extends BaseModelWithUuid {
 		const images = await car.related('images').query()
 		for (const image of images)
 			await image.delete()
+
+		const decharges = await Decharge
+			.query()
+			.whereJsonSuperset(
+				'data',
+				{ car_id: car.id }
+			)
+
+		for (const decharge of decharges)
+			await decharge.delete()
 	}
 
 }

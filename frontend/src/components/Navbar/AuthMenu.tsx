@@ -1,8 +1,7 @@
 import Image from "next/future/image";
-import useAuthContext from "src/hooks/useAuthContext";
+import { useAuthContext, useDropdown } from "src/hooks";
 
 import User from "public/images/user.jpg"
-import useDropdown from "src/hooks/useDropdown";
 import { useRouter } from "next/router";
 
 import { HiOutlineLogout } from "react-icons/hi"
@@ -26,7 +25,7 @@ const AuthMenu = () => {
 
 		{open && <ul ref={ref}>
 			<li onClick={authCtx.logout}>
-				<HiOutlineLogout/>
+				<HiOutlineLogout />
 				Déconnexion
 			</li>
 		</ul>}

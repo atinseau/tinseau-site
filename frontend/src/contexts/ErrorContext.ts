@@ -9,6 +9,7 @@ export interface IError {
 
 interface IErrorContext {
 	createError: (error: IError) => void
+	regularError: () => void 
 }
 
 const ErrorContext = React.createContext<IErrorContext>({} as IErrorContext)

@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import useErrorContext from "src/hooks/useErrorContext"
+import { useErrorContext } from "src/hooks"
 import { getLocationByCarId } from ".."
 
 

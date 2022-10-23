@@ -1,7 +1,6 @@
 import { Sorting } from "src/components/Library";
 import React, { useEffect, useMemo, useState } from "react"
 import LocationCard from "./LocationCard";
-import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Mousewheel, Grid } from "swiper";
 
@@ -9,12 +8,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/grid";
 import useConfigContext from "src/components/PickMyDay/hooks/useConfigContext";
-import { IOrderContext } from "src/components/PickMyDay/contexts/OrderContext";
 import { useMediaQuery } from "usehooks-ts";
+import { useOrderContext } from "src/hooks";
+import type { IOrderContext } from "src/contexts/OrderContext";
+import { useSwitcherContext } from "src/components/Library/ComponentSwitcher";
 
 interface Props {
 	next: () => void
-	mounted: boolean
 }
 
 const LocationDesktop: React.FC<{ locations: TTDLocation[], ctx: IOrderContext, next: () => void }> = ({ locations, next, ctx }) => {
@@ -75,7 +75,9 @@ const sortModes: SortMode[] = [
 	}
 ]
 
-const CarPicker: React.FC<Props> = ({ next, mounted }) => {
+const CarPicker: React.FC<Props> = ({ next }) => {
+
+	const switcherContext = useSwitcherContext()
 
 	const [sortMode, setSortMode] = useState<SortMode | null>(null)
 
@@ -96,13 +98,13 @@ const CarPicker: React.FC<Props> = ({ next, mounted }) => {
 	}, [ctx.item, sortMode])
 
 	useEffect(() => {
-		if (configCtx.isSwitching && mounted) {
+		if (configCtx.isSwitching && switcherContext.isMounted) {
 			document.querySelector('.option__picker .swiper-pagination')?.remove()
 		}
 	}, [configCtx.isSwitching])
 
 	useEffect(() => {
-		if (mounted)
+		if (switcherContext.isMounted)
 			return
 
 		const container = document.querySelector('.option__picker')

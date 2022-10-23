@@ -1,9 +1,9 @@
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import useConfigContext from "src/components/PickMyDay/hooks/useConfigContext";
-import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
 import React from "react"
 import { Button } from "src/components/Library";
 import ComponentSwitcher from "src/components/Library/ComponentSwitcher";
+import { useOrderContext } from "src/hooks";
 
 const OptionPicker: React.FC = () => {
 
@@ -43,15 +43,20 @@ const OptionPicker: React.FC = () => {
 				}}
 				isSwitching={configCtx.isSwitching}
 				setIsSwitching={configCtx.setIsSwitching}
+				shouldAnimate={configCtx.shouldAnimate}
 				index={configCtx.step}
 			/>
 		</div>
 		<div className="option__picker__controller">
 
-			{configCtx.step === 0 && <div className="order__mode" onClick={() => orderCtx.setOrderType(orderCtx.orderType === "location" ? "ttd" : "location")}>
-				<h4>Mode | {orderCtx.orderType === "location" ? "Location de voiture" : "Voiture personnelle"}</h4>
-				<p>{orderCtx.orderType === "location" ? "Venir avec ma voiture !" : "Louer une voiture ?"}</p>
-			</div>}
+			{configCtx.step === 0 && <Button className="order__mode" onClick={() => orderCtx.setOrderType(orderCtx.orderType === "location" ? "ttd" : "location")}>
+				{orderCtx.orderType === "location" ? "Je souhaite un circuit" : "Je souhaite une location"}
+			</Button>}
+
+			{/* {configCtx.step === configCtx.steps.length - 1 && <> */}
+			{/* <Button variant="secondary">Circuit supplémentaire ?</Button>
+				{orderCtx.orderType === "location" && <Button onClick={() => configCtx.prev()}>Location supplémentaire ?</Button>} */}
+			{/* </>} */}
 
 			<Button onClick={configCtx.prev} variant={configCtx.step === 0 ? "disabled" : "primary"}>
 				<HiChevronLeft />

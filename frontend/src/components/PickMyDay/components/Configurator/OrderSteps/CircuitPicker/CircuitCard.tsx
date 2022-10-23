@@ -1,11 +1,11 @@
 import Image from "next/future/image"
 import React, { useMemo, useState } from "react"
 import { Button } from "src/components/Library"
+import { useOrderContext } from "src/hooks"
 
-import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext"
 
 interface Props {
-	onPick: (e: {circuit: TTDCircuit, event: TTDEvent}) => void
+	onPick: (e: { circuit: TTDCircuit, event: TTDEvent }) => void
 	circuit: TTDCircuit
 }
 
@@ -20,25 +20,25 @@ const CircuitCard: React.FC<Props> = ({ onPick, circuit }) => {
 			event = circuit.events[0]
 			setSelectedEventId(0)
 		}
-		return event 
+		return event
 	}, [selectedEventId, circuit])
 
 	// placeholder logo
 	return <li className="circuit__card">
 
 		<div className="circuit__card__header">
-			<Image src={circuit.logo.url} width={80} height={40}/>
+			<Image src={circuit.logo.url} width={80} height={40} />
 			<div className="info">
 				<h2>{circuit.name}</h2>
-				{ctx.orderType === "ttd"  && <p>{selectedEvent.track_access.places} places restantes</p>}
+				{ctx.orderType === "ttd" && <p>{selectedEvent.track_access.places} places restantes</p>}
 				{ctx.orderType === "location" && <p>{(() => {
 					const locationsCount = selectedEvent.locations.filter((loc) => loc.instances_amount > 0).length
-					return locationsCount === 1 ? "Une location restante !": locationsCount + " locations restantes"
+					return locationsCount === 1 ? "Une location restante !" : locationsCount + " locations restantes"
 				})()}</p>}
 			</div>
-			<Button 
-				onClick={() => onPick({circuit, event: selectedEvent})}
-				variant={ctx.items.find((item) => item.event.id === selectedEvent.id) ? "disabled": "primary"}
+			<Button
+				onClick={() => onPick({ circuit, event: selectedEvent })}
+				variant={ctx.items.find((item) => item.event.id === selectedEvent.id) ? "disabled" : "primary"}
 			>
 				Choisir
 			</Button>
@@ -50,8 +50,8 @@ const CircuitCard: React.FC<Props> = ({ onPick, circuit }) => {
 		</div>
 
 		<ul className="days">
-			{circuit.events.map((event, i) => <li 
-				className={i === selectedEventId ? "selected": ""} 
+			{circuit.events.map((event, i) => <li
+				className={i === selectedEventId ? "selected" : ""}
 				key={i}
 				onClick={() => setSelectedEventId(i)}
 			>

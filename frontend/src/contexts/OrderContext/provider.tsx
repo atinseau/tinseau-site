@@ -1,8 +1,7 @@
 import { useState } from "react"
+import { useCircuits } from "src/hooks"
 import OrderContext from "."
-import StockSession from "../../components/Decharges/StockSession"
-import useCircuits from "../../hooks/useCircuits"
-
+import StockSession from "./components/StockSession"
 import {
 	useItem,
 	useLocation,
@@ -31,7 +30,7 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 		nextItem,
 		setBufferedItem,
 		item
-	} = useItem(currentItemId, items, orderType, setItems, setCurrentItemId, setCurrentLocationId)
+	} = useItem(currentItemId, items, orderType ,setItems, setCurrentItemId, setCurrentLocationId, setOrderType)
 
 	const {
 		clearRemoveItem,
@@ -45,8 +44,8 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 
 	const { location, addLocation } = useLocation(item, items, currentLocationId, setCurrentLocationId, setItems)
 
-	const { 
-		startStockSession, 
+	const {
+		startStockSession,
 		setOpenDechargeDialog,
 		deleteStockSession,
 		openDechargeDialog,
@@ -81,10 +80,10 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 		setCurrentLocationId,
 		createItem,
 		setCurrentItemId
-	}}>		
+	}}>
 		{children}
-	
-		{stockSession && <StockSession stockSession={stockSession}/>}
+
+		{stockSession && <StockSession stockSession={stockSession} />}
 	</OrderContext.Provider>
 }
 

@@ -1,11 +1,9 @@
 import { Cog6ToothIcon, CreditCardIcon, LockClosedIcon, TrashIcon } from "@heroicons/react/24/solid";
 import React, { useEffect, useState } from "react"
 import { VscLoading } from "react-icons/vsc";
-import useAuthContext from "src/hooks/useAuthContext";
-import useErrorContext from "src/hooks/useErrorContext";
+import { useAuthContext, useOrderContext, useErrorContext } from "src/hooks";
 import { Button } from "src/components/Library";
 import useConfigContext from "../../hooks/useConfigContext";
-import useOrderContext from "../../hooks/useOrderContext";
 import OrderDecharges from "../Decharges";
 import OrderPriceItem from "./OrderPriceItem";
 

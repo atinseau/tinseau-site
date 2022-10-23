@@ -4,9 +4,7 @@ import Image from "next/future/image";
 import { Button } from "src/components/Library";
 
 import { HiChevronDown } from "react-icons/hi";
-import useDropdown from "src/hooks/useDropdown";
-import { getEnvConfig } from "src/functions/getConfig";
-import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
+import { useDropdown, useOrderContext } from "src/hooks";
 
 interface Props {
 	location: TTDLocation
@@ -31,11 +29,6 @@ const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 		}
 		return output
 	}, [])
-
-	useEffect(() => {
-		console.log(location)
-	}, [])
-
 
 	const formatSeries = (serie: number, tours: number) => {
 		if (serie / serieFormat.current[0] === location.max_instances)

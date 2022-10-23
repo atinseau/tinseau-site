@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import {gsap} from "gsap"
+import { gsap } from "gsap"
 
 const useDechargesOpen = (close: () => void) => {
 
@@ -31,7 +31,7 @@ const useDechargesOpen = (close: () => void) => {
 		return () => document.body.removeAttribute('style')
 	}, [])
 
-	const handleClose = () => {
+	const handleClose = (): Promise<void> => new Promise((resolve) => {
 		gsap.to(modalRef.current, {
 			opacity: 0,
 			duration: 0.5,
@@ -39,9 +39,10 @@ const useDechargesOpen = (close: () => void) => {
 			onComplete: () => {
 				document.body.removeAttribute("style")
 				close()
+				resolve()
 			}
 		})
-	}
+	})
 
 	return {
 		containerRef,

@@ -3,23 +3,24 @@ import { useEffect } from "react";
 import type { UseFormRegister, FieldValues, Control } from "react-hook-form";
 import { Controller } from "react-hook-form";
 import { Dropdown, Input } from "src/components/Library";
+import { useSwitcherContext } from "src/components/Library/ComponentSwitcher";
 
-import useAuthContext from "src/hooks/useAuthContext";
+import { useAuthContext } from "src/hooks";
 
 interface Props {
 	register: UseFormRegister<FieldValues>
 	control: Control<FieldValues, any>
-	mounted: boolean
 }
 
-const DechargeForm: React.FC<Props> = ({ register, control, mounted }) => {
+const DechargeForm: React.FC<Props> = ({ register, control }) => {
 
 	const authCtx = useAuthContext()
+	const switcherCtx = useSwitcherContext()
 
 	const { cars, fetch } = authCtx.carActions
 
 	useEffect(() => {
-		if (!mounted)
+		if (!switcherCtx.isMounted)
 			return
 		fetch()
 	}, [])
@@ -68,12 +69,12 @@ const DechargeForm: React.FC<Props> = ({ register, control, mounted }) => {
 		<div className="form__group dropdown__cars">
 			<h5>Séléctionner votre voiture</h5>
 			<Controller
-				name="car"
+				name="car_id"
 				rules={{ required: { value: true, message: "Vous devez séléctioné une voiture" } }}
 				control={control}
 				render={({ field: { onChange } }) => <>
 
-					<p className="add__label">Pour ajouter une voiture cliquer <Link href={"/my-account/cars"}>ici</Link></p>
+					<p className="add__label">Pour ajouter une voiture cliquer <Link href={"/my-account/cars?startBy=new"}>ici</Link></p>
 
 					{!cars.length ? <div className="no__cars">
 						<p>Vous n'avez pas encore ajouté de voiture !</p>
@@ -83,7 +84,7 @@ const DechargeForm: React.FC<Props> = ({ register, control, mounted }) => {
 							onChange(e)
 						}}
 						label="Votre voiture"
-						keyExtractor={e => e.brand + " " + e.model}
+						keyExtractor={e => "Marque: " + e.brand + ", Model: " + e.model}
 					/>}
 				</>}
 			/>
