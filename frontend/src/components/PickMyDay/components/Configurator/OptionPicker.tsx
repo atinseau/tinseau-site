@@ -57,6 +57,7 @@ const OptionPicker: React.FC = () => {
 		<div className="option__step__container">
 			<ComponentSwitcher
 				components={configCtx.steps}
+				basePath="/pick-my-day"
 				props={{
 					next: configCtx.next,
 					prev: configCtx.prev
