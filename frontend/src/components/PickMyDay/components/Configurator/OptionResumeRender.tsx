@@ -10,7 +10,7 @@ const OptionResumeRender: React.FC<Props> = ({ dbOptions, options, order }) => {
 	return <>
 		{dbOptions.map((option, i) => {
 			const optionSelected = options.find(o => o.name === option.name)
-			const coef = order.type === "location" ? order.locations?.length || 1 : order.classic?.count || 1
+			const coef = order.type === "location" ? order.locations?.length || 1 : order.track_access?.count || 1
 
 			if (!optionSelected)
 				return null
@@ -34,7 +34,7 @@ const OptionResumeRender: React.FC<Props> = ({ dbOptions, options, order }) => {
 					<p>{
 						optionSelected.type === "number" ?
 							optionSelected.value * option.price :
-							optionSelected.type === "bool" ? (option.settings.value ? 0 : option.price) : 0
+							optionSelected.type === "bool" ? (option.settings.value === "true" ? 0 : option.price) : 0
 					}€</p>
 				</div>
 			</li>

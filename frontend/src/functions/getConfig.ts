@@ -1,8 +1,9 @@
+import Cookies from "js-cookie";
 import getConfig from "next/config";
 
 type EnvConfig = {
-	SERVER_GRAPHQL: string
 	SERVER_ADDRESS: string
+	SERVER_API: string
 }
 
 function getEnvConfig(): EnvConfig {
@@ -12,6 +13,15 @@ function getEnvConfig(): EnvConfig {
 	return config.publicRuntimeConfig;
 }
 
+const headers = () => {
+	return {
+		headers: {
+			Authorization: "Bearer " + Cookies.get("token")
+		}
+	}
+}
+
 export {
+	headers,
 	getEnvConfig
 }

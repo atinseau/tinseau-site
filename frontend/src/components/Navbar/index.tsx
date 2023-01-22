@@ -1,13 +1,13 @@
 import Image from "next/future/image";
 import React from "react";
-import Button from "../Library/Button";
-import Link from "../Library/Link";
 import MenuItem from "./MenuItem";
 import MenuWrapper from "./MenuWrapper";
 
 import logo from "public/images/logo.png"
 import MenuItemWithSub from "./MenuItemWithSub";
-import useAuthContext from "src/hooks/useAuthContext";
+import { useAuthContext } from "src/hooks";
+import AuthMenu from "./AuthMenu";
+import { Link } from "src/components/Library";
 
 const Navbar: React.FC = () => {
 
@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
 
 	return <nav className="nav__bar">
 		<Link className="home__link" href={"/"}>
-			<Image src={logo} />
+			<Image src={logo} alt="logo" />
 			tinseau.com
 		</Link>
 
@@ -34,12 +34,12 @@ const Navbar: React.FC = () => {
 			<MenuItem href="/about" title="About" />
 		</MenuWrapper>
 
-		{!authCtx.isLoading && <>
+		{!authCtx.isLoading ? <>
 			{!authCtx.user ? <MenuWrapper className="right__menu">
-				<MenuItem onClick={authCtx.toggleLoginModal} title="Login" />
-				<MenuItem href="/register" title="Register" />
-			</MenuWrapper>: <p>LOGO USER</p>}
-		</>}
+				<MenuItem onClick={() => authCtx.toggleLoginModal("login")} title="Login" />
+				<MenuItem onClick={() => authCtx.toggleLoginModal("register")} title="Register" />
+			</MenuWrapper> : <AuthMenu />}
+		</> : null}
 	</nav>
 }
 

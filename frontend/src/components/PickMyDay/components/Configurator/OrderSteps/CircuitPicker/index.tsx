@@ -1,8 +1,8 @@
-import Sorting from "src/components/Library/Sorting";
-import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
-import React, { useEffect, useMemo, useState } from "react"
+import { Sorting } from "src/components/Library";
+import React, { useMemo, useState } from "react"
 import CircuitCard from "./CircuitCard";
 import { orderByClosestDate } from "src/functions/dates";
+import { useOrderContext } from "src/hooks";
 
 interface Props {
 	next: () => void
@@ -30,25 +30,25 @@ const CircuitPicker: React.FC<Props> = ({ next }) => {
 		switch (sortMode?.value) {
 			case "date": {
 				const circuits = structuredClone(ctx.circuits)
-				for (const circuit of circuits.data)
-					circuit.attributes.events.data = orderByClosestDate(circuit.attributes.events.data, (event) => new Date(event.attributes.date))
-				return {
-					...ctx.circuits,
-					data: orderByClosestDate(circuits.data, (circuit) => new Date(circuit.attributes.events.data[0].attributes.date)).reverse()
-				}
+				for (const circuit of circuits)
+					circuit.events = orderByClosestDate(circuit.events, (event) => new Date(event.date))
+
+				// @ts-ignore
+				return orderByClosestDate(circuits, (circuit) => !circuit.events.length ? new Date(null) : new Date(circuit.events[0].date)).reverse()
+
 			} case "price": {
 				if (ctx.orderType === "location")
 					return ctx.circuits
 				const circuits = structuredClone(ctx.circuits)
 
-				for (const circuit of circuits.data) {
-					circuit.attributes.events.data.sort((a, b) => {
-						return a.attributes.classic.price - b.attributes.classic.price
+				for (const circuit of circuits) {
+					circuit.events.sort((a, b) => {
+						return a.track_access.price - b.track_access.price
 					})
 				}
 
-				circuits.data.sort((a, b) => {
-					return a.attributes.events.data[0].attributes.classic.price + b.attributes.events.data[0].attributes.classic.price
+				circuits.sort((a, b) => {
+					return a.events[0].track_access.price + b.events[0].track_access.price
 				})
 				return circuits
 			}
@@ -71,7 +71,7 @@ const CircuitPicker: React.FC<Props> = ({ next }) => {
 
 		<div className="circuit__container">
 			<ul>
-				{circuits.data && circuits.data.map((circuit, i) => <CircuitCard
+				{circuits && circuits.map((circuit, i) => <CircuitCard
 					onPick={(e) => ctx.createItem(e.circuit, e.event) && next()}
 					circuit={circuit}
 					key={i}

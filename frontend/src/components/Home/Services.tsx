@@ -13,11 +13,11 @@ const Services: React.FC = () => {
 			</div>
 
 			<div className="services__image__a">
-				<Image src={coach} />
+				<Image src={coach} alt="coach"/>
 			</div>
 
 			<div className="services__image__b">
-				<Image src={testdays} />
+				<Image src={testdays} alt="coach"/>
 			</div>
 
 			<div className="services__footer">
@@ -34,7 +34,7 @@ const Services: React.FC = () => {
 				<h4>high performance</h4>
 			</div>
 
-			<Image src={services}/>
+			<Image src={services} alt="coach"/>
 
 			<div className="last__services__footer">
 				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus quaerat totam amet adipisci deleniti eligendi odit nam magni, cupiditate ad fugit dolore id earum aliquid repellendus optio at repellat consectetur.

@@ -10,6 +10,9 @@ interface IConfigContext {
 	steps: React.FC<any>[]
 	next: () => void
 	prev: () => void
+
+	shouldAnimate: boolean
+	setShouldAnimate: (shouldAnimate: boolean) => void
 }
 
 const ConfigContext = React.createContext<IConfigContext>({} as IConfigContext)

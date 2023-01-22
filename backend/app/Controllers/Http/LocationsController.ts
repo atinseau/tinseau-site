@@ -11,4 +11,8 @@ export default class LocationsController {
 	public async deleteAll() {
 		return await Location.query().delete()
 	}
+
+	public static async getLocationByCarId(carId: string) {
+		return await Location.query().where('car_id', carId).first() as Location
+	}
 }

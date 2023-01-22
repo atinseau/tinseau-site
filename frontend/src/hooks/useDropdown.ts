@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import gsap from "gsap"
+import {gsap} from "gsap"
 
 type HTMLRef<T> = React.RefObject<T>
 type ToggleFn = (e: React.MouseEvent | MouseEvent) => void

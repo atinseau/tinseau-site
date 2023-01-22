@@ -15,9 +15,19 @@
 @import "../components/Auth/styles/login.scss";
 
 
+
 @import "./pages/home.scss";
 @import "./pages/pickmyday.scss";
+@import "./pages/myaccount.scss";
 
+#__next {
+	background-color: black;
+
+	.page__wrapper {
+		margin: auto;
+		max-width: 1500px;
+	}
+}
 
 .swiper-pagination {
 
@@ -39,4 +49,44 @@
 			background-color: $main-color;
 		}
 	}
+}
+
+
+// body {
+// 	overflow: hidden;
+// }
+
+body:has(.stock__session) {
+	overflow-x: hidden;
+}
+
+.stock__session {
+	@apply fixed cursor-pointer bg-red-500 flex flex-row items-center p-1 gap-2 drop-shadow-lg;
+
+	color: white;
+	right: 0;
+	top: $navbar-height;
+	transition: all 0.3s ease-in-out;
+	z-index: 1;
+
+	svg {
+		@apply w-10 h-10;
+	}
+
+	>div {
+		@apply flex flex-col mr-2;
+		h3 {
+			font-family: $main-font;
+			font-size: 15px;
+			line-height: 15px;
+		}
+		p {
+			@apply text-gray-300;
+		}
+	}
+
+	&:hover {
+		@apply bg-red-600;
+	}
+
 }

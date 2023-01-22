@@ -1,7 +1,7 @@
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { HiChevronDown } from "react-icons/hi";
 import React, { useEffect } from "react"
-import useDropdown from "../../hooks/useDropdown";
 import Button from "./Button";
+import { useDropdown } from "src/hooks";
 
 interface Props {
 	sortMode: SortMode | null,
@@ -34,7 +34,7 @@ const Sorting: React.FC<Props> = ({ sortModes, sortMode, setSortMode, onSort }) 
 		<p>Trier: </p>
 		<Button onClick={toggle}>
 			{sortMode?.label || "Par défaut"}
-			<ChevronDownIcon />
+			<HiChevronDown />
 		</Button>
 
 		{isOpen && <ul ref={ref}>

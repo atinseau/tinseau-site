@@ -1,9 +1,8 @@
 import ConfigProvider from "src/components/PickMyDay/contexts/ConfigProvider";
-import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
-import useMounted from "src/hooks/useMounted";
-import React, { useEffect } from "react"
+import React from "react"
 import OptionPicker from "./OptionPicker";
 import OrderResume from "./OrderResume";
+import { useOrderContext } from "src/hooks";
 
 interface Props {
 	isOnScreen: boolean
