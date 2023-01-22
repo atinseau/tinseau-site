@@ -4,4 +4,6 @@ build
 dist
 .next
 
+apps/frontend/public/videos/getmyday.mp4
+
 .turbo
