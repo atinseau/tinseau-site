@@ -35,6 +35,9 @@ const useStockSession = (
 		axios.delete(getEnvConfig().SERVER_API + "/users/cart/stock-session", headers()).then(() => {
 			console.log("Stock session deleted")
 		})
+		.finally(() => {
+			setStockSession(undefined)
+		})
 	}
 
 	useEffect(() => {

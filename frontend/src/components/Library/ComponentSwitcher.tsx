@@ -3,8 +3,11 @@ import { useRouter } from "next/router"
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
 
+type SwitcherComponent = React.FC<{ next: () => void, back: () => void }>
+type SwitcherComponentWithPath = { component: SwitcherComponent, path: string }
+
 interface Props {
-	components: { component: React.FC<{ next: () => void, back: () => void }>, path: string }[],
+	components: (SwitcherComponentWithPath | SwitcherComponent) [],
 	index: number,
 	isSwitching: boolean,
 	basePath: string,
@@ -37,8 +40,34 @@ function ComponentSwitcher<T>({
 	const ref = useRef<HTMLDivElement>(null)
 	const switchRef = useRef<HTMLDivElement>(null)
 
-	const Component = components[bufferIndex]
-	const NextComponent = components[index]
+	const { Component, NextComponent } = useMemo(() => {
+		
+		let C = components[bufferIndex] 
+		let NC = components[index]
+
+		if (typeof (C as SwitcherComponentWithPath).path === "undefined") {
+			C = {
+				component: C as SwitcherComponent,
+				path: ""
+			}
+		}
+
+		if (typeof (NC as SwitcherComponentWithPath).path === "undefined") {
+			NC = {
+				component: NC as SwitcherComponent,
+				path: ""
+			}
+		}
+
+		return {
+			Component: C,
+			NextComponent: NC
+		} as {
+			Component: SwitcherComponentWithPath,
+			NextComponent: SwitcherComponentWithPath
+		}
+
+	}, [bufferIndex, index])
 
 	// track if switcher is not animated
 	useEffect(() => {
