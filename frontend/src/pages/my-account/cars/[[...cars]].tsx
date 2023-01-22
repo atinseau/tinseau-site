@@ -4,19 +4,19 @@ import AccountWrapper from "src/components/MyAccount/AccountWrapper";
 import Cars from "src/components/MyAccount/Cars";
 
 interface Props {
-	serverQuery: Object
+	serverParams: string[]
 }
 
-const CarsPage: React.FC<Props> = ({ serverQuery }) => {
+const CarsPage: React.FC<Props> = ({ serverParams }) => {
 	return <AccountWrapper title="Mes voitures">
-		<Cars serverQuery={serverQuery}/>
+		<Cars serverParams={serverParams}/>
 	</AccountWrapper>
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	return {
 		props: {
-			serverQuery: context.query
+			serverParams: context.params?.cars || []
 		}
 	}
 }

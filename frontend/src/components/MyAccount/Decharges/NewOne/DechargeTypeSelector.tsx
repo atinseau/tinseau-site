@@ -30,15 +30,15 @@ const DechargeTypeSelector: React.FC<Props> = ({ type, setType }) => {
 		<div>
 			<h5>Type de décharge: </h5>
 			<ul>
-				{types.map((e, i) => <>
-					{<li
+				{types.map((e, i) =>
+					<li
 						key={i}
 						onClick={() => setType(e.value)}
 						className={classNames(type === e.value && "selected")}
 					>
 						{e.label}
-					</li>}
-				</>)}
+					</li>
+				)}
 			</ul>
 		</div>
 	</div>

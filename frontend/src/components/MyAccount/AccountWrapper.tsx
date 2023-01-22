@@ -22,17 +22,23 @@ const links = [
 	{
 		name: "Mes voitures",
 		logo: IoCarSportOutline,
-		"href": "/my-account/cars",
+		"href": [
+			"/my-account/cars",
+			"/my-account/cars/new" // nested routes
+		],
 	},
 	{
 		name: "Mes commandes",
 		logo: HiQrcode,
 		href: "/my-account/commands",
-	}, 
+	},
 	{
 		name: "Mes décharges de responsabilité",
 		logo: HiScale,
-		href: "/my-account/responsability",
+		href: [
+			"/my-account/responsability",
+			"/my-account/responsability/new" // nested routes
+		],
 	}
 ]
 
@@ -40,19 +46,30 @@ const AccountWrapper: React.FC<Props> = ({ children, title, className }) => {
 
 	const router = useRouter()
 
+	const isSelected = (href: string | string[]) => {
+		if (typeof href === "string")
+			return router.asPath.endsWith(href) ? "selected" : ""
+		else if (typeof href === "object" && href instanceof Array) {
+			for (const h of href) {
+				if (router.asPath.endsWith(h))
+					return "selected"
+			}
+		}
+		return  ""
+	}
+
 	return <Wrapper title={title}>
 		<div className={"account__container"}>
 			<div className="menu__account">
 				<ul>
-					{links.map((link, index) => <li onClick={() => router.push(link.href)} key={index} className={router.asPath.split('?')[0] === link.href ? "selected": ""}>
+					{links.map((link, index) => <li onClick={() => router.push(typeof link.href === "string" ? link.href : link.href[0])} key={index} className={isSelected(link.href)}>
 						{React.createElement(link.logo, {})}
 						<a>{link.name}</a>
-					</li>)}					
+					</li>)}
 				</ul>
 			</div>
-			<div className={"account__component" + (className ? " " + className: "")}>{children}</div>
+			<div className={"account__component" + (className ? " " + className : "")}>{children}</div>
 		</div>
-
 	</Wrapper>
 }
 

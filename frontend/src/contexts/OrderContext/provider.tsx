@@ -30,7 +30,7 @@ const OrderProvider: React.FC<Props> = ({ children }) => {
 		nextItem,
 		setBufferedItem,
 		item
-	} = useItem(currentItemId, items, orderType ,setItems, setCurrentItemId, setCurrentLocationId, setOrderType)
+	} = useItem(currentItemId, items, orderType, setItems, setCurrentItemId, setCurrentLocationId, setOrderType)
 
 	const {
 		clearRemoveItem,

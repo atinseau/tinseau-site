@@ -5,22 +5,32 @@ import List from "./List";
 
 
 interface Props {
-	serverQuery: Object & {
-		startBy?: string
-	}
+	serverParams: string[]
 }
 
-const Cars: React.FC<Props> = ({ serverQuery }) => {
+const Cars: React.FC<Props> = ({ serverParams }) => {
+
 	const {
 		isSwitching,
 		index,
 		setIsSwitching,
 		setIndex
-	} = useSwitcher(serverQuery.startBy === "new" ? 1 : 0)
+	} = useSwitcher(serverParams[0] === "new" ? 1 : 0)
 
 	return <ComponentSwitcher
-		components={[List, AddCar]}
+		basePath="/my-account/cars"
+		components={[
+			{
+				component: List,
+				path: "/"
+			},
+			{
+				component: AddCar,
+				path: "/new"
+			}
+		]}
 		isSwitching={isSwitching}
+		shouldAnimate={true}
 		setIsSwitching={setIsSwitching}
 		props={{
 			next: () => setIndex(1),

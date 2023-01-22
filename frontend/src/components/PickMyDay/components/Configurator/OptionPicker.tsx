@@ -11,6 +11,22 @@ const OptionPicker: React.FC = () => {
 	const orderCtx = useOrderContext()
 
 	const isDisabled = () => {
+		// if (orderCtx.orderType === "location") {
+		// 	if (configCtx.step === 0 && !orderCtx.item)
+		// 		return true
+		// 	if (configCtx.step === 1 && !orderCtx.item?.order.locations?.length)
+		// 		return true
+		// }
+		// if (
+		// 	(orderCtx.orderType === "ttd" && !orderCtx.item) ||
+		// 	(configCtx.step === configCtx.steps.length - 1)
+		// )
+		// 	return true
+		// return false
+
+		if (orderCtx.orderType !== orderCtx.item?.order.type)
+			return true
+
 		if (orderCtx.orderType === "location") {
 			if (configCtx.step === 0) {
 				if (!orderCtx.item)

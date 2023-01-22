@@ -21,7 +21,9 @@ const AddCar: React.FC<Props> = ({ back }) => {
 
 	const errorCtx = useErrorContext()
 
-	const { register, handleSubmit, control } = useErrorForm("Impossible d'ajouter votre voiture")
+	const { register, handleSubmit, control } = useErrorForm("Impossible d'ajouter votre voiture", {
+		brand: "salut"
+	})
 
 	const [images, setImages] = useState<File[] | undefined>()
 	const [allow, setAllow] = useState(false)

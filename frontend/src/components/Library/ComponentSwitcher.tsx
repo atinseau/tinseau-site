@@ -1,11 +1,13 @@
 import { gsap } from "gsap"
-import React, { createContext, useContext, useEffect, useRef, useState } from "react"
+import { useRouter } from "next/router"
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
 
 interface Props {
-	components: React.FC<{ next: () => void, back: () => void }>[],
+	components: { component: React.FC<{ next: () => void, back: () => void }>, path: string }[],
 	index: number,
 	isSwitching: boolean,
+	basePath: string,
 	shouldAnimate?: boolean,
 	setIsSwitching: (isSwitching: boolean) => void,
 	props: any
@@ -20,6 +22,7 @@ const SwitcherContext = createContext<SwitcherContextI>({} as SwitcherContextI)
 function ComponentSwitcher<T>({
 	isSwitching,
 	shouldAnimate,
+	basePath,
 	setIsSwitching,
 	components,
 	index,
@@ -27,6 +30,8 @@ function ComponentSwitcher<T>({
 }: Props) {
 
 	const [bufferIndex, setBufferIndex] = useState(index)
+
+	const router = useRouter()
 
 	const isMobile = useMediaQuery("(max-width: 782px)")
 	const ref = useRef<HTMLDivElement>(null)
@@ -37,18 +42,16 @@ function ComponentSwitcher<T>({
 
 	// track if switcher is not animated
 	useEffect(() => {
+		router.push(basePath + NextComponent.path)
 		if (shouldAnimate)
 			return
 		setBufferIndex(index)
 	}, [shouldAnimate, index])
 
 	useEffect(() => {
-
 		if (!shouldAnimate || index < 0 || index > components.length || index == bufferIndex || isSwitching)
 			return
-
 		const tl = gsap.timeline()
-
 		tl.to(ref.current, {
 			...(isMobile ? {
 				height: switchRef.current?.scrollHeight,
@@ -94,13 +97,13 @@ function ComponentSwitcher<T>({
 		<div className="component__switcher">
 			{shouldAnimate ? <>
 				<div ref={ref} key={bufferIndex}>
-					<Component {...props} />
+					<Component.component {...props} />
 				</div>
 				{index !== bufferIndex && <div className={"component__switch " + (index > bufferIndex ? "to_right" : "to_left")} ref={switchRef} key={"b"}>
-					<NextComponent {...props} />
+					<NextComponent.component {...props} />
 				</div>}
 			</> : <div>
-				<NextComponent {...props} />
+				<NextComponent.component {...props} />
 			</div>}
 		</div>
 	</SwitcherContext.Provider>

@@ -4,19 +4,19 @@ import AccountWrapper from "src/components/MyAccount/AccountWrapper";
 import Decharges from "src/components/MyAccount/Decharges";
 
 interface Props {
-	serverQuery: Object
+	serverParams: string[]
 }
 
-const Responsability: React.FC<Props> = ({ serverQuery }) => {
+const Responsability: React.FC<Props> = ({ serverParams }) => {
 	return <AccountWrapper title="Mes décharges">
-		<Decharges serverQuery={serverQuery}/>
+		<Decharges serverParams={serverParams}/>
 	</AccountWrapper>
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	return {
 		props: {
-			serverQuery: context.query
+			serverParams: context.params?.responsability || []
 		}
 	}
 }

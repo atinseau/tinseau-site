@@ -71,6 +71,11 @@ const useItem = (
 		setCurrentItemId(nextId)
 	}
 
+	useEffect(() => {
+		if (item && orderType !== item.order.type)
+			setCurrentItemId(items.findIndex((item) => item.order.type === orderType))
+	}, [orderType])
+
 	return {
 		createItem,
 		updateItem,

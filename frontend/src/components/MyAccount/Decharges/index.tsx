@@ -4,24 +4,33 @@ import List from "./List"
 import NewOne from "./NewOne"
 
 interface Props {
-	serverQuery: Object & {
-		startBy?: string
-	}
+	serverParams: string[]
 }
 
 
-const Decharges: React.FC<Props> = ({ serverQuery }) => {
+const Decharges: React.FC<Props> = ({ serverParams }) => {
 
 	const {
 		isSwitching,
 		index,
 		setIsSwitching,
 		setIndex
-	} = useSwitcher(serverQuery.startBy === "new" ? 1 : 0)
+	} = useSwitcher(serverParams[0] === "new" ? 1 : 0)
 
 	return <ComponentSwitcher
-		components={[List, NewOne]}
+		basePath="/my-account/responsability"
+		components={[
+			{
+				component: List,
+				path: "/"
+			},
+			{
+				component: NewOne,
+				path: "/new"
+			}
+		]}
 		isSwitching={isSwitching}
+		shouldAnimate={true}
 		setIsSwitching={setIsSwitching}
 		props={{
 			next: () => setIndex(1),
