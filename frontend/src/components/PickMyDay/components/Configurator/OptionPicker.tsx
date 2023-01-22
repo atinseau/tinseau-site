@@ -1,6 +1,6 @@
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import useConfigContext from "src/components/PickMyDay/hooks/useConfigContext";
-import React from "react"
+import React, { useEffect } from "react"
 import { Button } from "src/components/Library";
 import ComponentSwitcher from "src/components/Library/ComponentSwitcher";
 import { useOrderContext } from "src/hooks";
@@ -48,6 +48,10 @@ const OptionPicker: React.FC = () => {
 
 		return false
 	}
+
+	useEffect(() => {
+		console.log(configCtx.steps)
+	}, [])
 
 	return <div className="option__picker">
 		<div className="option__step__container">
