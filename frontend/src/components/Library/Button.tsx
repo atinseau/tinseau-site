@@ -4,7 +4,7 @@ interface Props {
 	children: React.ReactNode
 	className?: string
 	type?: "button" | "submit" | "reset"
-	variant?: "primary" | "secondary" | "disabled"
+	variant?: "primary" | "secondary" | "disabled" | "danger"
 	onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
@@ -18,6 +18,8 @@ const Button: React.FC<Props> = ({ children, onClick, className = "", type = "bu
 				return "btn-secondary"
 			case "disabled":
 				return "btn-disabled"
+			case "danger":
+				return "btn-danger"
 		}
 	}
 

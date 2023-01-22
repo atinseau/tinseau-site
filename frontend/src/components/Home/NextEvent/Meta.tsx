@@ -1,5 +1,5 @@
 import React from "react"
-import { StarIcon } from "@heroicons/react/24/solid";
+import { HiStar } from "react-icons/hi";
 
 const Meta = () => {
 	return <ul className="meta__metadata">
@@ -20,7 +20,7 @@ const Meta = () => {
 
 		<li>
 			<div className="icon">
-				<StarIcon />
+				<HiStar />
 				<h4>5</h4>
 			</div>
 			<p>Niveau</p>

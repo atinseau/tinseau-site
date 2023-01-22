@@ -7,6 +7,9 @@ function orderByClosestDate<T>(items: Array<T>, getItemDate: (item: T) => Date, 
 
 	for (const item of items) {
 		const date = getItemDate(item)
+
+		console.log(date)
+
 		if (date < current) continue
 		diffs.push(date.getTime() - current.getTime())
 	}

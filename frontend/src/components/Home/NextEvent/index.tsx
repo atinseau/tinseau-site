@@ -22,7 +22,7 @@ const NextEvent: React.FC = () => {
 		<Price />
 		<Meta />
 		<div className="next__event__image">
-			<Image src={mans} />
+			<Image src={mans} alt="circuit"/>
 		</div>
 	</div>
 }

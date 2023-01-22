@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React from "react"
 import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -42,7 +42,10 @@ const Carousel: React.FC<Props> = ({ title }) => {
 				}}
 			>
 				{images.map((image, key) => <SwiperSlide key={key}>
-					<Image src={image} />
+					<Image 
+						src={image}
+						alt="carousel"
+					/>
 				</SwiperSlide>)}
 				<CarouselController />
 			</Swiper>

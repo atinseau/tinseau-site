@@ -4,6 +4,16 @@
 
 	@include option-header(".picker__header");
 
+	.picker__header {
+		.decharge {
+			@apply flex gap-2 items-center mt-4;
+			svg {
+				@apply w-5 h-5 text-red-500;
+				margin-bottom: 1px
+			}
+		}
+	}
+
 	.picker__container {
 		@apply mt-6;
 
@@ -78,6 +88,11 @@
 						font-family: $main-font;
 						color: white;
 						@apply flex gap-2 items-center;
+
+						svg {
+							@apply w-4 h-4 text-red-500;
+							margin-bottom: 2px;
+						}
 
 						span {
 							font-family: Arial, Helvetica, sans-serif;

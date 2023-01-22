@@ -1,5 +1,5 @@
-import React, { useId } from "react"
-import useOrderContext from "../../hooks/useOrderContext"
+import React from "react"
+import { useOrderContext } from "src/hooks"
 import LocationPriceItem from "./LocationPriceItem"
 import OptionResumeRender from "./OptionResumeRender"
 
@@ -28,14 +28,14 @@ const OrderPriceItem: React.FC<Props> = ({ orderItem, editMode, idx }) => {
 
 		<div className="order__price__item">
 			<div>
-				<h5>{orderItem.circuit.attributes.title}, <span>{orderItem.event.attributes.title}</span></h5>
-				{ctx.currentItemId === idx && <div className="current__order__item" />}
+				<h5>{orderItem.circuit.name}, <span>{orderItem.event.title}</span></h5>
+				{ctx.currentItemId === idx && ctx.items.length > 1 && <div className="current__order__item" />}
 			</div>
 
 			{orderItem.order.type === "location" && <>
 				{!orderItem.order.locations?.length ? <div className="no__location">
 					<h6>Vous n'avez pas encore choisi de voiture</h6>
-				</div> : <LocationPriceItem eventId={ctx.item?.event.id || ""} orderItem={orderItem} currentLocationId={ctx.currentLocationId}/>}
+				</div> : <LocationPriceItem eventId={ctx.item?.event.id || ""} orderItem={orderItem} currentLocationId={ctx.currentLocationId} />}
 			</>}
 
 			<ul>
@@ -43,21 +43,21 @@ const OrderPriceItem: React.FC<Props> = ({ orderItem, editMode, idx }) => {
 					<div>
 						<p>
 							<span className="mr-1">Accés piste</span>
-							<span className="text-white">(x{orderItem.order.classic?.count || 1})</span>
+							<span className="text-white">(x{orderItem.order.track_access?.count || 1})</span>
 						</p>
-						<p>{orderItem.event.attributes.classic.price * (orderItem.order.classic?.count || 1)}€</p>
+						<p>{orderItem.event.track_access.price * (orderItem.order.track_access?.count || 1)}€</p>
 					</div>
 				</li>}
 
 				<OptionResumeRender
-					dbOptions={orderItem.event.attributes.global_options}
+					dbOptions={orderItem.event.options}
 					options={orderItem.order.options}
 					order={orderItem.order}
 				/>
 
 				<OptionResumeRender
-					dbOptions={orderItem.event.attributes.classic.options}
-					options={orderItem.order.classic?.options || []}
+					dbOptions={orderItem.event.track_access.options}
+					options={orderItem.order.track_access?.options || []}
 					order={orderItem.order}
 				/>
 			</ul>

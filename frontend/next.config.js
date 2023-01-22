@@ -1,6 +1,6 @@
 const globalEnv = {
 	SERVER_ADDRESS: process.env.SERVER_ADDRESS,
-	SERVER_GRAPHQL: process.env.SERVER_GRAPHQL
+	SERVER_API: process.env.SERVER_API
 }
 
 /**
@@ -8,12 +8,26 @@ const globalEnv = {
  */
 const nextConfig = {
 	reactStrictMode: false,
-	experimental: { images: { allowFutureImage: true } },
+	experimental: {
+		images: {
+			allowFutureImage: true
+		}
+	},
 	images: {
-		domains: [process.env.SERVER_IP]
+		domains: [
+			process.env.SERVER_IP,
+			"placehold.it",
+			"s3.eu-west-3.amazonaws.com",
+			"lh3.googleusercontent.com"
+		],
 	},
 	publicRuntimeConfig: globalEnv,
 	serverRuntimeConfig: globalEnv
 }
 
-module.exports = nextConfig
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+	enabled: process.env.ANALYZE === 'true',
+})
+
+
+module.exports = withBundleAnalyzer(nextConfig)

@@ -1,0 +1,171 @@
+.decharges {
+	@apply flex flex-col h-full;
+
+	.decharges__header {
+		h4 {
+			font-size: 26px;
+		}
+
+		p {
+			@apply text-gray-400;
+		}
+	}
+
+	.decharges__container {
+		@apply flex-1;
+	}
+
+	.decharges__footer {
+		@apply flex justify-between;
+
+		>button svg {
+			@apply w-5 h-5;
+		}
+
+		>div {
+			@apply self-end flex flex-row gap-2;
+		}
+	}
+
+	&.list {
+		
+		.decharges__container {
+			.decharges__list {
+				@apply mt-8 grid grid-cols-2;
+				li {
+					@apply text-white flex flex-row items-center justify-between;
+					h3 {
+						font-size: 20px;
+						color: $main-color;
+					}
+					p {
+						font-size: 15px;
+						span {
+							@apply text-gray-300 ml-2;
+							font-size: 11px;
+							font-family: Arial, Helvetica, sans-serif;
+						}
+
+						&.car {
+							@apply text-gray-400;
+							font-size: 13px;
+						}
+					}
+
+					.controller {
+						@apply flex flex-row gap-2;
+						button {
+							padding: 10px;
+						}
+					}
+				}
+			}
+
+			.no__decharges {
+				@apply h-full w-full flex items-center justify-center;
+				p {
+					font-size: 24px;
+					font-family: $main-font;
+					color: $main-color;
+				}
+			}
+		}
+		
+		.decharges__footer {
+			@apply self-end;
+		}
+	}
+
+
+	&.new__one {
+		.decharges__container {
+			@apply flex flex-col mt-6;
+
+			.decharges__type {
+				@apply mb-4;
+				>div,
+				ul {
+					@apply flex flex-row gap-4;
+				}
+
+				ul {
+					@apply gap-2;
+
+					li {
+						@apply cursor-pointer bg-gray-900 text-gray-300 rounded-full items-center justify-center px-2;
+						font-size: 14px;
+						line-height: 23px;
+						transition: all 0.3s ease-in-out;
+
+						&.selected,
+						&:hover {
+							color: black;
+							background-color: $main-color;
+						}
+					}
+				}
+
+				h5 {
+					@apply text-white;
+					font-family: $main-font;
+					font-size: 18px;
+				}
+			}
+
+			.decharges__form {
+				@apply grid grid-cols-2 gap-4;
+
+				.form__group {
+					h5 {
+						@apply text-gray-400 mb-1;
+						font-size: 14px;
+					}
+
+					&.dropdown__cars {
+						.add__label {
+							@apply text-gray-300 mb-2;
+							font-size: 15px;
+							a {
+								color: $main-color;
+								font-weight: bold;
+								text-decoration: underline;
+							}
+						}
+
+						.no__cars {
+							@apply text-red-500;
+						}
+					}
+				}
+			}
+
+			.decharges__signature {
+				@apply mt-4 mb-6 flex flex-1 flex-col;
+
+				.h {
+					@apply flex flex-row justify-between items-center mb-2;
+
+					h5 {
+						@apply text-white;
+						font-size: 28px;
+						line-height: 28px;
+						font-family: $main-font;
+					}
+
+					.trash {
+						@apply bg-red-500 text-white p-2 cursor-pointer;
+
+						svg {
+							@apply w-5 h-5;
+						}
+					}
+				}
+
+				.canvas {
+					@apply border-none #{!important};
+					// min-height: 300px;
+				}
+			}
+		}
+	}
+}

@@ -1,24 +1,29 @@
-import React from "react"
+import React, { forwardRef } from "react"
 
 interface Props {
-	type: "text" | "email" | "password"
+	type?: "text" | "email" | "password"
 	placeholder: string
 	name: string
-	id: string
-	onChange?: (value: string) => void
+	id?: string
+	variant?: "dark" | "light"
+	onChange?: any
 	value?: string
+
+	[key: string]: any
 }
 
-const Input: React.FC<Props> = ({ name, id, type, placeholder, value, onChange }) => {
-	return (<input 
-		type={type} 
-		className="textbox"
+const Input = forwardRef<HTMLInputElement, Props>(({ variant = "light", name, id, type = "text", placeholder, value, onChange, ...rest }, ref) => {
+	return (<input
+		type={type}
+		ref={ref}
+		className={`textbox ${variant}`}
 		name={name}
 		id={id}
 		placeholder={placeholder}
 		value={value}
-		onChange={(event) => onChange && onChange(event.target.value)}
+		onChange={onChange}
+		{...rest}
 	/>)
-}
+})
 
 export default Input;

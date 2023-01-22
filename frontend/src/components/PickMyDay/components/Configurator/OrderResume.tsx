@@ -1,17 +1,24 @@
 import { Cog6ToothIcon, CreditCardIcon, LockClosedIcon, TrashIcon } from "@heroicons/react/24/solid";
 import React, { useEffect, useState } from "react"
-import useErrorContext from "src/hooks/useErrorContext";
-import Button from "../../../Library/Button";
+import { VscLoading } from "react-icons/vsc";
+import { useAuthContext, useOrderContext, useErrorContext } from "src/hooks";
+import { Button } from "src/components/Library";
 import useConfigContext from "../../hooks/useConfigContext";
-import useOrderContext from "../../hooks/useOrderContext";
+import OrderDecharges from "../Decharges";
 import OrderPriceItem from "./OrderPriceItem";
 
+interface Props {
 
-const OrderResume: React.FC = () => {
+}
+
+const OrderResume: React.FC<Props> = () => {
+
+	const [loading, setLoading] = useState(false)
 
 	const ctx = useOrderContext()
 	const configCtx = useConfigContext()
 	const errorCtx = useErrorContext()
+	const authCtx = useAuthContext()
 
 	const [editMode, setEditMode] = useState(false)
 	const [startDeleting, setStartDeleting] = useState(false)
@@ -54,6 +61,7 @@ const OrderResume: React.FC = () => {
 		<ul className="order__items">
 			{ctx.items.map((item, i) => <OrderPriceItem idx={i} editMode={editMode} orderItem={item} key={i} />)}
 		</ul>
+
 		<div className="order__submit">
 			<div>
 				<h4>TOTAL</h4>
@@ -64,12 +72,33 @@ const OrderResume: React.FC = () => {
 				if (!canPay())
 					return
 
-				console.log(ctx.items)
+				if (!authCtx.user) {
+					errorCtx.createError({
+						title: "Vous n'êtes pas connecté",
+						message: "Vous devez être connecté pour pouvoir passer une commande",
+						type: "danger"
+					})
+					authCtx.toggleLoginModal("login")
+					return
+				}
+
+				setLoading(true)
+				ctx.startStockSession(() => {
+					setLoading(false)
+					ctx.setOpenDechargeDialog(true)
+				})
 			}}>
-				Continuer
-				{!canPay() ? <LockClosedIcon /> : <CreditCardIcon />}
+				{!loading ? <>
+					Continuer
+					{!canPay() ? <LockClosedIcon /> : <CreditCardIcon />}
+				</> : <VscLoading className="animate-spin" />}
 			</Button>
 		</div>
+
+
+		{ctx.openDechargeDialog && <OrderDecharges
+			close={() => ctx.setOpenDechargeDialog(false)}
+		/>}
 	</div>
 }
 

@@ -16,7 +16,7 @@ const useActiveIndex = () => {
 		swiper.on('slideChange', () => {
 			setActiveIndex(swiper.activeIndex)
 		})
-	}, [isMounted()])
+	}, [isMounted(), swiper])
 
 	const displayActiveIndex = useMemo(() => {
 		return formattedActiveIndex(activeIndex)

@@ -1,5 +1,5 @@
 import { BelongsTo, belongsTo, column, HasMany, hasMany, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
-import BaseModelWithUuid from 'App/Functions/BaseModelWithUuid'
+import { BaseModelWithUuid } from 'App/Functions/ModelExtension'
 import { jsonColumn } from 'App/Functions/jsonColumn'
 import Circuit from './Circuit'
 import Location from './Location'
@@ -30,7 +30,7 @@ export default class Event extends BaseModelWithUuid {
 
 	@hasMany(() => Location, { foreignKey: "event_id" })
 	public locations: HasMany<typeof Location>
-	
+
 	@hasOne(() => TrackAccess, { foreignKey: "event_id" })
 	public track_access: HasOne<typeof TrackAccess>
 

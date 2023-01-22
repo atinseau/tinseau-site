@@ -36,8 +36,50 @@
 		cursor: not-allowed;
 	}
 
+	.btn-danger {
+		@apply bg-red-500 text-white;
 
+		&:hover {
+			@apply bg-red-600;
+		}
+	}
 
+	.modal {
+		@apply absolute overflow-hidden top-0 left-0 h-screen opacity-0;
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.801);
+
+		.modal__container {
+			@apply flex items-center justify-center h-full;
+
+			// car
+
+			.car__modal, .decharge__modal {
+
+				@apply bg-gray-900 p-6;
+
+				h4 {
+					font-family: $main-font;
+					color: $main-color;
+					font-size: 20px;
+				}
+
+				p {
+					@apply text-gray-400 mb-4;
+					font-size: 14px;
+				}
+
+				.car__modal__buttons, .decharge__modal__buttons {
+					@apply flex flex-row gap-2;
+					button {
+						padding: 8px;
+						font-size: 15px;
+					}
+				}
+			}
+
+		}
+	}
 
 
 	.switch {
@@ -67,10 +109,77 @@
 
 
 	.textbox {
-		@apply bg-gray-800 text-white p-2;
+		@apply bg-gray-900 text-white p-2;
 
 		&:focus {
-			@apply outline-none bg-gray-800;
+			@apply outline-none;
+		}
+
+		&.bright {
+			@apply bg-gray-800;
+
+			&:focus,
+			&:hover {
+				@apply bg-gray-700;
+			}
+		}
+
+		&.dark {
+
+			&:focus,
+			&:hover {
+				@apply bg-black;
+			}
+		}
+
+		&.light {
+
+			&:focus,
+			&:hover {
+				@apply bg-gray-700 #{!important};
+			}
 		}
 	}
+
+
+	.dropdown {
+		@apply relative flex flex-row gap-4 justify-between p-2;
+		background-color: $main-color;
+		font-family: $main-font;
+		transition: all 0.3s ease-in-out;
+		cursor: pointer;
+
+
+		&:hover,
+		&:focus {
+			background-color: $second-color;
+		}
+
+		>p {}
+
+		>svg {
+			@apply w-6 h-6;
+		}
+
+		ul {
+			@apply absolute top-full left-0 mt-2 h-0 overflow-hidden;
+			background-color: $main-color;
+			min-width: 100px;
+
+			li {
+				@apply px-2;
+				cursor: pointer;
+				transition: all 0.3s ease-in-out;
+
+				&:hover {
+					background-color: $second-color;
+				}
+
+				&:not(:last-child) {
+					@apply border-b-[1px] border-gray-400;
+				}
+			}
+		}
+	}
+
 }

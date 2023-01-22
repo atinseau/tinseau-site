@@ -1,5 +1,5 @@
 import { BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
-import BaseModelWithUuid from 'App/Functions/BaseModelWithUuid'
+import { BaseModelWithUuid } from 'App/Functions/ModelExtension'
 import { jsonColumn } from 'App/Functions/jsonColumn'
 import Event from './Event'
 

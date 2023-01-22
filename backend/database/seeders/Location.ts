@@ -9,8 +9,8 @@ export default class extends BaseSeeder {
 				exclusive_price: 5500,
 				instance_price: 500,
 				serie_format: 's3 t4',
-				intances_amount: 4,
-				max_instances: 4
+				max_instances: 4,
+				instances_amount: 4
 			}
 		])
 

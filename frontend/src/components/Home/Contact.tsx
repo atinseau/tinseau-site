@@ -1,5 +1,6 @@
 import React from "react"
-import Button from "../Library/Button";
+import { Button } from "../Library";
+
 
 const Contact = () => {
 	return <div className="contact">

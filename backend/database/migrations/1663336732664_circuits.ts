@@ -9,6 +9,10 @@ export default class extends BaseSchema {
 
 			table.string('name').notNullable().unique()
 			table.text('description').notNullable()
+			table
+				.uuid('logo_id')
+				.references('files.id')
+				.onDelete('SET NULL')
 		})
 	}
 

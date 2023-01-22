@@ -1,28 +1,27 @@
-import React, { useMemo, useRef, useState } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 
 import Image from "next/future/image";
-import Button from "src/components/Library/Button";
+import { Button } from "src/components/Library";
 
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import useDropdown from "src/hooks/useDropdown";
-import { getEnvConfig } from "src/functions/getConfig";
-import useOrderContext from "src/components/PickMyDay/hooks/useOrderContext";
+import { HiChevronDown } from "react-icons/hi";
+import { useDropdown, useOrderContext } from "src/hooks";
 
 interface Props {
 	location: TTDLocation
-	onPick: (locationItem: LocationItem) => void
+	onPick: (locationItem: TTDLocationItem) => void
 }
 
 const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 
 	const ctx = useOrderContext()
-	const serieFormat = useRef(location.serie_format.split("_").map((s) => parseInt(s[1])))
+	const serieFormat = useRef(location.serie_format.split(" ").map((s) => parseInt(s[1])))
 	const [open, toggle, ref] = useDropdown<HTMLUListElement>()
 	const [serieId, setSerieId] = useState(0)
 
-	const series = useMemo(() => {
+
+	const instances = useMemo(() => {
 		const output = []
-		for (let i = 0; i < location.available_series; i++) {
+		for (let i = 0; i < location.instances_amount; i++) {
 			output.push({
 				serie: serieFormat.current[0] * (i + 1),
 				tours: serieFormat.current[1]
@@ -32,43 +31,43 @@ const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 	}, [])
 
 	const formatSeries = (serie: number, tours: number) => {
-		if (serie / serieFormat.current[0] === location.exclusive_series_count)
+		if (serie / serieFormat.current[0] === location.max_instances)
 			return "Exclusivité sur la journée"
 		return `${serie} séries ${tours} tours`
 	}
 
-	const images: Image[] = location.car.data.attributes.images.data
+	const images = location.car.images
 
 	return <div className="location__card">
-		<Image src={getEnvConfig().SERVER_ADDRESS + images[0].attributes.url} width={images[0].attributes.width} height={images[0].attributes.height} />
+		<Image src={images[0].url} width={1920} height={1080} />
 		<div>
 			<div>
 				<div className="price">
 					<div>
-						<h3>{location.car.data.attributes.name}</h3>
-						<p>{location.available_series} places restantes</p>
+						<h3>{"test"}</h3>
+						<p>{location.instances_amount} places restantes</p>
 					</div>
 					<div>
 						<div className="format__dropdown" onClick={toggle}>
-							<p>{formatSeries(series[serieId].serie, series[serieId].tours)}</p>
-							<ChevronDownIcon />
+							<p>{formatSeries(instances[serieId].serie, instances[serieId].tours)}</p>
+							<HiChevronDown />
 
 							{open && <ul ref={ref}>
-								{series.map((serie, i) => <li key={i} onClick={() => setSerieId(i)}>
-									{formatSeries(serie.serie, serie.tours)}
+								{instances.map((instance, i) => <li key={i} onClick={() => setSerieId(i)}>
+									{formatSeries(instance.serie, instance.tours)}
 								</li>)}
 							</ul>}
 						</div>
-						<h4>{serieId + 1 !== location.exclusive_series_count ? location.serie_price * (serieId + 1) : location.exclusive_price}€</h4>
+						<h4>{serieId + 1 !== location.max_instances ? location.instance_price * (serieId + 1) : location.exclusive_price}€</h4>
 					</div>
 				</div>
-				<p>{location.car.data.attributes.description}</p>
+				<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum accusantium atque quam, est doloremque corporis modi ducimus omnis? Facilis asperiores vel, adipisci accusantium quod similique dolores suscipit at sit nam.</p>
 			</div>
-			<Button 
-				onClick={() => onPick({car_id: location.car.data.id as string, serie_count: series[serieId].serie / serieFormat.current[0]})}
-				variant={((ctx.item as OrderItem).order.locations || []).find((locItem, i) => locItem.car_id === location.car.data.id) ? "disabled" : "primary"}
+			<Button
+				onClick={() => onPick({ car_id: location.car.id as string, instance_amount: instances[serieId].serie / serieFormat.current[0] })}
+				variant={((ctx.item as OrderItem).order.locations || []).find((locItem, i) => locItem.car_id === location.car.id) ? "disabled" : "primary"}
 			>
-					Choisir
+				Choisir
 			</Button>
 		</div>
 	</div>
