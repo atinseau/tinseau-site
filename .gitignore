@@ -1,38 +1,7 @@
-
-
-
-
-# build
-
-**/build
-**/dist
-**/.build
-**/.vscode
-**/.next
-**/tmp
-
 node_modules
-./node_modules
-**/node_modules
 
-**/yarn-error.log
-**/yarn-debug.log*
-**/yarn.lock
-yarn.lock
+build
+dist
+.next
 
-# dotenv environment variables file
-**/.env
-
-**/.DS_Store
-.DS_Store
-
-**/.pem
-.pem
-
-frontend/.pnp
-frontend.pnp.js
-frontend/coverage
-frontend/out/
-frontend/.vercel
-frontend/next-env.d.ts
-frontend/public/videos
+.turbo

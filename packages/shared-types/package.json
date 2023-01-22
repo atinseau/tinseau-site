@@ -1,0 +1,9 @@
+{
+  "name": "shared-types",
+  "private": true,
+  "types": "src/index.d.ts",
+  "devDependencies": {
+    "@types/node": "18.7.13",
+    "@types/react": "^18.0.27"
+  }
+}

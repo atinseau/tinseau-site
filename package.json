@@ -1,20 +1,8 @@
 {
 	"license": "MIT",
-	"private": "true",
+	"private": true,
 	"scripts": {
-		"backend:build": "cd backend && yarn build && cd build && yarn install --production",
-		"backend:start": "cd backend/build && node server.js",
-		"backend:dev": "cd backend && yarn dev",
-
-		"frontend:build": "cd frontend && yarn build",
-		"frontend:dev": "cd frontend && yarn dev",
-		"frontend:start": "cd frontend && yarn start",
-
-		"build": "yarn backend:build && yarn frontend:build",
-		"dev": "concurrently \"yarn backend:dev\" \"yarn frontend:dev\"",
-		"start": "concurrently \"yarn backend:start\" \"yarn frontend:start\""
-	},
-	"devDependencies": {
-		"concurrently": "^7.4.0"
+		"dev": "FORCE_COLOR=true turbo run dev",
+		"build": "FORCE_COLOR=true turbo run build"
 	}
 }
