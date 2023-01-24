@@ -6,4 +6,6 @@ dist
 
 apps/frontend/public/videos/getmyday.mp4
 
+
+*.sql
 .turbo

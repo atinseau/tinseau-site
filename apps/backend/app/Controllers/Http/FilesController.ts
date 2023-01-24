@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import File from 'App/Models/File'
-import Env from "@ioc:Adonis/Core/Env"
 
 
 import { schema } from "@ioc:Adonis/Core/Validator"
@@ -30,7 +29,6 @@ export default class FilesController {
 
 		file.title = body.title
 		file.description = body.description
-		file.url = Env.get('S3_URL') + "/" + body.file.fileName as string
 
 		file.metadata = {
 			identifier: body.file.fileName,
