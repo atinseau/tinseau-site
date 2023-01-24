@@ -13,7 +13,8 @@ const nextConfig = {
 			process.env.SERVER_IP,
 			"placehold.it",
 			"s3.eu-west-3.amazonaws.com",
-			"lh3.googleusercontent.com"
+			"tinseau-image.s3.eu-west-3.amazonaws.com",
+			"lh3.googleusercontent.com",
 		],
 	},
 	publicRuntimeConfig: globalEnv,

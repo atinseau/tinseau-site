@@ -40,10 +40,6 @@ const OrderDecharges: React.FC<Props> = ({ close }) => {
 
 	const { dechargeableItems, selectedDechargeableItem, setSelectedDechargeableItem } = useDechargeItem(selectedEvent, eventsPayload, setEventsPayload)
 
-	useEffect(() => {
-		console.log(dechargeableItems)
-	}, [dechargeableItems])
-
 	return createPortal(<div className="order__decharges" ref={modalRef}>
 		<div className="decharges__container" ref={containerRef} onClick={(e) => e.stopPropagation()}>
 			<div className="decharges__header">
