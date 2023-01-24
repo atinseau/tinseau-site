@@ -37,10 +37,10 @@ export default class UserCarsController {
 				await file.moveToDisk('./user_cars', {
 					visibility: "public"
 				}, "s3")
+
 				await car.related('images').create({
 					title: file.clientName,
 					description: "Image d'une voiture de l'utilisateur: " + user.username,
-					url: file.filePath as string,
 					metadata: {
 						identifier: file.fileName,
 						drive: "s3",
