@@ -84,7 +84,7 @@
 		@apply btn text-center;
 		color: white;
 
-		&.active {
+		&.active, &:hover {
 			color: $main-color;
 		}
 	}

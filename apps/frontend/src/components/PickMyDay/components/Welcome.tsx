@@ -15,6 +15,10 @@ const Welcome = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 			props.goToNext()
 	}, [ctx.orderType])
 
+	useEffect(() => {
+		console.log(ctx.circuits)
+	}, [ctx.circuits])
+
 	return <div className="welcome" ref={ref}>
 		<div className="side__left">
 			<h1>Journée sur mesure</h1>
@@ -35,10 +39,12 @@ const Welcome = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 				</ul>
 			</div>
 
-			<div>
+			{ctx.circuits && ctx.circuits.length ? <div>
 				<Button onClick={() => ctx.setOrderType("ttd")}>J'ai déjà une voiture !</Button>
 				<Button onClick={() => ctx.setOrderType("location")}>Louer une voiture !</Button>
-			</div>
+			</div>: <div>
+				<Button className="disabled">Il n'y a pas de circuit disponible pour le moment</Button>
+			</div>}
 		</div>
 		<div className="side__right">
 			<video muted autoPlay loop className="video">

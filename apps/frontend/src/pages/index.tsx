@@ -11,6 +11,7 @@ const Home: NextPage = () => {
 		<div className="home__page">
 			<div className="hero__black">
 				<NextEvent />
+				<hr/>
 				<About />
 			</div>
 
