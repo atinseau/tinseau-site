@@ -2,6 +2,17 @@
 
 	.hero__black {
 		@apply bg-black;
+
+		hr {
+			width: 60%;
+			margin: 0 auto;
+			opacity: 0.5;
+			margin-bottom: 60px;
+			@include w-min($tablet-breakpoint) {
+				margin-bottom: 80px;
+			}
+		}
+
 	}
 
 	.hero__white {
@@ -12,6 +23,7 @@
 	.hero__black,
 	.hero__white {
 		padding: 20px;
+
 		@include w-min($tablet-breakpoint) {
 			padding: 20px 60px;
 		}

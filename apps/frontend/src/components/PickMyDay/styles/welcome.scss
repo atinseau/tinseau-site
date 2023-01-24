@@ -47,6 +47,11 @@
 		button {
 			margin-top: 30px;
 			width: 100%;
+
+			&.disabled {
+				cursor: default;
+				pointer-events: none;
+			}
 		}
 	}
 
