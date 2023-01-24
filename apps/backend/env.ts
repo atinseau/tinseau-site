@@ -25,4 +25,7 @@ export default Env.rules({
 	GOOGLE_CLIENT_SECRET: Env.schema.string(),
 	GOOGLE_CALLBACK_URL: Env.schema.string(),
 	STOCK_TRACKER_DURATION: Env.schema.number(),
+	S3_BUCKET: Env.schema.string(),
+	S3_REGION: Env.schema.string(),
+	S3_SECRET: Env.schema.string()
 })

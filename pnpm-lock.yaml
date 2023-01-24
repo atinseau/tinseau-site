@@ -1,5 +1,10 @@
 lockfileVersion: 5.4
 
+patchedDependencies:
+  '@adonisjs/drive-s3@1.3.2':
+    hash: kh5c4uyr3exllebb7bv4roix6a
+    path: patches/@adonisjs__drive-s3@1.3.2.patch
+
 importers:
 
   .:
@@ -11,7 +16,7 @@ importers:
       '@adonisjs/assembler': ^5.8.1
       '@adonisjs/auth': ^8.2.2
       '@adonisjs/core': ^5.8.0
-      '@adonisjs/drive-s3': ^1.3.1
+      '@adonisjs/drive-s3': ^1.3.2
       '@adonisjs/lucid': ^18.1.1
       '@adonisjs/repl': ^3.1.0
       '@faker-js/faker': ^7.5.0
