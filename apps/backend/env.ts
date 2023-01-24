@@ -27,5 +27,6 @@ export default Env.rules({
 	STOCK_TRACKER_DURATION: Env.schema.number(),
 	S3_BUCKET: Env.schema.string(),
 	S3_REGION: Env.schema.string(),
-	S3_SECRET: Env.schema.string()
+	S3_SECRET: Env.schema.string(),
+	S3_URL: Env.schema.string()
 })
