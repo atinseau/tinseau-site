@@ -27,21 +27,17 @@ export default class File extends BaseModelWithUuid {
 			if (!file.metadata.identifier)
 				throw new Error("Missing identifier for s3 file: " + file.title)
 		}
-
+		console.log(file)
 	}
 
 	@beforeDelete()
 	public static async deleteFile(file: File) {
-		try {
-			if (
-				file.metadata.drive === "s3" &&
-				file.metadata.identifier &&
-				file.metadata.bucket
-			)
-				await Drive.use('s3').bucket(file.metadata.bucket).delete(file.metadata.identifier)
-		} catch (e) {
-			console.log(e)
-		}
+		if (
+			file.metadata.drive === "s3" &&
+			file.metadata.identifier &&
+			file.metadata.bucket
+		)
+			await Drive.use('s3').bucket(file.metadata.bucket).delete(file.metadata.identifier)
 	}
 }
 
