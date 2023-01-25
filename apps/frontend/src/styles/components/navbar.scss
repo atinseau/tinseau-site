@@ -73,27 +73,53 @@
 
 }
 
-.nav__bar>.menu__wrapper {
+.nav__bar>.right__menu {
+
+	@include w-max($tablet-breakpoint) {
+		@apply hidden #{!important};
+	}
+
+	.login__menu {
+		@apply grid grid-cols-2;
+
+		>.menu__item:last-child {
+			@apply btn btn-primary;
+		}
+	}
+}
+
+.nav__bar>.menu__burger {
+	@apply hidden justify-center items-center cursor-pointer;
+
+	svg {
+		color: $main-color;
+		@apply w-7 h-7;
+
+		&:hover {
+			color: $second-color;
+		}
+	}
+
+	@include w-max($tablet-breakpoint) {
+		@apply flex;
+	}
+}
+
+.nav__bar>.menu__wrapper,
+.nav__bar>.right__menu .login__menu {
 	@apply flex flex-row;
 
 	@include w-max($tablet-breakpoint) {
-		@apply hidden;
+		@apply hidden #{!important};
 	}
 
 	>.menu__item {
 		@apply btn text-center;
 		color: white;
 
-		&.active, &:hover {
+		&.active,
+		&:hover {
 			color: $main-color;
-		}
-	}
-
-	&.right__menu {
-		@apply grid grid-cols-2;
-
-		>.menu__item:last-child {
-			@apply btn btn-primary;
 		}
 	}
 }
@@ -128,5 +154,53 @@
 			}
 		}
 	}
+}
 
+
+// convert menu wrapper to sidebar in mobile
+
+.nav__bar>.menu__wrapper.main__menu.mobile__open {
+	@include w-max($tablet-breakpoint) {
+		@apply fixed block #{!important};
+
+		.menu__mobile__header {
+			content: "";
+			display: flex;
+			justify-content: flex-end;
+			background-color: $main-color;
+			height: 40px;
+			width: 100%;
+
+			svg {
+				@apply w-7 h-7 cursor-pointer mr-3;
+				color: black;
+
+				&:hover {
+					color: rgb(51, 51, 51);
+				}
+			}
+		}
+
+		.menu__mobile__overlay {
+			content: "";
+			position: fixed;
+			background-color: black;
+			display: flex;
+			width: 100vw;
+			height: 100vh;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			z-index: -1;
+		}
+
+		background-color: black;
+		min-width: 400px;
+		height: 100vh;
+
+		top: 0;
+		left: -400px;
+		z-index: 10;
+
+	}
 }

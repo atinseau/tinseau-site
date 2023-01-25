@@ -1,17 +1,24 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import MenuItem from "./MenuItem";
-import MenuWrapper from "./MenuWrapper";
+import MenuWrapper, { MenuRef } from "./MenuWrapper";
 
 import logo from "public/images/logo.png"
 import MenuItemWithSub from "./MenuItemWithSub";
 import { useAuthContext } from "src/hooks";
 import AuthMenu from "./AuthMenu";
-import { Link } from "src/components/Library";
+import { Button, Link } from "src/components/Library";
+
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar: React.FC = () => {
 
 	const authCtx = useAuthContext()
+	const menuRef = useRef<MenuRef>(null)
+
+	useEffect(() => {
+		console.log(menuRef.current)
+	}, [])
 
 	return <nav className="nav__bar">
 		<Link className="home__link" href={"/"}>
@@ -19,7 +26,8 @@ const Navbar: React.FC = () => {
 			tinseau.com
 		</Link>
 
-		<MenuWrapper>
+		<MenuWrapper ref={menuRef} className="main__menu">
+			{menuRef.current?.open && <Button onClick={() => menuRef.current?.toggle()}>Accueil</Button>}
 			<MenuItem href="/pick-my-day" title="Choisir ma journée" />
 			<MenuItemWithSub href="/product" title="Product">
 				<MenuWrapper>
@@ -35,10 +43,20 @@ const Navbar: React.FC = () => {
 		</MenuWrapper>
 
 		{!authCtx.isLoading ? <>
-			{!authCtx.user ? <MenuWrapper className="right__menu">
-				<MenuItem onClick={() => authCtx.toggleLoginModal("login")} title="Login" />
-				<MenuItem onClick={() => authCtx.toggleLoginModal("register")} title="Register" />
-			</MenuWrapper> : <AuthMenu />}
+
+			<section className="right__menu">
+				{!authCtx.user ? <MenuWrapper className="login__menu">
+					<MenuItem onClick={() => authCtx.toggleLoginModal("login")} title="Login" />
+					<MenuItem onClick={() => authCtx.toggleLoginModal("register")} title="Register" />
+				</MenuWrapper> : <AuthMenu />}
+			</section>
+
+			<section className="menu__burger">
+				<button onClick={() => menuRef.current?.toggle()}>
+					<GiHamburgerMenu />
+				</button>
+			</section>
+
 		</> : null}
 	</nav>
 }

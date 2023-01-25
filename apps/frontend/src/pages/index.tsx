@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { GetServerSidePropsContext, NextPage } from 'next'
 import About from '../components/Home/About'
 import Contact from '../components/Home/Contact'
 import Galleries from '../components/Home/Galleries'
