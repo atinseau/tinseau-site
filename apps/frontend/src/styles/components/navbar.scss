@@ -126,14 +126,16 @@
 
 .nav__bar .menu__wrapper .menu__item.sub__menu {
 	@apply relative;
+
 	button {
 		@apply flex gap-2 items-center;
+
 		svg {
 			@apply w-6 h-6;
 		}
 	}
 
-	
+
 
 	>div {
 		@apply absolute top-full right-[20px] overflow-hidden h-0 z-10;
@@ -165,14 +167,14 @@
 
 .nav__bar>.menu__wrapper.main__menu.mobile__open {
 	@include w-max($tablet-breakpoint) {
-		@apply fixed block #{!important};
+		@apply fixed flex flex-col #{!important};
 
 		.menu__mobile__header {
 			content: "";
 			display: flex;
 			justify-content: flex-end;
 			background-color: $main-color;
-			height: 40px;
+			height: 55px;
 			width: 100%;
 
 			svg {
@@ -199,7 +201,38 @@
 		}
 
 		.menu__mobile__login {
-			
+
+			@apply flex flex-col justify-end relative h-full;
+
+			.login__menu {
+				@apply flex;
+				color: white;
+				font-family: $main-font;
+				border-top: 1px solid rgb(48, 48, 48);
+
+				.menu__item {
+					@apply flex-1 justify-center flex cursor-pointer;
+				}
+
+				&>.menu__item:nth-child(1) {
+					margin-top: 0;
+					transition: all 0.3s ease-in-out;
+
+					&:hover {
+						color: $main-color;
+					}
+				}
+
+				&>.menu__item:nth-child(2) {
+					background-color: $main-color;
+					transition: all 0.3s ease-in-out;
+					color: black;
+
+					&:hover {
+						background-color: $second-color;
+					}
+				}
+			}
 		}
 
 		background-color: black;
@@ -223,7 +256,8 @@
 				display: flex;
 				width: 100%;
 				flex-direction: column;
-				> div {
+
+				>div {
 					position: relative;
 					right: 0;
 					width: 100%;

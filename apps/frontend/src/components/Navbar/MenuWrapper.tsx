@@ -2,6 +2,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid"
 import React from "react"
 import { classNames } from "src/functions/utils"
 import { useOverlay } from "./hooks/useOverlay"
+import LoginMenu from "./LoginMenu"
 
 interface Props {
 	children?: React.ReactNode
@@ -23,7 +24,7 @@ const MainMenuWrapper: React.FC<Props> = ({ children, className, isOpen, setIsOp
 		{children}
 		{isOpen && <>
 			<div className="menu__mobile__login">
-
+				<LoginMenu closeMenu={closeMenu} isOpen={isOpen}/>
 			</div>
 			<div className="menu__mobile__overlay" ref={overlayRef} />
 		</>}

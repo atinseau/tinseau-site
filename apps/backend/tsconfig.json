@@ -36,7 +36,7 @@
       "@adonisjs/drive-s3",
       "@adonisjs/auth",
       "@adonisjs/ally",
-      "shared-types"
+      "@tinseau/shared-types"
     ]
   }
 }

@@ -4,7 +4,7 @@ import React from "react"
 
 interface Props {
 	className?: string
-	href: string
+	href?: string
 	children: React.ReactNode
 }
 
@@ -16,7 +16,8 @@ const Link: React.FC<Props> = ({ children, href, className }) => {
 		href={href}
 		onClick={(e) => {
 			e.preventDefault()
-			router.push(href)
+			if (href)
+				router.push(href)
 		}}
 	>
 		{children}

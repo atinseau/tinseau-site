@@ -1,4 +1,5 @@
 import gsap from "gsap"
+import { useRouter } from "next/router"
 import { useCallback, useEffect, useRef } from "react"
 
 
@@ -6,6 +7,8 @@ const useOverlay = (isOpen: boolean, setIsOpen: (isOpen: boolean) => void) => {
 
   const menuRef = useRef<HTMLUListElement>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
+
+  const router = useRouter()
 
   const closeMenu = useCallback(() => {
     const tl = gsap.timeline()
@@ -62,8 +65,22 @@ const useOverlay = (isOpen: boolean, setIsOpen: (isOpen: boolean) => void) => {
   }, [isOpen])
 
   useEffect(() => {
-    
-  }, [])
+    router.events.on('routeChangeComplete', closeMenu)
+    return () => router.events.off('routeChangeComplete', closeMenu)
+  }, [router])
+
+  // Watch width to close menu on resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1024) {
+        closeMenu()
+        window.removeEventListener('resize', handleResize)
+      }
+    }
+    if (isOpen)
+      window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [isOpen])
 
   return {
     overlayRef,

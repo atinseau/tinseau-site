@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "@tinseau/backend",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -20,7 +20,7 @@
     "typescript": "~4.6",
     "youch": "^3.2.2",
     "youch-terminal": "^2.1.5",
-    "shared-types": "workspace:*"
+    "@tinseau/shared-types": "workspace:*"
   },
   "dependencies": {
     "@adonisjs/ally": "^4.1.4",

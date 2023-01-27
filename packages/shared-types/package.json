@@ -1,5 +1,5 @@
 {
-  "name": "shared-types",
+  "name": "@tinseau/shared-types",
   "private": true,
   "types": "src/index.d.ts",
   "devDependencies": {

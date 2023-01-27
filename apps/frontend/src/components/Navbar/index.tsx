@@ -1,20 +1,17 @@
 import Image from "next/image";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import MenuItem from "./MenuItem";
-import MenuWrapper, { MenuRef } from "./MenuWrapper";
+import MenuWrapper from "./MenuWrapper";
 
 import logo from "public/images/logo.png"
 import MenuItemWithSub from "./MenuItemWithSub";
-import { useAuthContext } from "src/hooks";
-import AuthMenu from "./AuthMenu";
-import { Button, Link } from "src/components/Library";
+import { Link } from "src/components/Library";
 
 import { GiHamburgerMenu } from "react-icons/gi";
 import LoginMenu from "./LoginMenu";
 
 const Navbar: React.FC = () => {
 
-	const menuRef = useRef<MenuRef>(null)
 	const [isOpen, setIsOpen] = React.useState(false)
 
 	return <nav className="nav__bar">
@@ -24,7 +21,7 @@ const Navbar: React.FC = () => {
 		</Link>
 
 		<MenuWrapper isOpen={isOpen} setIsOpen={setIsOpen} isMainMenu={true} className="main__menu">
-			{isOpen && <MenuItem href="/" title="Accueil"/>}
+			{isOpen && <MenuItem href="/" title="Accueil" />}
 			<MenuItem href="/pick-my-day" title="Choisir ma journée" />
 			<MenuItemWithSub subPath="/product" title="Product">
 				<MenuWrapper>
