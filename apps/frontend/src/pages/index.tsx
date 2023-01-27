@@ -1,30 +1,34 @@
-import type { GetServerSidePropsContext, NextPage } from 'next'
+import Wrapper from 'src/components/Wrapper'
 import About from '../components/Home/About'
 import Contact from '../components/Home/Contact'
 import Galleries from '../components/Home/Galleries'
 import NextEvent from '../components/Home/NextEvent'
 import Services from '../components/Home/Services'
-import Wrapper from '../components/Wrapper'
 
-const Home: NextPage = () => {
-	return (<Wrapper title="Home page">
+const Home: NextPageWithLayout = () => {
+	return (
 		<div className="home__page">
 			<div className="hero__black">
 				<NextEvent />
-				<hr/>
+				<hr />
 				<About />
 			</div>
 
 			<div className="hero__white">
-				<Services/>
+				<Services />
 			</div>
 
 			<div className="hero__black">
-				<Galleries/>
-				<Contact/>
+				<Galleries />
+				<Contact />
 			</div>
 		</div>
-	</Wrapper>)
+	)
 }
+
+Home.getLayout = (page) => <Wrapper title="Home page">
+	{page}
+</Wrapper>
+
 
 export default Home

@@ -125,11 +125,15 @@
 }
 
 .nav__bar .menu__wrapper .menu__item.sub__menu {
-	@apply flex flex-row items-center gap-2 relative;
-
-	svg {
-		@apply w-6 h-6 cursor-pointer;
+	@apply relative;
+	button {
+		@apply flex gap-2 items-center;
+		svg {
+			@apply w-6 h-6;
+		}
 	}
+
+	
 
 	>div {
 		@apply absolute top-full right-[20px] overflow-hidden h-0 z-10;
@@ -194,6 +198,10 @@
 			z-index: -1;
 		}
 
+		.menu__mobile__login {
+			
+		}
+
 		background-color: black;
 		min-width: 400px;
 		height: 100vh;
@@ -201,6 +209,27 @@
 		top: 0;
 		left: -400px;
 		z-index: 10;
+
+		li {
+
+			&:first-of-type {
+				margin-top: 8px;
+			}
+
+			font-size: 25px;
+			padding: 8px 20px;
+
+			&.sub__menu {
+				display: flex;
+				width: 100%;
+				flex-direction: column;
+				> div {
+					position: relative;
+					right: 0;
+					width: 100%;
+				}
+			}
+		}
 
 	}
 }

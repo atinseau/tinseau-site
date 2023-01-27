@@ -1,32 +1,41 @@
 import { XMarkIcon } from "@heroicons/react/24/solid"
-import React, { forwardRef } from "react"
+import React from "react"
 import { classNames } from "src/functions/utils"
-import { MenuRef, useOverlay } from "./hooks/useOverlay"
+import { useOverlay } from "./hooks/useOverlay"
 
 interface Props {
 	children?: React.ReactNode
 	className?: string
+	isOpen?: boolean
+	setIsOpen?: (isOpen: boolean) => void
 }
 
+const MainMenuWrapper: React.FC<Props> = ({ children, className, isOpen, setIsOpen }) => {
+	
+	const { overlayRef, menuRef, closeMenu } = useOverlay(isOpen!, setIsOpen!)
 
-
-const MenuWrapper = forwardRef<MenuRef, Props>(({ children, className = "" }, ref) => {
-
-	const { open, overlayRef, menuRef, closeMenu } = useOverlay(ref)
-
-	return <ul className={classNames("menu__wrapper " + className, open && "mobile__open")} ref={menuRef}>
-		{open && <div className="menu__mobile__header">
+	return <ul className={classNames("menu__wrapper", className, isOpen && "mobile__open")} ref={menuRef}>
+		{isOpen && <div className="menu__mobile__header">
 			<button onClick={() => closeMenu()}>
 				<XMarkIcon />
 			</button>
 		</div>}
 		{children}
-		{open && <div className="menu__mobile__overlay" ref={overlayRef} />}
-	</ul>
-})
+		{isOpen && <>
+			<div className="menu__mobile__login">
 
-export type {
-	MenuRef
+			</div>
+			<div className="menu__mobile__overlay" ref={overlayRef} />
+		</>}
+	</ul>
+}
+
+const MenuWrapper: React.FC<Props & { isMainMenu?: boolean }> = ({ isMainMenu = false, ...rest }) => {
+	return isMainMenu 
+		? <MainMenuWrapper {...rest}/>
+		:  <ul className={classNames("menu__wrapper ", rest.className, "mobile__open")}>
+			{rest.children}
+		</ul>
 }
 
 export default MenuWrapper

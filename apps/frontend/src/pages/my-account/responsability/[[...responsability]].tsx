@@ -1,17 +1,19 @@
 import React from "react"
 import { GetServerSideProps } from "next";
-import AccountWrapper from "src/components/MyAccount/AccountWrapper";
 import Decharges from "src/components/MyAccount/Decharges";
+import Wrapper from "src/components/Wrapper";
 
 interface Props {
 	serverParams: string[]
 }
 
-const Responsability: React.FC<Props> = ({ serverParams }) => {
-	return <AccountWrapper title="Mes décharges">
-		<Decharges serverParams={serverParams}/>
-	</AccountWrapper>
-}
+const Responsability: NextPageWithLayout<Props> = ({ serverParams }) => <Decharges serverParams={serverParams} />
+
+Responsability.getLayout = (page) => <Wrapper
+	isAccount={true}
+	title="Mes décharges">
+	{page}
+</Wrapper>
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	return {

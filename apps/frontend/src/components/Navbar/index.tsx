@@ -10,15 +10,12 @@ import AuthMenu from "./AuthMenu";
 import { Button, Link } from "src/components/Library";
 
 import { GiHamburgerMenu } from "react-icons/gi";
+import LoginMenu from "./LoginMenu";
 
 const Navbar: React.FC = () => {
 
-	const authCtx = useAuthContext()
 	const menuRef = useRef<MenuRef>(null)
-
-	useEffect(() => {
-		console.log(menuRef.current)
-	}, [])
+	const [isOpen, setIsOpen] = React.useState(false)
 
 	return <nav className="nav__bar">
 		<Link className="home__link" href={"/"}>
@@ -26,10 +23,10 @@ const Navbar: React.FC = () => {
 			tinseau.com
 		</Link>
 
-		<MenuWrapper ref={menuRef} className="main__menu">
-			{menuRef.current?.open && <Button onClick={() => menuRef.current?.toggle()}>Accueil</Button>}
+		<MenuWrapper isOpen={isOpen} setIsOpen={setIsOpen} isMainMenu={true} className="main__menu">
+			{isOpen && <MenuItem href="/" title="Accueil"/>}
 			<MenuItem href="/pick-my-day" title="Choisir ma journée" />
-			<MenuItemWithSub href="/product" title="Product">
+			<MenuItemWithSub subPath="/product" title="Product">
 				<MenuWrapper>
 					<MenuItem href="/product/1" title="Product 1" />
 					<MenuItem href="/product/2" title="Product test 2" />
@@ -42,22 +39,13 @@ const Navbar: React.FC = () => {
 			<MenuItem href="/about" title="About" />
 		</MenuWrapper>
 
-		{!authCtx.isLoading ? <>
+		<LoginMenu />
 
-			<section className="right__menu">
-				{!authCtx.user ? <MenuWrapper className="login__menu">
-					<MenuItem onClick={() => authCtx.toggleLoginModal("login")} title="Login" />
-					<MenuItem onClick={() => authCtx.toggleLoginModal("register")} title="Register" />
-				</MenuWrapper> : <AuthMenu />}
-			</section>
-
-			<section className="menu__burger">
-				<button onClick={() => menuRef.current?.toggle()}>
-					<GiHamburgerMenu />
-				</button>
-			</section>
-
-		</> : null}
+		<section className="menu__burger">
+			<button onClick={() => setIsOpen(!isOpen)}>
+				<GiHamburgerMenu />
+			</button>
+		</section>
 	</nav>
 }
 

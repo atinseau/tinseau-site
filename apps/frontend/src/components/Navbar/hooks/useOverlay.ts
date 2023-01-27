@@ -1,14 +1,9 @@
 import gsap from "gsap"
-import { ForwardedRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react"
+import { useCallback, useEffect, useRef } from "react"
 
-export interface MenuRef {
-  toggle: () => void
-  open: boolean
-}
 
-const useOverlay = (ref: ForwardedRef<MenuRef>) => {
+const useOverlay = (isOpen: boolean, setIsOpen: (isOpen: boolean) => void) => {
 
-  const [open, setOpen] = useState(false)
   const menuRef = useRef<HTMLUListElement>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
 
@@ -28,10 +23,10 @@ const useOverlay = (ref: ForwardedRef<MenuRef>) => {
     }, "-=0.3")
 
     tl.play().eventCallback('onComplete', () => {
-      setOpen(false)
+      setIsOpen(false)
       document.onclick = null
     })
-  }, [open])
+  }, [isOpen])
 
   const openMenu = useCallback(() => {
 
@@ -60,19 +55,17 @@ const useOverlay = (ref: ForwardedRef<MenuRef>) => {
       }
     })
 
-  }, [open])
-
-  useImperativeHandle(ref, () => ({
-    toggle: () => open ? closeMenu() : setOpen(true),
-    open: open
-  }), [{}])
+  }, [isOpen])
 
   useEffect(() => {
-    if (open) openMenu()
-  }, [open])
+    if (isOpen) openMenu()
+  }, [isOpen])
+
+  useEffect(() => {
+    
+  }, [])
 
   return {
-    open,
     overlayRef,
     menuRef,
     closeMenu
