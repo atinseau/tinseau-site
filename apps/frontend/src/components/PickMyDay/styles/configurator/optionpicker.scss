@@ -1,9 +1,9 @@
 .option__picker {
 
-	@apply flex-1 flex flex-col py-4 relative;
+	@apply flex-1 flex flex-col pb-4 relative;
 
 	@include w-min(782px) {
-		@apply pr-4;
+		@apply pt-4;
 	}
 
 	.option__step__container {

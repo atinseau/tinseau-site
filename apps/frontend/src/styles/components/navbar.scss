@@ -174,7 +174,7 @@
 			display: flex;
 			justify-content: flex-end;
 			background-color: $main-color;
-			height: 55px;
+			height: 65px;
 			width: 100%;
 
 			svg {
@@ -193,7 +193,7 @@
 			background-color: black;
 			display: flex;
 			width: 100vw;
-			height: 100vh;
+			height: 100dvh;
 			top: 0;
 			left: 0;
 			opacity: 0;
@@ -236,9 +236,9 @@
 		}
 
 		background-color: black;
-		min-width: 400px;
-		height: 100vh;
-
+		max-width: 400px;
+		width: 100%;
+		height: 100dvh;
 		top: 0;
 		left: -400px;
 		z-index: 10;
@@ -260,6 +260,7 @@
 				>div {
 					position: relative;
 					right: 0;
+					top: 0;
 					width: 100%;
 				}
 			}

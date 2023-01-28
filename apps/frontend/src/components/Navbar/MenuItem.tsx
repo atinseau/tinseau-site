@@ -13,7 +13,7 @@ const MenuItem: React.FC<Props> = ({ href, title, onClick }) => {
 	const router = useRouter()
 
 	return <li onClick={() => onClick ? onClick() : router.push(href || "/")} className={"menu__item " + (href == router.pathname ? "active" : "")}>
-		<Link href={href}>{title}</Link>
+		<Link>{title}</Link>
 	</li>
 }
 

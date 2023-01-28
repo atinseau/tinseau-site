@@ -1,6 +1,17 @@
 .order__decharges {
 
-	@apply absolute top-0 left-0 flex items-center justify-center h-full w-full;
+	@apply absolute top-0 left-0 flex items-center justify-center w-screen;
+
+	height: 100dvh;
+
+	@include w-max(870px) {
+		padding: 40px;
+		align-items: flex-start;
+		overflow-y: scroll;
+		.decharges__container {
+			width: 100%;
+		}
+	}
 
 	z-index: 1;
 	background-color: rgba(0, 0, 0, 0.801);
@@ -9,8 +20,7 @@
 	.decharges__container {
 		@apply bg-gray-800 flex flex-col;
 
-		transform: translateY(calc(100vh + 100%));
-
+		transform: translateY(calc(100dvh + 100%));
 		min-height: 600px;
 
 		.decharges__header {
@@ -27,7 +37,11 @@
 
 		.decharges__body {
 
-			@apply flex flex-row flex-1;
+			@apply flex flex-col flex-1;
+
+			@include w-min(744px) {
+				@apply flex-row;
+			}
 
 			h4 {
 				font-size: 24px;
@@ -39,7 +53,9 @@
 			.left {
 				@apply p-4 flex-1 flex flex-col;
 
-				width: 500px;
+				@include w-min(744px) {
+					width: 500px;
+				}
 
 				p {
 					@apply text-gray-400;
@@ -81,6 +97,10 @@
 				.decharges__list {
 					@apply flex-1 flex items-center justify-center;
 
+					@include w-max(600px) {
+						min-height: 200px;
+					}
+
 					.no__decharges {
 						@apply flex items-center flex-col;
 
@@ -113,8 +133,18 @@
 			}
 
 			.right {
-				@apply my-4 px-4 flex flex-col border-gray-600 border-l-[1px];
-				width: 285px;
+				@apply my-4 px-4 flex flex-col;
+				
+				@include w-max(743px) {
+					.event__list {
+						margin-bottom: 28px;
+					}
+				}
+
+				@include w-min(743px) {
+					@apply border-gray-600 border-l-[1px];
+					width: 285px;
+				}
 
 				.event__list {
 					@apply flex flex-col gap-4 mt-2 flex-1;

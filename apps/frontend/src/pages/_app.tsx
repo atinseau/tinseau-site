@@ -5,18 +5,24 @@ import type { ReactElement } from 'react'
 
 import '../styles/globals.scss'
 import '../styles/fonts.scss'
+import Head from 'next/head'
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
 	const getLayout = Component.getLayout || ((page: ReactElement) => page)
 
-	return <ErrorProvider>
-		<AuthProvider>
-			<OrderProvider>
-				{getLayout(<Component {...pageProps} />)}
-			</OrderProvider>
-		</AuthProvider>
-	</ErrorProvider>
+	return <>
+		<Head>
+		
+		</Head>
+		<ErrorProvider>
+			<AuthProvider>
+				<OrderProvider>
+					{getLayout(<Component {...pageProps} />)}
+				</OrderProvider>
+			</AuthProvider>
+		</ErrorProvider>
+	</>
 }
 
 export default MyApp

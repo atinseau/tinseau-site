@@ -113,7 +113,11 @@
 			}
 
 			.decharges__form {
-				@apply grid grid-cols-2 gap-4;
+				@apply grid gap-4;
+
+				@include w-min(531px) {
+					@apply grid-cols-2;
+				}
 
 				.form__group {
 					h5 {
@@ -122,6 +126,7 @@
 					}
 
 					&.dropdown__cars {
+						@apply mt-2 mb-3;
 						.add__label {
 							@apply text-gray-300 mb-2;
 							font-size: 15px;
@@ -129,6 +134,12 @@
 								color: $main-color;
 								font-weight: bold;
 								text-decoration: underline;
+							}
+						}
+
+						.dropdown {
+							ul {
+								width: 100%;
 							}
 						}
 

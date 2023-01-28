@@ -1,6 +1,7 @@
 import gsap from "gsap"
 import { useRouter } from "next/router"
 import { useCallback, useEffect, useRef } from "react"
+import useResize from "src/hooks/useResize"
 
 
 const useOverlay = (isOpen: boolean, setIsOpen: (isOpen: boolean) => void) => {
@@ -70,17 +71,11 @@ const useOverlay = (isOpen: boolean, setIsOpen: (isOpen: boolean) => void) => {
   }, [router])
 
   // Watch width to close menu on resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 1024) {
+  useResize((width) => {
+      console.log("salut")
+      if (width > 1024)
         closeMenu()
-        window.removeEventListener('resize', handleResize)
-      }
-    }
-    if (isOpen)
-      window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [isOpen])
+  }, [isOpen], isOpen)
 
   return {
     overlayRef,

@@ -26,7 +26,14 @@
 	.page__wrapper {
 		margin: auto;
 		max-width: 1500px;
+		@include w-max(782px) {
+			padding-bottom: 70px;
+		}
 	}
+}
+
+html {
+	background-color: black;
 }
 
 .swiper-pagination {

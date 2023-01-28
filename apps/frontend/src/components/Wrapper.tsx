@@ -6,6 +6,8 @@ import { IoCarSportOutline } from "react-icons/io5"
 import React from "react"
 import Footer from "./Footer";
 import Header from "./Header";
+import useResize from "src/hooks/useResize";
+import useMedia from "src/hooks/useMedia";
 
 interface Props {
 	children: React.ReactNode;
@@ -18,11 +20,13 @@ interface Props {
 const links = [
 	{
 		name: "Mes informations",
+		mobile_name: "Infos",
 		logo: HiIdentification,
 		href: "/my-account",
 	},
 	{
 		name: "Mes voitures",
+		mobile_name: "Voitures",
 		logo: IoCarSportOutline,
 		"href": [
 			"/my-account/cars",
@@ -31,11 +35,13 @@ const links = [
 	},
 	{
 		name: "Mes commandes",
+		mobile_name: "Commandes",
 		logo: HiQrcode,
 		href: "/my-account/commands",
 	},
 	{
 		name: "Mes décharges de responsabilité",
+		mobile_name: "Décharges",
 		logo: HiScale,
 		href: [
 			"/my-account/responsability",
@@ -47,6 +53,8 @@ const links = [
 const AccountWrapper: React.FC<{ className: string, children: React.ReactNode }> = ({ className, children }) => {
 
 	const router = useRouter()
+	const isMobile = useMedia("(max-width: 780px)")
+
 
 	const isSelected = (href: string | string[]) => {
 		if (typeof href === "string")
@@ -65,7 +73,7 @@ const AccountWrapper: React.FC<{ className: string, children: React.ReactNode }>
 			<ul>
 				{links.map((link, index) => <li onClick={() => router.push(typeof link.href === "string" ? link.href : link.href[0])} key={index} className={isSelected(link.href)}>
 					{React.createElement(link.logo, {})}
-					<a>{link.name}</a>
+					<a>{isMobile ? link.mobile_name : link.name}</a>
 				</li>)}
 			</ul>
 		</div>
