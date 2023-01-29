@@ -3,6 +3,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "FORCE_COLOR=true turbo run dev --parallel",
+		"dev:frontend": "FORCE_COLOR=true turbo run dev --filter=@tinseau/frontend --parallel",
 		"build": "FORCE_COLOR=true turbo run build"
 	},
 	"pnpm": {
