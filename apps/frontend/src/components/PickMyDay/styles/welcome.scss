@@ -15,6 +15,16 @@
 			color: white;
 		}
 
+		.welcome__buttons {
+			@include w-max(560px) {
+				flex-direction: column;
+
+				button:last-child {
+					margin-top: 0;
+				}
+			}
+		}
+
 		>div:first-of-type {
 			@apply flex-1;
 

@@ -108,7 +108,7 @@ declare global {
     name: string
     description: string
     events: TTDEvent[]
-    options: TTDOption[]
+    // options: TTDOption[]
     logo: TTDImage
   }
 

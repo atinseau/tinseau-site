@@ -35,6 +35,7 @@ const useConfiguratorAnimation = () => {
 		tl.eventCallback("onComplete", () => {
 			setIsWelcome(false)
 			setIsConfigurator(true)
+			target?.removeAttribute('style')
 		})
 		tl.play()
 	}

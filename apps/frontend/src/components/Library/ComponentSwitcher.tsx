@@ -40,6 +40,8 @@ function ComponentSwitcher<T>({
 	const ref = useRef<HTMLDivElement>(null)
 	const switchRef = useRef<HTMLDivElement>(null)
 
+	const mainRef = useRef<HTMLDivElement>(null)
+
 	const { Component, NextComponent } = useMemo(() => {
 		
 		let C = components[bufferIndex] 
@@ -81,6 +83,11 @@ function ComponentSwitcher<T>({
 		if (!shouldAnimate || index < 0 || index > components.length || index == bufferIndex || isSwitching)
 			return
 		const tl = gsap.timeline()
+
+		mainRef.current?.scroll({
+			top: 0
+		})
+
 		tl.to(ref.current, {
 			...(isMobile ? {
 				height: switchRef.current?.scrollHeight,
@@ -107,8 +114,6 @@ function ComponentSwitcher<T>({
 			duration: 0.5
 		}, "-=0.4")
 
-
-
 		tl.eventCallback('onStart', () => {
 			setIsSwitching(true)
 		})
@@ -123,7 +128,7 @@ function ComponentSwitcher<T>({
 	return <SwitcherContext.Provider value={{
 		isMounted: bufferIndex === index
 	}}>
-		<div className="component__switcher">
+		<div className="component__switcher" ref={mainRef}>
 			{shouldAnimate ? <>
 				<div ref={ref} key={bufferIndex}>
 					<Component.component {...props} />

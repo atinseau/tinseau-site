@@ -20,6 +20,22 @@
 		.order__mode {
 			// font-size: 16px;
 		}
+
+		@include w-max(440px) {
+			@apply grid;
+			grid-template-columns: 1fr 1fr;
+
+			button {
+				display: flex;
+				justify-content: center;
+				width: 100%;
+			}
+
+			button.order__mode {
+				grid-column-start: 1;
+				grid-column-end: 3;
+			}
+		}
 		
 		button {
 			height: 63.19px;

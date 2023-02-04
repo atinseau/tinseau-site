@@ -27,10 +27,11 @@ const LoginMenu: React.FC<Props> = ({ isOpen, closeMenu }) => {
     <section className="right__menu">
       {!authCtx.user ? <MenuWrapper className="login__menu">
 
-        {actions.map(({ type, title }) => <MenuItem
+        {actions.map(({ type, title }, i) => <MenuItem
+          key={i}
           onClick={() => {
             authCtx.toggleLoginModal(type)
-            closeMenu && isOpen && closeMenu(false) 
+            closeMenu && isOpen && closeMenu(false)
           }}
           title={title}
         />)}

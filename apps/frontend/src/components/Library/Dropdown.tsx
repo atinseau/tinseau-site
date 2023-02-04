@@ -3,12 +3,15 @@ import React, { useEffect, useState } from "react";
 import { classNames } from "src/functions/utils";
 import { useDropdown } from "src/hooks";
 
+type Unarray<T> = T extends Array<infer U> ? U : T;
+type UnionToIntersection<U> = 
+  (U extends any ? (k: U)=>void : never) extends ((k: infer I)=>void) ? I : never
 
 interface Props<T> {
 	className?: string
 	label: string
-	items: T[],
-	keyExtractor?: (item: T) => string
+	items: T extends { length: number } ? T: never,
+	keyExtractor?: (item: UnionToIntersection<Unarray<T>>) => string
 	onChange?: (item: T) => void
 	onBlur?: () => void
 }
@@ -30,7 +33,7 @@ const Dropdown = <T extends unknown>({
 			item :
 			item ?
 				(keyExtractor ?
-					keyExtractor(item) :
+					keyExtractor(item as any) :
 					JSON.stringify(item)
 				) :
 				"(null)"
@@ -49,7 +52,7 @@ const Dropdown = <T extends unknown>({
 		<p>{selected ? unwrap(selected) : label}</p>
 		<ChevronDownIcon />
 		{open && <ul ref={ref}>
-			{items.map((e, i) => <li key={i} onClick={() => setSelected(e)}>
+			{(items as Array<any>).map((e, i) => <li key={i} onClick={() => setSelected(e)}>
 				{unwrap(e)}
 			</li>)}
 		</ul>}

@@ -39,7 +39,7 @@ const Welcome = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 				</ul>
 			</div>
 
-			{ctx.circuits && ctx.circuits.length ? <div>
+			{ctx.circuits && ctx.circuits.length ? <div className="welcome__buttons">
 				<Button onClick={() => ctx.setOrderType("ttd")}>J'ai déjà une voiture !</Button>
 				<Button onClick={() => ctx.setOrderType("location")}>Louer une voiture !</Button>
 			</div>: <div>

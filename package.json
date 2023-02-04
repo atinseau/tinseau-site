@@ -4,7 +4,8 @@
 	"scripts": {
 		"dev": "FORCE_COLOR=true turbo run dev --parallel",
 		"dev:frontend": "FORCE_COLOR=true turbo run dev --filter=@tinseau/frontend --parallel",
-		"build": "FORCE_COLOR=true turbo run build"
+		"build": "FORCE_COLOR=true turbo run build",
+		"start": "FORCE_COLOR=true turbo run start"
 	},
 	"pnpm": {
 		"patchedDependencies": {

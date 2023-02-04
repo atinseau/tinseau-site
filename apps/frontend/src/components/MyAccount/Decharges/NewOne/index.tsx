@@ -70,7 +70,7 @@ const NewOne: React.FC<Props> = ({ back }) => {
 
 		<div className="decharges__container">
 			<DechargeTypeSelector type={type} setType={setType}/>
-			<DechargeForm register={register} control={control} />
+			<DechargeForm register={register} control={control} type={type}/>
 			<DechargeSignature ref={canvasRef} />
 		</div>
 
