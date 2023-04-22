@@ -135,6 +135,10 @@
 
 					&.dropdown__cars {
 						@apply mt-2 mb-3;
+
+						grid-column-start: 1;
+						grid-column-end: 3;
+
 						.add__label {
 							@apply text-gray-300 mb-2;
 							font-size: 15px;

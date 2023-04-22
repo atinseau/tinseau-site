@@ -1,18 +1,14 @@
 import React from "react"
 import ReactPDF from '@react-pdf/renderer';
-import Document from "./document"
+import Document from "./components/document"
 
 
 async function stream2buffer(stream: NodeJS.ReadableStream): Promise<Buffer> {
-
 	return new Promise<Buffer>((resolve, reject) => {
-
 		const _buf = Array<any>();
-
 		stream.on("data", chunk => _buf.push(chunk));
 		stream.on("end", () => resolve(Buffer.concat(_buf)));
 		stream.on("error", err => reject(`error converting stream - ${err}`));
-
 	});
 }
 

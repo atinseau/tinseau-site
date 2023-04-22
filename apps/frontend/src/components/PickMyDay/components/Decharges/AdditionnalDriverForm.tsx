@@ -9,10 +9,6 @@ interface Props {
 
 const AdditionnalDriverForm: React.FC<Props> = ({ eventsPayload, selectedEvent, setEventsPayload }) => {
 
-	useEffect(() => {
-		console.log(eventsPayload)
-	}, []) 
-
 	return <div className="additionnal__driver__form">
 		<p>
 			En tant que pilote supplémentaire vous vous engager à remplir votre décharge de responsabilité

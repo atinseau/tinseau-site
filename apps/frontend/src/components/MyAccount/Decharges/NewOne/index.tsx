@@ -1,6 +1,6 @@
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import Button from "src/components/Library/Button";
 import { download, downloadDecharge } from "src/functions/download";
@@ -42,13 +42,11 @@ const NewOne: React.FC<Props> = ({ back }) => {
 
 		const svg = await canvasRef.current?.exportSvg()
 
-		const body = {
-			type: "track_access",
+		axios.post(getEnvConfig().SERVER_API + "/users/decharges/create", {
+			type,
 			signature: svg,
 			data: e
-		}
-
-		axios.post(getEnvConfig().SERVER_API + "/users/decharges/create", body, headers())
+		}, headers())
 			.then((res) => {
 				back()
 			})
@@ -69,8 +67,8 @@ const NewOne: React.FC<Props> = ({ back }) => {
 		</div>
 
 		<div className="decharges__container">
-			<DechargeTypeSelector type={type} setType={setType}/>
-			<DechargeForm register={register} control={control} type={type}/>
+			<DechargeTypeSelector type={type} setType={setType} />
+			<DechargeForm register={register} control={control} type={type} />
 			<DechargeSignature ref={canvasRef} />
 		</div>
 

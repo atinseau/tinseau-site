@@ -24,6 +24,8 @@ export default class DechargesGenerator {
 			mainSchema["car_id"] = schema.string([rules.uuid({ version: 4 })])
 		}
 
+		
+
 		return mainSchema
 	}
 

@@ -7,6 +7,8 @@ const useErrorForm = (title: string, defaultValue: { [key: string]: any } = {}) 
 	const isFirstSubmitted = useRef(false)
 	const errorCtx = useErrorContext()
 
+	const clearStorage = () => window.localStorage.removeItem("form")
+
 	useEffect(() => {
 		; (async () => {
 			if (formState.isSubmitting) {
@@ -37,12 +39,13 @@ const useErrorForm = (title: string, defaultValue: { [key: string]: any } = {}) 
 		const data = JSON.parse(window.localStorage.getItem("form") || "{}")
 		for (const key in data)
 			setValue(key, data[key])
-		return () => window.localStorage.removeItem("form")
+		return () => clearStorage()
 	}, [])
 
 	return {
 		register,
 		handleSubmit,
+		clearStorage,
 		control
 	}
 }

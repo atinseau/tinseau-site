@@ -86,6 +86,9 @@ export default class DechargesController {
 			await decharge.related('file').associate(file)
 			return decharge
 		} catch (e) {
+
+			console.log(e)
+
 			if (decharge)
 				await decharge.delete()
 			ctx.response.badRequest({

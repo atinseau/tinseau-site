@@ -21,15 +21,22 @@ const DechargeForm: React.FC<Props> = ({ register, control, type }) => {
 
 	const { cars, fetch } = authCtx.carActions
 
-	const locations = useMemo(() => {
+	const locations = useMemo(() => { // get all car with location_id for the current stock session
 		if (!orderCtx.stockSession || type !== "location")
 			return []
-		return orderCtx.stockSession.items.filter(e => e.order.type === "location").map((e) => {
-			const carInEvent = e.event.locations.map((l) => l.car).filter((car) => {
-				return true
-			})
-			return carInEvent
-		}).reduce((acc, curr) => [...acc, ...curr], [])
+
+		return orderCtx.stockSession.items.filter(e => e.order.type === "location").map((e) => { // get all items in the active stock session
+			return e.event.locations.map((c) => {
+				const relatedLocation = e.order.locations?.find((l) => l.car_id === c.car.id) // get the related location for the car
+				if (!relatedLocation)
+					return null
+				return { // return the car with the location id
+					...c.car,
+					location_id: relatedLocation?.id
+				}
+			}).filter((e) => e) as (TTDCar & { location_id: string })[] // filter out null values
+		}).reduce((acc, curr) => [...acc, ...curr], []) // flatten the array
+
 	}, [orderCtx.stockSession, type])
 
 	useEffect(() => {
@@ -37,10 +44,6 @@ const DechargeForm: React.FC<Props> = ({ register, control, type }) => {
 			return
 		fetch()
 	}, [])
-
-	useEffect(() => {
-		console.log(locations)
-	}, [locations])
 
 	return <div className="decharges__form">
 		<div className="form__group">
@@ -86,12 +89,19 @@ const DechargeForm: React.FC<Props> = ({ register, control, type }) => {
 		{type !== "additionnal_driver" && <div className="form__group dropdown__cars">
 			<h5>Séléctionner votre {type === "track_access" ? "voiture" : "location"}</h5>
 			<Controller
-				name="car_id"
-				rules={{ required: { value: true, message: "Vous devez séléctioné une voiture" } }}
+				name={type === "track_access" ? "car_id" : "location_id"}
+				rules={{
+					required: {
+						value: true,
+						message: type === "track_access"
+							? "Vous devez séléctioné une voiture"
+							: "Vous devez séléctioné une location"
+					}
+				}}
 				control={control}
 				render={({ field: { onChange } }) => <>
 					{type === "track_access" && <p className="add__label">Pour ajouter une voiture cliquer <Link href={"/my-account/cars?startBy=new"}>ici</Link></p>}
-					{!cars.length
+					{type === "track_access" && !cars.length
 						? <div className="no__cars">
 							<p>Vous n'avez pas encore ajouté de voiture !</p>
 						</div>
@@ -99,9 +109,10 @@ const DechargeForm: React.FC<Props> = ({ register, control, type }) => {
 							items={type === "track_access" ? cars : locations}
 							onChange={onChange}
 							label={type === "track_access" ? "Votre voiture" : "Votre location"}
-							keyExtractor={e => type === "track_access"
-								? "Marque: " + e.brand + ", Model: " + e.model
-								: "Location: " + e.name
+							keyExtractor={e =>
+								type === "track_access"
+									? "Marque: " + e.brand + ", Model: " + e.model
+									: "Location: " + e.name
 							}
 						/>}
 				</>}

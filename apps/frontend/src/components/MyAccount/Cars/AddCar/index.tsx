@@ -39,7 +39,6 @@ const AddCar: React.FC<Props> = ({ back }) => {
 		}
 		axios.post(getEnvConfig().SERVER_API + "/users/cars/create", formData, headers())
 			.then((res) => {
-				console.log(res.data)
 				back()
 			})
 			.catch((err) => {

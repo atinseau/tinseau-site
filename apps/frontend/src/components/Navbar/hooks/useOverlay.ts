@@ -72,7 +72,6 @@ const useOverlay = (isOpen: boolean, setIsOpen: (isOpen: boolean) => void) => {
 
   // Watch width to close menu on resize
   useResize((width) => {
-      console.log("salut")
       if (width > 1024)
         closeMenu()
   }, [isOpen], isOpen)

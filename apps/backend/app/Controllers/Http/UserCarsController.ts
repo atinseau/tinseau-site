@@ -50,9 +50,7 @@ export default class UserCarsController {
 			}
 			return car
 		} catch (e) {
-
 			console.log(e)
-
 			if (car)
 				await car.delete()
 			ctx.response.badRequest({

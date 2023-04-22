@@ -88,6 +88,7 @@ declare global {
   }
 
   type TTDLocationItem = {
+    id: string
     car_id: string
     instance_amount: number
   }
