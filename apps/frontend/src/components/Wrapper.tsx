@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { HiIdentification, HiQrcode, HiScale } from "react-icons/hi";
 import { IoCarSportOutline } from "react-icons/io5"
 
-import React from "react"
+import React, { memo } from "react"
 import Footer from "./Footer";
 import Header from "./Header";
 import useResize from "src/hooks/useResize";
@@ -94,4 +94,4 @@ const Wrapper: React.FC<Props> = ({ children, className = "", title, isAccount =
 	</>
 }
 
-export default Wrapper;
+export default memo(Wrapper);

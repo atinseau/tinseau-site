@@ -14,6 +14,9 @@ const useOverlay = (isOpen: boolean, setIsOpen: (isOpen: boolean) => void) => {
   const closeMenu = useCallback(() => {
     const tl = gsap.timeline()
 
+    if (!menuRef.current || !overlayRef.current)
+      return
+
     tl.to(overlayRef.current, {
       duration: 0.3,
       animation: "ease-in",
@@ -35,6 +38,9 @@ const useOverlay = (isOpen: boolean, setIsOpen: (isOpen: boolean) => void) => {
   const openMenu = useCallback(() => {
 
     const tl = gsap.timeline()
+
+    if (!menuRef.current || !overlayRef.current)
+      return
 
     tl.to(overlayRef.current, {
       duration: 0.3,

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { Link } from "src/components/Library"
 import { useRouter } from "next/router"
 
@@ -18,4 +18,4 @@ const MenuItem: React.FC<Props> = ({ href, title, onClick }) => {
 }
 
 
-export default MenuItem
+export default memo(MenuItem)

@@ -36,7 +36,6 @@ const DechargeForm: React.FC<Props> = ({ register, control, type }) => {
 				}
 			}).filter((e) => e) as (TTDCar & { location_id: string })[] // filter out null values
 		}).reduce((acc, curr) => [...acc, ...curr], []) // flatten the array
-
 	}, [orderCtx.stockSession, type])
 
 	useEffect(() => {
@@ -86,7 +85,7 @@ const DechargeForm: React.FC<Props> = ({ register, control, type }) => {
 			<Input placeholder="Numéro de permis de conduire" {...register('license', { required: { value: true, message: "Vous n'avez pas entré de numéro de permis de conduire" } })} />
 		</div>
 
-		{type !== "additionnal_driver" && <div className="form__group dropdown__cars">
+		<div className="form__group dropdown__cars">
 			<h5>Séléctionner votre {type === "track_access" ? "voiture" : "location"}</h5>
 			<Controller
 				name={type === "track_access" ? "car_id" : "location_id"}
@@ -100,7 +99,7 @@ const DechargeForm: React.FC<Props> = ({ register, control, type }) => {
 				}}
 				control={control}
 				render={({ field: { onChange } }) => <>
-					{type === "track_access" && <p className="add__label">Pour ajouter une voiture cliquer <Link href={"/my-account/cars?startBy=new"}>ici</Link></p>}
+					{type === "track_access" && <p className="add__label">Pour ajouter une voiture cliquer <Link href={"/my-account/cars/new"}>ici</Link></p>}
 					{type === "track_access" && !cars.length
 						? <div className="no__cars">
 							<p>Vous n'avez pas encore ajouté de voiture !</p>
@@ -117,7 +116,7 @@ const DechargeForm: React.FC<Props> = ({ register, control, type }) => {
 						/>}
 				</>}
 			/>
-		</div>}
+		</div>
 	</div>
 }
 

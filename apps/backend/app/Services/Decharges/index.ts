@@ -6,7 +6,7 @@ import UserCar from "App/Models/UserCar"
 
 export default class DechargesGenerator {
 
-	static readonly types: DechargeType[] = ["track_access", "location", "additionnal_driver"]
+	static readonly types: DechargeType[] = ["track_access", "location"]
 
 	private static getSchema(type: DechargeType) {
 		const mainSchema = {

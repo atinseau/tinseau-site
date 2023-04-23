@@ -8,6 +8,7 @@
 		padding: 40px;
 		align-items: flex-start;
 		overflow-y: scroll;
+
 		.decharges__container {
 			width: 100%;
 		}
@@ -75,12 +76,9 @@
 					font-size: 18px;
 					font-family: $main-font;
 					color: white;
-				}
+					@apply flex items-center gap-2;
 
-				ul {
-					@apply flex gap-2 mt-2;
-
-					li {
+					span {
 						@apply rounded-full bg-gray-900 text-gray-300 cursor-pointer border-gray-600 border-[1px];
 						padding: 2px 10px;
 						font-size: 14px;
@@ -116,16 +114,54 @@
 						}
 					}
 
-					.additionnal__driver__form {
-						@apply self-start mt-4;
-						> div {
-							@apply flex flex-row gap-2 items-center mt-2;
-							.switch {
-								@apply bg-gray-900;
-							}
-							p {
-								font-size: 14px;
-								font-weight: bold;
+					.decharges__list__container {
+						@apply w-full h-full mt-10;
+
+						> h6 {
+							font-family: $main-font;
+							font-size: 16px;
+							color: theme("colors.gray.200");
+						}
+
+						.decharges__cards {
+							@apply mt-2;
+
+							.decharges__card {
+								@apply flex gap-2;
+
+								.decharges__card__header {
+									@apply flex items-center;
+								}
+
+								.decharges__card__body {
+									@apply flex justify-between w-full;
+
+									.decharges__card__body__info {
+										h6 {
+											font-size: 12px;
+											@apply text-gray-400;
+										}
+									}
+
+									button {
+										margin: auto 0;
+										padding: 2px 5px;
+										height: fit-content;
+										font-size: 16px;
+									}
+								}
+
+								&:not(:last-child) {
+									border-bottom: 1px solid theme("colors.gray.600");
+								}
+
+								&:not(:first-child) {
+									padding: 8px 0;
+								}
+
+								&:first-child {
+									padding-bottom: 8px;
+								}
 							}
 						}
 					}
@@ -134,7 +170,7 @@
 
 			.right {
 				@apply my-4 px-4 flex flex-col;
-				
+
 				@include w-max(743px) {
 					.event__list {
 						margin-bottom: 28px;
@@ -148,6 +184,7 @@
 
 				.event__list {
 					@apply flex flex-col gap-4 mt-2 flex-1;
+
 					li {
 						@apply flex flex-row justify-between gap-8;
 
@@ -181,7 +218,7 @@
 				}
 
 
-				> button {
+				>button {
 					@apply flex flex-row gap-2 items-center justify-center;
 					width: 100%;
 					padding: 8px;

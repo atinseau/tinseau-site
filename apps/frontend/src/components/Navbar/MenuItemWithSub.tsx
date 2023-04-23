@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { Link } from "src/components/Library"
 
 import { HiChevronDown } from "react-icons/hi"
@@ -28,4 +28,4 @@ const MenuItemWithSub: React.FC<Props> = ({ children, subPath, title }) => {
 }
 
 
-export default MenuItemWithSub
+export default memo(MenuItemWithSub)

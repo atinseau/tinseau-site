@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { memo } from "react";
 import MenuItem from "./MenuItem";
 import MenuWrapper from "./MenuWrapper";
 
@@ -46,4 +46,4 @@ const Navbar: React.FC = () => {
 	</nav>
 }
 
-export default Navbar;
+export default memo(Navbar);

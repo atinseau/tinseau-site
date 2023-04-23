@@ -1,5 +1,5 @@
 import ConfigProvider from "src/components/PickMyDay/contexts/ConfigProvider";
-import React from "react"
+import React, { memo } from "react"
 import OptionPicker from "./OptionPicker";
 import OrderResume from "./OrderResume";
 import { useOrderContext } from "src/hooks";
@@ -20,4 +20,4 @@ const Configurator = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 	</ConfigProvider>
 })
 
-export default Configurator;
+export default memo(Configurator);

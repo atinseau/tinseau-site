@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/24/solid"
-import React from "react"
+import React, { memo } from "react"
 import { classNames } from "src/functions/utils"
 import { useOverlay } from "./hooks/useOverlay"
 import LoginMenu from "./LoginMenu"
@@ -39,4 +39,4 @@ const MenuWrapper: React.FC<Props & { isMainMenu?: boolean }> = ({ isMainMenu = 
 		</ul>
 }
 
-export default MenuWrapper
+export default memo(MenuWrapper)

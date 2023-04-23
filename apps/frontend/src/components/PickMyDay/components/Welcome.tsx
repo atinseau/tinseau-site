@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { memo, useEffect } from "react"
 import { Button } from "src/components/Library";
 import { useOrderContext } from "src/hooks";
 
@@ -14,10 +14,6 @@ const Welcome = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 		if (ctx.orderType)
 			props.goToNext()
 	}, [ctx.orderType])
-
-	useEffect(() => {
-		console.log(ctx.circuits)
-	}, [ctx.circuits])
 
 	return <div className="welcome" ref={ref}>
 		<div className="side__left">
@@ -54,4 +50,4 @@ const Welcome = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 	</div>
 })
 
-export default Welcome;
+export default memo(Welcome);

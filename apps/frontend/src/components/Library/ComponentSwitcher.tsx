@@ -22,7 +22,7 @@ interface SwitcherContextI {
 
 const SwitcherContext = createContext<SwitcherContextI>({} as SwitcherContextI)
 
-function ComponentSwitcher<T>({
+function ComponentSwitcher({
 	isSwitching,
 	shouldAnimate,
 	basePath,
@@ -47,7 +47,7 @@ function ComponentSwitcher<T>({
 		let C = components[bufferIndex] 
 		let NC = components[index]
 
-		if (typeof (C as SwitcherComponentWithPath).path === "undefined") {
+		if (typeof (C as SwitcherComponentWithPath)?.path === "undefined") {
 			C = {
 				component: C as SwitcherComponent,
 				path: ""
@@ -73,7 +73,8 @@ function ComponentSwitcher<T>({
 
 	// track if switcher is not animated
 	useEffect(() => {
-		router.push(basePath + NextComponent.path)
+		const query = router.asPath.split("?")[1]
+		router.push(basePath + NextComponent.path + (query ? "?" + query : ""))
 		if (shouldAnimate)
 			return
 		setBufferIndex(index)

@@ -4,6 +4,8 @@ import File from 'App/Models/File'
 
 import { schema } from "@ioc:Adonis/Core/Validator"
 
+import Drive from '@ioc:Adonis/Core/Drive'
+
 export default class FilesController {
 
 	public async index() {
@@ -23,19 +25,21 @@ export default class FilesController {
 		const body = await ctx.request.validate({ schema: newImageCreateSchema })
 		const file = new File()
 
-		await body.file.moveToDisk("./", {
-			visibility: "public"
-		}, "s3")
-
 		file.title = body.title
 		file.description = body.description
 
 		file.metadata = {
 			identifier: body.file.fileName,
-			drive: "s3",
+			drive: 'local',
 			type: "image"
 		}
 
+		await body.file.moveToDisk('./')
+
+		if (!body.file.fileName) {
+			throw new Error("File not found")
+		}
+		file.url = await Drive.getUrl(body.file.fileName)
 		await file.save()
 		return file
 	}

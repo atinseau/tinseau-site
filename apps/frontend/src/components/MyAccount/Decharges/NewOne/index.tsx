@@ -12,6 +12,7 @@ import DechargeTypeSelector from "./DechargeTypeSelector";
 
 import type { ReactSketchCanvasRef } from "react-sketch-canvas";
 import { useErrorContext, useErrorForm } from "src/hooks";
+import { useRouter } from "next/router";
 
 interface Props {
 	back: () => void
@@ -20,11 +21,16 @@ interface Props {
 
 const NewOne: React.FC<Props> = ({ back }) => {
 
+	const router = useRouter()
 	const { register, handleSubmit, control } = useErrorForm("Impossible de créer la décharge")
 	const errorCtx = useErrorContext()
 	const canvasRef = useRef<ReactSketchCanvasRef>(null)
 
-	const [type, setType] = useState<DechargeType>("track_access")
+	const [type, setType] = useState<DechargeType>(() => {
+		if (!router.query.type)
+			return 'track_access'
+		return router.query.type as DechargeType
+	})
 
 	const submit = async (e: any) => {
 

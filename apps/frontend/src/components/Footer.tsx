@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { Link } from "src/components/Library";
 
 const Footer: React.FC = () => {
@@ -22,4 +22,4 @@ const Footer: React.FC = () => {
 	</footer>
 }
 
-export default Footer;
+export default memo(Footer);

@@ -14,4 +14,6 @@ interface IErrorContext {
 
 const ErrorContext = React.createContext<IErrorContext>({} as IErrorContext)
 
+export { default as ErrorProvider } from './provider'
+
 export default ErrorContext

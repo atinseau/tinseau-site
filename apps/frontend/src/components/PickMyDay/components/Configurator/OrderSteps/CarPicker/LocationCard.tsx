@@ -5,6 +5,7 @@ import { Button } from "src/components/Library";
 
 import { HiChevronDown } from "react-icons/hi";
 import { useDropdown, useOrderContext } from "src/hooks";
+import Picture from "src/components/Library/Picture";
 
 interface Props {
 	location: TTDLocation
@@ -39,7 +40,7 @@ const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 	const images = location.car.images
 
 	return <div className="location__card">
-		<Image alt={""} src={images[0].url} width={1920} height={1080} />
+		<Picture image={images[0]} width={1920} height={1080} />
 		<div>
 			<div>
 				<div className="price">
@@ -64,7 +65,11 @@ const LocationCard: React.FC<Props> = ({ location, onPick }) => {
 				<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum accusantium atque quam, est doloremque corporis modi ducimus omnis? Facilis asperiores vel, adipisci accusantium quod similique dolores suscipit at sit nam.</p>
 			</div>
 			<Button
-				onClick={() => onPick({ car_id: location.car.id as string, instance_amount: instances[serieId].serie / serieFormat.current[0] })}
+				onClick={() => onPick({
+					car_id: location.car.id as string,
+					id: location.id,
+					instance_amount: instances[serieId].serie / serieFormat.current[0]
+				})}
 				variant={((ctx.item as OrderItem).order.locations || []).find((locItem, i) => locItem.car_id === location.car.id) ? "disabled" : "primary"}
 			>
 				Choisir

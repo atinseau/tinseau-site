@@ -1,4 +1,4 @@
-import ErrorProvider from 'src/contexts/ErrorProvider'
+import { ErrorProvider } from 'src/contexts/ErrorContext'
 import { AuthProvider } from 'src/contexts/AuthContext'
 import OrderProvider from 'src/contexts/OrderContext/provider'
 import type { ReactElement } from 'react'

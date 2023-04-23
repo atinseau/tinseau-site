@@ -6,10 +6,5 @@
 		"dev:frontend": "FORCE_COLOR=true turbo run dev --filter=@tinseau/frontend --parallel",
 		"build": "FORCE_COLOR=true turbo run build",
 		"start": "FORCE_COLOR=true turbo run start"
-	},
-	"pnpm": {
-		"patchedDependencies": {
-			"@adonisjs/drive-s3@1.3.2": "patches/@adonisjs__drive-s3@1.3.2.patch"
-		}
 	}
 }

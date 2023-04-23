@@ -6,8 +6,7 @@ declare global {
 
   interface FileMeta {
     identifier?: string
-    bucket?: "tinseau-image" | "tinseau-decharge"
-    drive: "s3" | "local" | "external"
+    drive: "local" | "external"
     type: "image" | "pdf" | "video" | "audio"
   }
 
@@ -30,9 +29,8 @@ declare global {
     "s4 t2"
 
   type DechargeType =
-    "track_access" |
-    "location" |
-    "additionnal_driver"
+    | "track_access"
+    | "location"
 
   type DechargeableItem = {
     name: string
@@ -216,10 +214,7 @@ declare global {
 
   type EventsPayload = {
     [id: string]: {
-      selectedDechargeableItem: number
-      meta: {
-        additionnal_driver_agreement?: boolean
-      }
+      selectedDechargeId: number
     }
   }
 }

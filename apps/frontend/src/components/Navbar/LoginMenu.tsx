@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { useAuthContext } from "src/hooks";
 import AuthMenu from "./AuthMenu";
 import MenuItem from "./MenuItem";
@@ -40,4 +40,4 @@ const LoginMenu: React.FC<Props> = ({ isOpen, closeMenu }) => {
   </> : null
 }
 
-export default LoginMenu;
+export default memo(LoginMenu);

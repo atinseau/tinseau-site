@@ -5,6 +5,7 @@ import User from "public/images/user.jpg"
 import { useRouter } from "next/router";
 
 import { HiOutlineLogout } from "react-icons/hi"
+import { memo } from "react";
 
 const AuthMenu = () => {
 
@@ -32,4 +33,4 @@ const AuthMenu = () => {
 	</div>
 }
 
-export default AuthMenu;
+export default memo(AuthMenu);

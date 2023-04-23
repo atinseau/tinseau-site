@@ -16,6 +16,9 @@ Responsability.getLayout = (page) => <Wrapper
 </Wrapper>
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+
+	console.log(context.params)
+
 	return {
 		props: {
 			serverParams: context.params?.responsability || []
