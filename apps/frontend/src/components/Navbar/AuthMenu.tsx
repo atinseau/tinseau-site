@@ -1,10 +1,8 @@
-'use client';
-
 import Image from "next/image";
 import { useAuthContext, useDropdown } from "src/hooks";
 
 import User from "public/images/user.jpg"
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 
 import { HiOutlineLogout } from "react-icons/hi"
 import { memo } from "react";

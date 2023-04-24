@@ -1,4 +1,3 @@
-'use client';
 
 import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 

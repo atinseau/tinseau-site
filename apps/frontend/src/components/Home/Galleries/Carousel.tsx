@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react"
 import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from 'swiper/react';

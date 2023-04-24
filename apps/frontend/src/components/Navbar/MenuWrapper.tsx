@@ -1,5 +1,3 @@
-'use client';
-
 import { XMarkIcon } from "@heroicons/react/24/solid"
 import React, { memo } from "react"
 import { classNames } from "src/functions/utils"

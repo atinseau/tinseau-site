@@ -10,9 +10,6 @@ const globalEnv = {
  */
 const nextConfig = {
 	reactStrictMode: false,
-	experimental: {
-		appDir: true
-	},
 	images: {
 		domains: [
 			process.env.SERVER_IP,

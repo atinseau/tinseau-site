@@ -1,8 +1,6 @@
-'use client';
-
 import React, { memo } from "react"
 import { Link } from "src/components/Library"
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/router"
 
 interface Props {
 	title: string

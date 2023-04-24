@@ -1,5 +1,3 @@
-'use client';
-
 import { memo, useMemo } from "react";
 import { useAuthContext } from "src/hooks";
 import AuthMenu from "./AuthMenu";
