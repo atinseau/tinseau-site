@@ -6,12 +6,10 @@ import { IoCarSportOutline } from "react-icons/io5"
 import React, { memo } from "react"
 import Footer from "./Footer";
 import Header from "./Header";
-import useResize from "src/hooks/useResize";
 import useMedia from "src/hooks/useMedia";
 
 interface Props {
 	children: React.ReactNode;
-	title: string
 	className?: string
 	isAccount?: boolean
 }
@@ -81,11 +79,8 @@ const AccountWrapper: React.FC<{ className: string, children: React.ReactNode }>
 	</div>
 }
 
-const Wrapper: React.FC<Props> = ({ children, className = "", title, isAccount = false }) => {
+const Wrapper: React.FC<Props> = ({ children, className = "", isAccount = false }) => {
 	return <>
-		<Head>
-			<title>{title}</title>
-		</Head>
 		<div className="page__wrapper">
 			<Header />
 			{isAccount ? <AccountWrapper className={className} children={children}/> : children}

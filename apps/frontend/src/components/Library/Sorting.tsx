@@ -1,3 +1,5 @@
+'use client';
+
 import { HiChevronDown } from "react-icons/hi";
 import React, { useEffect } from "react"
 import Button from "./Button";

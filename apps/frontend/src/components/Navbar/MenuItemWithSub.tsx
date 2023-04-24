@@ -1,8 +1,10 @@
+'use client';
+
 import React, { memo } from "react"
 import { Link } from "src/components/Library"
 
 import { HiChevronDown } from "react-icons/hi"
-import { useRouter } from "next/router"
+import { usePathname } from "next/navigation"
 import { useDropdown } from "src/hooks"
 
 interface Props {
@@ -14,9 +16,9 @@ interface Props {
 const MenuItemWithSub: React.FC<Props> = ({ children, subPath, title }) => {
 
 	const [isOpen, toggle, ref] = useDropdown()
-	const router = useRouter()
+	const pathname = usePathname()
 
-	return router.pathname != subPath ? <li className={"menu__item sub__menu " + (router.pathname.includes(subPath) ? "active" : "")}>
+	return pathname != subPath ? <li className={"menu__item sub__menu " + (pathname.includes(subPath) ? "active" : "")}>
 		<button onClick={toggle}>
 			{title}
 			<HiChevronDown />
