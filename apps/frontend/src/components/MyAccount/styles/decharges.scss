@@ -18,6 +18,8 @@
 	.decharges__footer {
 		@apply flex justify-between;
 
+		user-select: none;
+
 		>button svg {
 			@apply w-5 h-5;
 		}
@@ -28,10 +30,16 @@
 	}
 
 	&.list {
-		
+
+
 		.decharges__container {
 			.decharges__list {
 				@apply mt-8 grid grid-cols-2;
+
+				@include w-max(1200px) {
+					@apply grid-cols-1;
+				}
+
 				li {
 					@apply text-white flex flex-row items-center justify-between;
 					h3 {
@@ -113,7 +121,11 @@
 			}
 
 			.decharges__form {
-				@apply grid grid-cols-2 gap-4;
+				@apply grid gap-4;
+
+				@include w-min(531px) {
+					@apply grid-cols-2;
+				}
 
 				.form__group {
 					h5 {
@@ -122,6 +134,11 @@
 					}
 
 					&.dropdown__cars {
+						@apply mt-2 mb-3;
+
+						grid-column-start: 1;
+						grid-column-end: 3;
+
 						.add__label {
 							@apply text-gray-300 mb-2;
 							font-size: 15px;
@@ -129,6 +146,12 @@
 								color: $main-color;
 								font-weight: bold;
 								text-decoration: underline;
+							}
+						}
+
+						.dropdown {
+							ul {
+								width: 100%;
 							}
 						}
 
@@ -152,11 +175,24 @@
 						font-family: $main-font;
 					}
 
-					.trash {
-						@apply bg-red-500 text-white p-2 cursor-pointer;
+					.signature__controller {
+						@apply flex gap-2;
+						> div {
+							@apply text-white p-2 cursor-pointer;
+							&.trash {
+								@apply  bg-red-500;
+							}
 
-						svg {
-							@apply w-5 h-5;
+							&.undo {
+								@apply bg-gray-900;
+								&:hover {
+									@apply bg-gray-700;
+								}
+							}
+
+							svg {
+								@apply w-5 h-5;
+							}
 						}
 					}
 				}
@@ -164,6 +200,19 @@
 				.canvas {
 					@apply border-none #{!important};
 					// min-height: 300px;
+				}
+			}
+		}
+
+		.decharges__footer {
+			@include w-max(590px) {
+				@apply flex flex-col gap-2;
+
+				> div {
+					@apply flex flex-col w-full;
+					button {
+						@apply w-full;
+					}
 				}
 			}
 		}

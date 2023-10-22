@@ -49,7 +49,10 @@ const DechargeItem: React.FC<Props> = ({ decharge, remove }) => {
 
 				<div className="decharge__modal__buttons">
 					<Button onClick={toggle} variant="danger">Annuler</Button>
-					<Button onClick={() => remove(decharge.id)}>Supprimer</Button>
+					<Button onClick={() => {
+						remove(decharge.id)
+						toggle()
+					}}>Supprimer</Button>
 				</div>
 			</div>
 		</Modal>}

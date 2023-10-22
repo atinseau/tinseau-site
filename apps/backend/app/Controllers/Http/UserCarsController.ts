@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, validator } from "@ioc:Adonis/Core/Validator"
 import UserCar from 'App/Models/UserCar'
+import { getFileUrl } from '../../../utils'
 
 export default class UserCarsController {
 
@@ -34,25 +35,29 @@ export default class UserCarsController {
 		try {
 			car = await user.related('cars').create(body)
 			for (const file of ctx.request.files('images')) {
-				await file.moveToDisk('./user_cars', {
-					visibility: "public"
-				}, "s3")
+				await file.moveToDisk('./user_cars')
+
+				if (!file.fileName) {
+					throw new Error("File not found")
+				}
+
+				// @ts-ignore
+
+
 				await car.related('images').create({
 					title: file.clientName,
 					description: "Image d'une voiture de l'utilisateur: " + user.username,
-					url: file.filePath as string,
+					url: getFileUrl('/user_cars/' + file.fileName),
 					metadata: {
 						identifier: file.fileName,
-						drive: "s3",
+						drive: "local",
 						type: "image"
 					}
 				})
 			}
 			return car
 		} catch (e) {
-
 			console.log(e)
-
 			if (car)
 				await car.delete()
 			ctx.response.badRequest({

@@ -1,7 +1,9 @@
-import { beforeCreate, beforeDelete, column } from '@ioc:Adonis/Lucid/Orm'
+import { beforeDelete, column } from '@ioc:Adonis/Lucid/Orm'
 import { BaseModelWithUuid } from 'App/Functions/ModelExtension'
-import Drive from "@ioc:Adonis/Core/Drive"
+
 import { jsonColumn } from 'App/Functions/jsonColumn'
+
+import Drive from '@ioc:Adonis/Core/Drive'
 
 export default class File extends BaseModelWithUuid {
 
@@ -18,29 +20,13 @@ export default class File extends BaseModelWithUuid {
 	@jsonColumn()
 	public metadata: FileMeta
 
-
-	@beforeCreate()
-	public static async beforeCreate(file: File) {
-		if (file.metadata.drive === "s3") {
-			if (!file.metadata.bucket)
-				file.metadata.bucket = "tinseau-image"
-			if (!file.metadata.identifier)
-				throw new Error("Missing identifier for s3 file: " + file.title)
-		}
-
-	}
-
 	@beforeDelete()
 	public static async deleteFile(file: File) {
+		const fileName = file.url.replace('/images/', '')
 		try {
-			if (
-				file.metadata.drive === "s3" &&
-				file.metadata.identifier &&
-				file.metadata.bucket
-			)
-				await Drive.use('s3').bucket(file.metadata.bucket).delete(file.metadata.identifier)
+			await Drive.delete(fileName)
 		} catch (e) {
-			console.log(e)
+			console.error('Error deleting file', e)
 		}
 	}
 }

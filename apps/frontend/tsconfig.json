@@ -21,7 +21,7 @@
 		"incremental": true,
 		"baseUrl": ".",
 		"types": [
-			"shared-types"
+			"@tinseau/shared-types"
 		],
 		"paths": {
 			"@public/*": [
@@ -33,7 +33,7 @@
 		"next-env.d.ts",
 		"**/*.ts",
 		"**/*.tsx",
-		"../global.d.ts"
+		"./types/*.d.ts"
 	],
 	"exclude": [
 		"node_modules"

@@ -17,7 +17,7 @@ interface Props {
 
 const OrderProvider: React.FC<Props> = ({ children }) => {
 
-	const [circuits, setCircuits] = useCircuits()
+	const [circuits, setCircuits] = useCircuits(true)
 
 	const [items, setItems] = useState<OrderItem[]>([])
 	const [currentItemId, setCurrentItemId] = useState<number>(-1)

@@ -1,6 +1,8 @@
 import Image from "next/image"
 import React, { useMemo, useState } from "react"
 import { Button } from "src/components/Library"
+import Picture from "src/components/Library/Picture"
+import { getEnvConfig } from "src/functions/getConfig"
 import { useOrderContext } from "src/hooks"
 
 
@@ -27,7 +29,7 @@ const CircuitCard: React.FC<Props> = ({ onPick, circuit }) => {
 	return <li className="circuit__card">
 
 		<div className="circuit__card__header">
-			<Image alt={""} src={circuit.logo.url} width={80} height={40} />
+			<Picture image={circuit.logo} width={80} height={40} />
 			<div className="info">
 				<h2>{circuit.name}</h2>
 				{ctx.orderType === "ttd" && <p>{selectedEvent.track_access.places} places restantes</p>}

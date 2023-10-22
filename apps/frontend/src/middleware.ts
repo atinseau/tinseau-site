@@ -8,12 +8,12 @@ export async function middleware(request: NextRequest) {
 	const token = request.cookies.get('token')
 	const home = new URL('/', request.url)
 
-	if (!token)
+	if (!token || !token.value)
 		return NextResponse.redirect(home)
 
 	const data = await fetch(process.env.SERVER_API + "/users/me", {
 		headers: {
-			Authorization: "Bearer " + token
+			Authorization: "Bearer " + token.value
 		}
 	})
 

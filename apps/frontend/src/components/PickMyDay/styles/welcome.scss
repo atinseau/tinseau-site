@@ -2,6 +2,10 @@
 	@apply flex h-full;
 	column-gap: 60px;
 
+	@include w-max(981px) {
+		flex-direction: column;
+	}
+
 	.side__left {
 		@apply flex flex-col flex-1;
 
@@ -9,6 +13,16 @@
 			font-family: $main-font;
 			font-size: 60px;
 			color: white;
+		}
+
+		.welcome__buttons {
+			@include w-max(560px) {
+				flex-direction: column;
+
+				button:last-child {
+					margin-top: 0;
+				}
+			}
 		}
 
 		>div:first-of-type {
@@ -47,6 +61,11 @@
 		button {
 			margin-top: 30px;
 			width: 100%;
+
+			&.disabled {
+				cursor: default;
+				pointer-events: none;
+			}
 		}
 	}
 

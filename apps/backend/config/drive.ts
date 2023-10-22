@@ -7,7 +7,6 @@
 
 import Env from '@ioc:Adonis/Core/Env'
 import { driveConfig } from '@adonisjs/core/build/config'
-import Application from '@ioc:Adonis/Core/Application'
 
 /*
 |--------------------------------------------------------------------------
@@ -34,18 +33,9 @@ export default driveConfig({
 		local: {
 			driver: 'local',
 			visibility: 'public',
-			root: Application.tmpPath('uploads'),
+			root: Env.get('CDN_MOUNT'),
 			serveFiles: true,
-			basePath: '/uploads',
-		},
-		s3: {
-			driver: 's3',
-			visibility: 'public',
-			key: Env.get('S3_KEY'),
-			secret: Env.get('S3_SECRET'),
-			region: Env.get('S3_REGION'),
-			bucket: Env.get('S3_BUCKET'),
-			endpoint: Env.get('S3_ENDPOINT'),
+			basePath: '/images',
 		},
 	},
 })

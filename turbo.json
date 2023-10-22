@@ -10,6 +10,10 @@
     "dev": {
       "outputs": [],
       "cache": false
+    },
+    "start": {
+      "outputs": [],
+      "cache": false
     }
   }
 }

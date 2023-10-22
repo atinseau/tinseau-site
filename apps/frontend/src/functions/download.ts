@@ -14,14 +14,16 @@ const download = (url: string, name: string, mode?: string) => {
 }
 
 
-const downloadDecharge = (type: DechargeType, id?: string) => {
-	axios.post(getEnvConfig().SERVER_API + "/users/decharges/download" + (id ? "/" + id: ""), { type: type }, {
-		headers: headers().headers,
-		responseType: 'blob'
-	})
-		.then(async (e) => {
-			download(window.URL.createObjectURL(e.data), "decharge.pdf", "_blank")
+const downloadDecharge = async (type: DechargeType, id?: string) => {
+	try {
+		const res = await axios.post(getEnvConfig().SERVER_API + "/users/decharges/download" + (id ? "/" + id : ""), { type: type }, {
+			headers: headers().headers,
+			responseType: 'blob'
 		})
+		download(window.URL.createObjectURL(res.data), "decharge.pdf", "_blank")
+	} catch (e) {
+		console.log(e)
+	}
 }
 
 export {

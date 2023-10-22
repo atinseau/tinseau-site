@@ -2,19 +2,37 @@
 
 	@include w-min(782px) {
 		min-height: calc(722px - $navbar-height);
-		height: calc(100vh - $navbar-height);
+		height: calc(100dvh - $navbar-height);
 	}
 
 	@include w-max(781px) {
 		@apply flex flex-col gap-4 w-full;
 
-		.menu__account  {
+		.menu__account {
+			z-index: 9;
 			width: 100% !important;
+
 			ul {
+				@apply w-full fixed bottom-0 bg-black;
+				@apply flex-row #{!important};
+
+				border-top: 1px solid rgb(41, 41, 41);
 				padding-right: 0 !important;
-				@apply w-full;
+				right: 0;
+				gap: 0 !important;
+
 				li {
-					@apply w-full;
+					@apply w-full flex flex-col;
+
+					@include w-max(490px) {
+						font-size: 14px;
+					}
+
+					gap: 4px !important;
+
+					&:not(:last-child):not(:first-child) {
+						border-right: 1px solid rgb(41, 41, 41);
+					}
 				}
 			}
 		}
@@ -74,6 +92,7 @@
 
 			.group {
 				@apply grid grid-cols-2 gap-4;
+
 				@include w-max(520px) {
 					@apply grid grid-cols-1;
 				}
@@ -105,6 +124,7 @@
 
 				>div {
 					@apply flex gap-4;
+
 					button {
 						height: fit-content;
 						font-size: 14px;
@@ -126,6 +146,10 @@
 				}
 			}
 
+		}
+
+		.component__switcher {
+			overflow-y: scroll;
 		}
 
 		@import "src/components/MyAccount/styles/decharges.scss";

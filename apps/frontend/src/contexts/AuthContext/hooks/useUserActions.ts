@@ -20,7 +20,6 @@ const useUserActions = (user: User | null) => {
 	const fetchDecharges = useCallback(() => {
 		axios.get(getEnvConfig().SERVER_API + "/users/decharges", headers())
 			.then(({ data }) => {
-				console.log(data)
 				setDecharges(data)
 			})
 	}, [user])

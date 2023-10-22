@@ -10,6 +10,7 @@ import { optimize, OptimizedSvg } from 'svgo'
 import Decharge from 'App/Models/Decharge'
 import File from 'App/Models/File'
 import UserCar from 'App/Models/UserCar'
+import { getFileUrl } from '../../../utils'
 
 export default class DechargesController {
 
@@ -36,7 +37,7 @@ export default class DechargesController {
 		if (decharges) {
 			for (const decharge of decharges) {
 				if (decharge.type === "track_access")
-					decharge.data.car = await UserCar.find(decharge.data.car_id)
+					decharge.data.car = await UserCar.query().where('id', decharge.data.car_id).preload('images').first()
 			}
 		}
 		return decharges
@@ -66,26 +67,27 @@ export default class DechargesController {
 			})
 
 			const dechargeIdentifier = (new Date().getTime() + " " + body.data.fullname).replace(/ /g, "_").toLowerCase() + ".pdf"
-			const bucket = Drive.use('s3').bucket("tinseau-decharge")
 
-			await bucket.put(dechargeIdentifier, buffer, {
+			await Drive.put("/decharges/" + dechargeIdentifier, buffer, {
 				contentType: "application/pdf"
 			})
 
 			const file = await File.create({
-				url: await bucket.getUrl(dechargeIdentifier),
+				url: getFileUrl("/decharges/" + dechargeIdentifier),
 				description: "Decharge: " + body.data.fullname,
 				title: "Decharge de responsabilité",
 				metadata: {
-					drive: "s3",
+					drive: "local",
 					type: "pdf",
-					bucket: "tinseau-decharge",
 					identifier: dechargeIdentifier
 				}
 			})
 			await decharge.related('file').associate(file)
 			return decharge
 		} catch (e) {
+
+			console.log(e)
+
 			if (decharge)
 				await decharge.delete()
 			ctx.response.badRequest({
@@ -119,10 +121,7 @@ export default class DechargesController {
 					error: "La decharge n'existe pas"
 				})
 			}
-			return await Drive
-				.use('s3')
-				.bucket('tinseau-decharge')
-				.get(decharge.file.metadata.identifier as string)
+			return await Drive.get('/decharges/' + decharge.file.metadata.identifier as string)
 		}
 	}
 

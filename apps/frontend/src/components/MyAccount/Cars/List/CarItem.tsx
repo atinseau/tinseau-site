@@ -1,8 +1,8 @@
 import { TrashIcon } from "@heroicons/react/24/solid";
-import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "src/components/Library";
 import Modal, { useModal } from "src/components/Library/Modal";
+import Picture from "src/components/Library/Picture";
 
 interface Props {
 	car: UserCar
@@ -17,7 +17,7 @@ const CarItem: React.FC<Props> = ({ car, remove }) => {
 		<li>
 			{!car.images.length ?
 				<img src={"https://via.placeholder.com/300x150"} /> :
-				<Image alt={""} src={car.images[0].url} width={250} height={100} />
+				<Picture image={car.images[0]} width={250} height={100} />
 			}
 			<div className="car__data">
 				<h4>Model: {car.model}</h4>

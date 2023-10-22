@@ -3,10 +3,10 @@
 
 	@include w-min(782px) {
 		min-height: calc(722px - $navbar-height);
-		height: calc(100vh - $navbar-height);
+		height: calc(100dvh - $navbar-height);
 	}
 	
-	padding: 20px;
+	padding: 0 20px 20px 20px;
 
 	// @include w-min($tablet-breakpoint) {
 	// 	padding: 20px 60px;

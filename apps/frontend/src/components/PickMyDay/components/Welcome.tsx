@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { memo, useEffect } from "react"
 import { Button } from "src/components/Library";
 import { useOrderContext } from "src/hooks";
 
@@ -35,10 +35,12 @@ const Welcome = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 				</ul>
 			</div>
 
-			<div>
+			{ctx.circuits && ctx.circuits.length ? <div className="welcome__buttons">
 				<Button onClick={() => ctx.setOrderType("ttd")}>J'ai déjà une voiture !</Button>
 				<Button onClick={() => ctx.setOrderType("location")}>Louer une voiture !</Button>
-			</div>
+			</div>: <div>
+				<Button className="disabled">Il n'y a pas de circuit disponible pour le moment</Button>
+			</div>}
 		</div>
 		<div className="side__right">
 			<video muted autoPlay loop className="video">
@@ -48,4 +50,4 @@ const Welcome = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 	</div>
 })
 
-export default Welcome;
+export default memo(Welcome);

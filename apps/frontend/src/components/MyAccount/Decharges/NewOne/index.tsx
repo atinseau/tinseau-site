@@ -1,6 +1,6 @@
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import Button from "src/components/Library/Button";
 import { download, downloadDecharge } from "src/functions/download";
@@ -12,6 +12,7 @@ import DechargeTypeSelector from "./DechargeTypeSelector";
 
 import type { ReactSketchCanvasRef } from "react-sketch-canvas";
 import { useErrorContext, useErrorForm } from "src/hooks";
+import { useRouter } from "next/router";
 
 interface Props {
 	back: () => void
@@ -20,11 +21,16 @@ interface Props {
 
 const NewOne: React.FC<Props> = ({ back }) => {
 
+	const router = useRouter()
 	const { register, handleSubmit, control } = useErrorForm("Impossible de créer la décharge")
 	const errorCtx = useErrorContext()
 	const canvasRef = useRef<ReactSketchCanvasRef>(null)
 
-	const [type, setType] = useState<DechargeType>("track_access")
+	const [type, setType] = useState<DechargeType>(() => {
+		if (!router.query.type)
+			return 'track_access'
+		return router.query.type as DechargeType
+	})
 
 	const submit = async (e: any) => {
 
@@ -42,13 +48,11 @@ const NewOne: React.FC<Props> = ({ back }) => {
 
 		const svg = await canvasRef.current?.exportSvg()
 
-		const body = {
-			type: "track_access",
+		axios.post(getEnvConfig().SERVER_API + "/users/decharges/create", {
+			type,
 			signature: svg,
 			data: e
-		}
-
-		axios.post(getEnvConfig().SERVER_API + "/users/decharges/create", body, headers())
+		}, headers())
 			.then((res) => {
 				back()
 			})
@@ -69,8 +73,8 @@ const NewOne: React.FC<Props> = ({ back }) => {
 		</div>
 
 		<div className="decharges__container">
-			<DechargeTypeSelector type={type} setType={setType}/>
-			<DechargeForm register={register} control={control} />
+			<DechargeTypeSelector type={type} setType={setType} />
+			<DechargeForm register={register} control={control} type={type} />
 			<DechargeSignature ref={canvasRef} />
 		</div>
 

@@ -1,6 +1,6 @@
 import { ExclamationTriangleIcon, InformationCircleIcon, ShieldCheckIcon, ShieldExclamationIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import React, { forwardRef, useEffect, useRef, useState } from "react"
-import ErrorContext, { IError } from "./ErrorContext";
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from "react"
+import ErrorContext, { IError } from ".";
 
 import { gsap } from "gsap"
 import { useMediaQuery } from "usehooks-ts";
@@ -76,10 +76,12 @@ const ErrorProvider: React.FC<Props> = ({ children }) => {
 		})
 	}
 
-	return <ErrorContext.Provider value={{
+	const store = useMemo(() => ({
 		createError,
 		regularError
-	}}>
+	}), [])
+
+	return <ErrorContext.Provider value={store}>
 		{children}
 		<div className="error__container">
 			{error && <ErrorItem {...error} ref={errorRef} onClose={closeError} />}

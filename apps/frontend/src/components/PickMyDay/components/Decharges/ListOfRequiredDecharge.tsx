@@ -1,33 +1,19 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
-import { HiCreditCard } from "react-icons/hi";
+import React, { memo } from "react";
 import { RiMailSendLine } from "react-icons/ri";
 import { Button } from "src/components/Library";
 
 interface Props {
 	items: OrderItem[]
 	selectedEvent: TTDEvent
-	dechargeableItems: DechargeableItem[]
-	eventsPayload: { [key: string]: any }
+	dechargeableItem: DechargeableItem
 	setSelectedEvent: (index: number) => void
 }
 
 const ListOfRequiredDecharge: React.FC<Props> = ({
 	items,
 	selectedEvent,
-	eventsPayload,
-	dechargeableItems,
 	setSelectedEvent,
 }) => {
-
-	const dechargeIsDone = useCallback((id: string) => {
-		if (eventsPayload[id]?.type === "additionnal_driver" && eventsPayload[id]?.additionnal_driver_agreement)
-			return true
-		return false
-	}, [eventsPayload])
-
-	const dechargeIsDoneForAll = useMemo(() => {
-		return items.every((e) => dechargeIsDone(e.event.id))
-	}, [eventsPayload])
 
 
 	return <div className="right">
@@ -43,7 +29,7 @@ const ListOfRequiredDecharge: React.FC<Props> = ({
 			</li>)}
 		</ul>
 
-		<Button variant={dechargeIsDoneForAll ? "primary": "disabled"}>
+		<Button variant={"primary"}>
 			Continuer
 			<RiMailSendLine />
 		</Button>
@@ -51,4 +37,4 @@ const ListOfRequiredDecharge: React.FC<Props> = ({
 
 }
 
-export default ListOfRequiredDecharge;
+export default memo(ListOfRequiredDecharge);

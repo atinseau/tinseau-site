@@ -27,7 +27,6 @@ const useUser = () => {
 				}
 			})
 			setUser(data)
-			console.log(data)
 		} catch (e) {
 			Cookies.remove("token")
 		}

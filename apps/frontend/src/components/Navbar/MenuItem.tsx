@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { Link } from "src/components/Library"
 import { useRouter } from "next/router"
 
@@ -12,10 +12,10 @@ const MenuItem: React.FC<Props> = ({ href, title, onClick }) => {
 
 	const router = useRouter()
 
-	return <li className={"menu__item " + (href == router.pathname ? "active" : "")}>
-		{onClick ? <a onClick={onClick}>{title}</a> : <Link href={href || "/"}>{title}</Link>}
+	return <li onClick={() => onClick ? onClick() : router.push(href || "/")} className={"menu__item " + (href == router.pathname ? "active" : "")}>
+		<Link>{title}</Link>
 	</li>
 }
 
 
-export default MenuItem
+export default memo(MenuItem)

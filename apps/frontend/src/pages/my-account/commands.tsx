@@ -1,9 +1,11 @@
-import AccountWrapper from "src/components/MyAccount/AccountWrapper";
+import Wrapper from "src/components/Wrapper";
 
-const MyCommands = () => {
-	return <AccountWrapper title="Mes Commandes">
-		<h1>Commands !</h1>
-	</AccountWrapper>
-}
+const MyCommands: NextPageWithLayout = () => <h1>Commands !</h1>
+
+MyCommands.getLayout = (page) => <Wrapper
+  isAccount={true}
+  title="Mes Commandes">
+  {page}
+</Wrapper>
 
 export default MyCommands;

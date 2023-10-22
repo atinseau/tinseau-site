@@ -6,4 +6,9 @@ dist
 
 apps/frontend/public/videos/getmyday.mp4
 
+pnpm-lock.yaml
+
+cdn
+
+*.sql
 .turbo

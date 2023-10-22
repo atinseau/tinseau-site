@@ -1,7 +1,7 @@
 import React from "react"
 import { Page, Document, Font, View, Text, Image } from '@react-pdf/renderer';
-import Header from './components/Header';
-import { styles, variables } from './variables';
+import Header from './Header';
+import { styles, variables } from '../variables';
 
 Font.register({ family: "Bebas Neue", src: "public/fonts/BebasNeue-Regular.ttf" })
 
@@ -18,9 +18,6 @@ const getKey = (data: any | undefined, key: string, defaultValue: string) => {
 // Create Document Component
 const MyDocument: React.FC<Props> = ({ document }) => {
 	const currentYear = new Date().getFullYear()
-
-	// test
-
 	return (
 		<Document>
 			<Page size="A4" style={{ padding: 20 }}>
@@ -31,6 +28,7 @@ const MyDocument: React.FC<Props> = ({ document }) => {
 						JOURNEES CIRCUITS TINSEAUTESTDAYS {currentYear}
 					</Text>
 					<View style={{ fontSize: 10, marginTop: 20 }}>
+
 						<Text style={styles.mb2}>Je soussigné: {getKey(document.data, "fullname", "................................................................................................................................................................................")}</Text>
 
 						<View style={[styles.mb2, { display: "flex", flexDirection: "row", marginTop: 10 }]}>

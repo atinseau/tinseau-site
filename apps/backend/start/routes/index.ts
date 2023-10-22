@@ -61,6 +61,7 @@ Route.group(() => {
 		Route.get('/', 'FilesController.index')
 		Route.post('/create', 'FilesController.create')
 		Route.delete('/', 'FilesController.deleteAll')
+		Route.delete('/:id', 'FilesController.delete')
 	})
 		.prefix('files')
 

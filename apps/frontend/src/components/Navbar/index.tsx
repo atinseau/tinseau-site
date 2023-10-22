@@ -1,17 +1,18 @@
 import Image from "next/image";
-import React from "react";
+import React, { memo } from "react";
 import MenuItem from "./MenuItem";
 import MenuWrapper from "./MenuWrapper";
 
 import logo from "public/images/logo.png"
 import MenuItemWithSub from "./MenuItemWithSub";
-import { useAuthContext } from "src/hooks";
-import AuthMenu from "./AuthMenu";
 import { Link } from "src/components/Library";
+
+import { GiHamburgerMenu } from "react-icons/gi";
+import LoginMenu from "./LoginMenu";
 
 const Navbar: React.FC = () => {
 
-	const authCtx = useAuthContext()
+	const [isOpen, setIsOpen] = React.useState(false)
 
 	return <nav className="nav__bar">
 		<Link className="home__link" href={"/"}>
@@ -19,9 +20,10 @@ const Navbar: React.FC = () => {
 			tinseau.com
 		</Link>
 
-		<MenuWrapper>
+		<MenuWrapper isOpen={isOpen} setIsOpen={setIsOpen} isMainMenu={true} className="main__menu">
+			{isOpen && <MenuItem href="/" title="Accueil" />}
 			<MenuItem href="/pick-my-day" title="Choisir ma journée" />
-			<MenuItemWithSub href="/product" title="Product">
+			<MenuItemWithSub subPath="/product" title="Product">
 				<MenuWrapper>
 					<MenuItem href="/product/1" title="Product 1" />
 					<MenuItem href="/product/2" title="Product test 2" />
@@ -34,13 +36,14 @@ const Navbar: React.FC = () => {
 			<MenuItem href="/about" title="About" />
 		</MenuWrapper>
 
-		{!authCtx.isLoading ? <>
-			{!authCtx.user ? <MenuWrapper className="right__menu">
-				<MenuItem onClick={() => authCtx.toggleLoginModal("login")} title="Login" />
-				<MenuItem onClick={() => authCtx.toggleLoginModal("register")} title="Register" />
-			</MenuWrapper> : <AuthMenu />}
-		</> : null}
+		<LoginMenu />
+
+		<section className="menu__burger">
+			<button onClick={() => setIsOpen(!isOpen)}>
+				<GiHamburgerMenu />
+			</button>
+		</section>
 	</nav>
 }
 
-export default Navbar;
+export default memo(Navbar);

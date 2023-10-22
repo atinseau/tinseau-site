@@ -1,4 +1,3 @@
-import AccountWrapper from "src/components/MyAccount/AccountWrapper";
 import { useAuthContext } from "src/hooks";
 
 import User from "public/images/user.jpg"
@@ -6,8 +5,9 @@ import { useMemo } from "react";
 import { Input, Button } from "src/components/Library";
 import Image from "next/image";
 import { CheckIcon } from "@heroicons/react/24/solid";
+import Wrapper from "src/components/Wrapper";
 
-const MyAccount = () => {
+const MyAccount: NextPageWithLayout = () => {
 
 	const authCtx = useAuthContext()
 
@@ -17,8 +17,7 @@ const MyAccount = () => {
 		return authCtx.user.profil.url
 	}, [authCtx.user])
 
-	return <AccountWrapper title="Mes informations" className="informations">
-
+	return <>
 		<div className="global">
 			<h3>Vos informations</h3>
 			<div className="group">
@@ -63,17 +62,21 @@ const MyAccount = () => {
 			</div>
 		</div>
 
-
 		<div className="controller">
 			<Button>
 				Mettre à jour
 				<CheckIcon />
 			</Button>
 		</div>
-
-	</AccountWrapper>
+	</>
 }
 
+MyAccount.getLayout = (page) => <Wrapper
+	isAccount={true}
+	title="Mes informations"
+	className="informations">
+	{page}
+</Wrapper>
 
 // export const getServerSideProps: GetServerSideProps = async (ctx) => {
 // 	const { token } = ctx.req.cookies

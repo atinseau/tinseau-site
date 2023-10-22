@@ -73,23 +73,13 @@
 
 }
 
-.nav__bar>.menu__wrapper {
-	@apply flex flex-row;
+.nav__bar>.right__menu {
 
 	@include w-max($tablet-breakpoint) {
-		@apply hidden;
+		@apply hidden #{!important};
 	}
 
-	>.menu__item {
-		@apply btn text-center;
-		color: white;
-
-		&.active {
-			color: $main-color;
-		}
-	}
-
-	&.right__menu {
+	.login__menu {
 		@apply grid grid-cols-2;
 
 		>.menu__item:last-child {
@@ -98,12 +88,54 @@
 	}
 }
 
-.nav__bar .menu__wrapper .menu__item.sub__menu {
-	@apply flex flex-row items-center gap-2 relative;
+.nav__bar>.menu__burger {
+	@apply hidden justify-center items-center cursor-pointer;
 
 	svg {
-		@apply w-6 h-6 cursor-pointer;
+		color: $main-color;
+		@apply w-7 h-7;
+
+		&:hover {
+			color: $second-color;
+		}
 	}
+
+	@include w-max($tablet-breakpoint) {
+		@apply flex;
+	}
+}
+
+.nav__bar>.menu__wrapper,
+.nav__bar>.right__menu .login__menu {
+	@apply flex flex-row;
+
+	@include w-max($tablet-breakpoint) {
+		@apply hidden #{!important};
+	}
+
+	>.menu__item {
+		@apply btn text-center;
+		color: white;
+
+		&.active,
+		&:hover {
+			color: $main-color;
+		}
+	}
+}
+
+.nav__bar .menu__wrapper .menu__item.sub__menu {
+	@apply relative;
+
+	button {
+		@apply flex gap-2 items-center;
+
+		svg {
+			@apply w-6 h-6;
+		}
+	}
+
+
 
 	>div {
 		@apply absolute top-full right-[20px] overflow-hidden h-0 z-10;
@@ -128,5 +160,111 @@
 			}
 		}
 	}
+}
 
+
+// convert menu wrapper to sidebar in mobile
+
+.nav__bar>.menu__wrapper.main__menu.mobile__open {
+	@include w-max($tablet-breakpoint) {
+		@apply fixed flex flex-col #{!important};
+
+		.menu__mobile__header {
+			content: "";
+			display: flex;
+			justify-content: flex-end;
+			background-color: $main-color;
+			height: 65px;
+			width: 100%;
+
+			svg {
+				@apply w-7 h-7 cursor-pointer mr-3;
+				color: black;
+
+				&:hover {
+					color: rgb(51, 51, 51);
+				}
+			}
+		}
+
+		.menu__mobile__overlay {
+			content: "";
+			position: fixed;
+			background-color: black;
+			display: flex;
+			width: 100vw;
+			height: 100dvh;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			z-index: -1;
+		}
+
+		.menu__mobile__login {
+
+			@apply flex flex-col justify-end relative h-full;
+
+			.login__menu {
+				@apply flex;
+				color: white;
+				font-family: $main-font;
+				border-top: 1px solid rgb(48, 48, 48);
+
+				.menu__item {
+					@apply flex-1 justify-center flex cursor-pointer;
+				}
+
+				&>.menu__item:nth-child(1) {
+					margin-top: 0;
+					transition: all 0.3s ease-in-out;
+
+					&:hover {
+						color: $main-color;
+					}
+				}
+
+				&>.menu__item:nth-child(2) {
+					background-color: $main-color;
+					transition: all 0.3s ease-in-out;
+					color: black;
+
+					&:hover {
+						background-color: $second-color;
+					}
+				}
+			}
+		}
+
+		background-color: black;
+		max-width: 400px;
+		width: 100%;
+		height: 100dvh;
+		top: 0;
+		left: -400px;
+		z-index: 10;
+
+		li {
+
+			&:first-of-type {
+				margin-top: 8px;
+			}
+
+			font-size: 25px;
+			padding: 8px 20px;
+
+			&.sub__menu {
+				display: flex;
+				width: 100%;
+				flex-direction: column;
+
+				>div {
+					position: relative;
+					right: 0;
+					top: 0;
+					width: 100%;
+				}
+			}
+		}
+
+	}
 }

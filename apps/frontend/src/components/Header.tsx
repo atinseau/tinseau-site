@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import Navbar from "./Navbar";
 
 const Header: React.FC = () => {
@@ -7,4 +7,4 @@ const Header: React.FC = () => {
 	</header>
 }
 
-export default Header;
+export default memo(Header);

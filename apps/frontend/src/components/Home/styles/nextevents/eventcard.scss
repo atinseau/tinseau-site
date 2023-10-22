@@ -1,5 +1,6 @@
 .next__event .event__card {
-	width: 300px;
+	max-width: 300px;
+	width: 100%;
 	@apply flex flex-col gap-4;
 	h2 {
 		font-size: 26px;
